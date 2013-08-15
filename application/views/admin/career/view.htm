@@ -1,0 +1,286 @@
+<script src="{asset_url}js/stacklet.js"></script> 
+ 
+<script> 
+	
+	var member = new Stacklet('#view_member_box');  
+	member.start('{site_url}admin/member/ajax_load_member_view/{$member.m_id}'); 
+	$(function() { 
+		$('#member_refresh').live('click', function(e) {
+			e.preventDefault();
+			member.reset();
+		});
+		$('#member_edit').click(function(e) {
+            e.preventDefault();
+			member.stackNext('{site_url}admin/member/ajax_load_member_edit/{$member.m_id}');  
+        }); 
+	});
+	
+	var DR = new Stacklet('#detail_rating_box');
+	DR.start('{site_url}admin/tire/ajax_load_detail_rating_list/{$club.club_id}');
+	$(function() { 
+		$('#dr_refresh').live('click', function(e) {
+			e.preventDefault();
+			DR.reset();
+		});
+		$('#add_detail_rating').click(function(e) {
+            e.preventDefault();
+			DR.stackNext('{site_url}admin/tire/ajax_load_detail_rating_addedit/add/0/{$club.club_id}');  
+        }); 
+	});
+	
+	var clubc= new Stacklet('#club_content_box');
+	clubc.start('{site_url}admin/club/ajax_load_club_content/{$club.club_id}');
+	$(function() { 
+		$('#clubc_refresh').live('click', function(e) {
+			e.preventDefault();
+			clubc.reset();
+		});
+		$('#edit_club_content').click(function(e) {
+		e.preventDefault(); 
+	}); 
+	});
+	
+	var clubf= new Stacklet('#club_files_box');
+	clubf.start('{site_url}admin/club/ajax_load_club_files/{$club.club_id}');
+	$(function() { 
+		$('#clubf_refresh').live('click', function(e) {
+			e.preventDefault();
+			clubf.reset();
+		});
+		$('#edit_club_files').click(function(e) {
+		e.preventDefault(); 
+		}); 
+	});
+	
+	
+	var DTH = new Stacklet('#detail_tech_box');
+	DTH.start('{site_url}admin/tire/ajax_load_detail_tech_list/{$club.club_id}');
+	$(function() { 
+		$('#dth_refresh').live('click', function(e) {
+			e.preventDefault();
+			DTH.reset();
+		});
+		$('#edit_detail_tech').click(function(e) {
+            e.preventDefault();
+			DTH.stackNext('{site_url}admin/tire/ajax_load_detail_tech_edit/{$club.club_id}');  
+        }); 
+	});
+	
+	var TDM = new Stacklet('#detail_motor_box');
+	TDM.start('{site_url}admin/tire/ajax_load_detail_motor_list/{$club.club_id}');
+	$(function() { 
+		$('#tdm_refresh').live('click', function(e) {
+			e.preventDefault();
+			TDM.reset();
+		});
+		$('#edit_detail_motor').click(function(e) {
+            e.preventDefault();
+			TDM.stackNext('{site_url}admin/tire/ajax_load_detail_motor_edit/{$club.club_id}');  
+        }); 
+	});
+	 
+	 
+</script>
+
+
+<ul class="breadcrumb">
+	<!--<li><a href="{$LAST_LIST}" class="cancel" >back</a></li>-->
+	<li><a href="{site_url}admin/club/" class="cancel" >back</a></li>
+	<li class="divider">»</li> 
+</ul>
+
+<div class="mod_title">
+	view club
+</div>
+
+<div class="row-fluid">
+    <div class="span5">
+        <div class="boxy-wrap">
+            <div class="boxy-header">
+                <div class="boxy-title">
+                    Club Details
+					<div class="boxy-toolbar boxy-toolbar-float">
+						<a href="{site_url}admin/club/edit_club/{$club.club_id}" class="btn"><i class="icon-edit"></i> edit</a>
+					</div>
+                </div> 
+            </div>
+            
+            <div class="boxy-content">
+                <table class="table table-form table-bordered"> 
+                    </tr>   
+                        <th width="90">
+                            Name (INA)
+                        </th>
+                        <td>
+                            <div class="large">{$club.club_name}</div>
+                        </td>
+                    </tr> 
+                    
+                    <tr>
+                        <th>Logo</th>
+                        <td>
+                            <a href="{site_url}userfiles/upload/{$club.club_logo}" class="colorbox">
+                                <img src="{site_url}userfiles/upload/thumb/{$club.club_logo}" class="thumb" />
+                            </a>
+                        </td>
+                    <tr>
+					 
+                        
+                    </tr>   
+                        <th>Email</th>
+                        <td>
+                            {$club.club_email}
+                        </td>
+                    </tr>
+                    
+                    </tr>   
+                        <th>Address</th>
+                        <td>
+                            {$club.club_address}
+                        </td>
+                    </tr>
+					
+					</tr>   
+                        <th>Contact</th>
+                        <td>
+                            {$club.club_contact}
+                        </td>
+                    </tr>
+                    
+                    </tr>   
+                        <th>Description</th>
+                        <td>
+                            {$club.club_desc|word_limiter:60}
+                        </td>
+                    </tr>
+					
+					</tr>   
+                        <th>Website</th>
+                        <td>
+                            {$club.club_website}
+                        </td>
+                    </tr>
+					
+					</tr>   
+                        <th>Facebook</th>
+                        <td>
+                            {$club.club_facebook}
+                        </td>
+                    </tr>
+					
+					</tr>   
+                        <th>Twitter</th>
+                        <td>
+                            {$club.club_twitter}
+                        </td>
+                    </tr>
+					
+					</tr>   
+                        <th>Milis</th>
+                        <td>
+                            {$club.club_milis}
+                        </td>
+                    </tr>
+					
+					</tr>   
+                        <th>Other Links 1</th>
+                        <td>
+                            {$club.club_other1}
+                        </td>
+                    </tr>
+					
+					</tr>   
+                        <th>Other Links 2</th>
+                        <td>
+                            {$club.club_other2}
+                        </td>
+                    </tr>
+					
+					</tr>   
+                        <th>Other Links 3</th>
+                        <td>
+                            {$club.club_other3}
+                        </td>
+                    </tr>
+					
+					</tr>   
+                        <th>Est. Date</th>
+                        <td>
+                            {$club.club_est_date}
+                        </td>
+                    </tr>
+					
+					</tr>   
+                        <th>Join Date</th>
+                        <td>
+                            {$club.club_join_date}
+                        </td>
+                    </tr>
+                     
+                </table>
+            </div> 
+        </div> 
+        
+		<div class="boxy-wrap">
+            <div class="boxy-header">
+                <div class="boxy-title">
+					Administrator Info
+					<div class="boxy-toolbar boxy-toolbar-float">
+						<a id="member_edit" class="btn"><i class="icon-edit"></i> edit</a> 
+						<a id="member_refresh" class="btn" ><i class="icon-refresh"></i></a>
+					</div>
+				</div>
+                
+            </div>
+            
+            <div class="boxy-content" >
+                <div id="view_member_box" ></div> 
+            </div>
+        </div>
+        
+    </div>
+    
+    
+    <div class="span7">
+        
+        
+	
+		
+	<div class="boxy-wrap">
+            <div class="boxy-header">
+                <div class="boxy-title">
+					News &amp; Events
+					<div class="boxy-toolbar boxy-toolbar-float">
+						<a id="" class="btn" href="{site_url}admin/club/add_club_content/{$club.club_id}" ><i class="icon-edit"></i> add</a>
+						<a id="clubc_refresh" class="btn"><i class="icon-refresh"></i></a>
+					</div>
+				</div> 
+            </div>
+            
+            <div class="boxy-content" >
+                <div id="club_content_box" ></div> 
+            </div>
+        </div>
+	
+	<div class="boxy-wrap">
+            <div class="boxy-header">
+                <div class="boxy-title">
+			Files
+			<div class="boxy-toolbar boxy-toolbar-float">
+				<a id="" class="btn" href="{site_url}admin/club/add_club_files/{$club.club_id}" ><i class="icon-edit"></i> add</a>
+				<a id="clubf_refresh" class="btn"><i class="icon-refresh"></i></a>
+			</div>
+		</div> 
+            </div>
+            
+            <div class="boxy-content" >
+                <div id="club_files_box" ></div> 
+            </div>
+        </div>
+		 
+			 
+        
+    </div>
+    
+</div>
+

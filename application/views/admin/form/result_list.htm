@@ -1,0 +1,47 @@
+
+<script>
+	$(document).ready(function() {
+ 
+	} );
+</script>
+
+<ul class="breadcrumb">
+	<li><a href="{site_url}admin/form/" class="cancel" >back</a></li>
+	<li class="divider">»</li>
+	<li>Form Result</li>
+</ul>
+
+<div class="mod_title">
+        Form Result for Position : {$form.f_position} ({$form.f_code})
+</div>
+<div>
+        total : {$total}
+</div>
+ 
+ {if !$form_data}
+        <div class="red">- no data available -</div>
+ {else}
+        <table class="table table-striped table-bordered" id="mainData">
+        <thead>
+                <tr>
+                        <th width="120">Entry Date</th>
+                        <th width="60">Code</th>
+                        {foreach from=$form_detail name=fd item=fd}
+                                <th>{$fd.fd_key}</th>
+                        {/foreach} 
+                </tr>
+        </thead>
+        <tbody>
+                
+                {foreach from=$form_data item=ft}
+                <tr>
+                         <td >{$ft.ft_entry}</td>
+                         <td >{$ft.f_code}</td>
+                        {foreach from=$ft.data_set name=fts item=fts}
+                                 <td >{$fts.fts_value}</td>
+                        {/foreach} 
+                </tr>
+                {/foreach}
+        </tbody>
+        </table>
+{/if}

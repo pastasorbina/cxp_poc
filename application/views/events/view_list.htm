@@ -1,0 +1,102 @@
+
+<!--<ul class="breadcrumb">
+	{foreach from=$breadcrumb name=b item=b}
+	<li>{$b}</li>
+	<li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+	{/foreach}
+</ul>-->
+
+<style>
+	.event_list { margin-bottom: 20px; }
+	.event_list .header {
+		font-size: 14px; font-weight: bold;
+		border-top: solid 1px #000000; border-bottom: solid 1px #000000;
+
+		padding: 7px 0;
+	}
+	.event_list .body {
+		padding: 7px 0;
+		 position: relative;
+	}
+
+	.event_list_table td { vertical-align: top;  position: relative; }
+	.event_list_thumbnail { width: 200px; }
+	.event_list_thumbnail img{ width: 200px; }
+	.event_list_detail { padding-left: 10px; position: relative; display: block; }
+	.event_list_detail .date { font-weight: bold; text-transform: uppercase; width: 170px;   }
+	.event_list_detail .speakers { padding: 1px 0 0 10px; border-left: solid 1px #000000; font-weight: bold;  }
+	.event_list_detail .speakers_detail { padding-left: 10px; }
+	.event_list_detail .brief { margin-top: 10px; }
+</style>
+
+
+
+
+
+<style type="text/css">
+.adivider { margin: 0px 8px;}
+</style>
+
+<div class="topbanner" style="background-image:url({asset_url}img/poc/banner_events.jpg);" ></div>
+
+
+<div class="container">
+
+	<table class="scaffold" >
+		<tr>
+			<td class="lefty" >
+				{$events_sidebar}
+			</td>
+			<td class="righty">
+				<ul class="breadcrumb">
+					{foreach from=$breadcrumb name=b item=b}<li>{$b}</li> <li class="divider">&gt;&gt;</li> {/foreach}
+				</ul>
+
+				<div>
+					<h3>UPCOMING EVENTS</h3>
+					<div class="spacer10"></div>
+					<div class="page_content">
+
+						{foreach from=$events item=m name=m}
+
+						<div class="event_list">
+							<div class="header">{$m.e_name}</div>
+							<div class="body">
+								<table class="event_list_table">
+									<tr>
+										<td class="event_list_thumbnail"><img src="{site_url}userfiles/upload/{$m.e_thumbnail}" /></td>
+										<td class="event_list_detail">
+											<table>
+												<tr>
+													<td class="date">{$m.e_date|date_format:'d.M.Y'} - {$m.e_end_date|date_format:'d.M.Y'}</td>
+													<td class="speakers">SPEAKERS:</td>
+													<td class="speakers_detail">{$m.e_speakers}</td>
+												</tr>
+											</table>
+											<div class="brief">
+												{$m.e_brief}
+
+												<div class="spacer10"></div>
+												<a class="readmore" href="{site_url}events/view/{$m.e_id}/{$m.e_name|url_title:'_':TRUE}">
+													READ MORE
+												</a>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+
+						{/foreach}
+
+						<div style="text-align: right;">{$paging}</div>
+
+					</div>
+
+					<div class="spacer20"></div>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+</div>

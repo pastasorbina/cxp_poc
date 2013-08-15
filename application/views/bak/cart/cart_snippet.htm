@@ -1,0 +1,63 @@
+{if $cart.items}
+<table class="table table-condensed">
+
+    {foreach from=$cart.items name=c item=c key=ck}
+        <tr>
+            <td width="30">
+                <img src="{site_url}userfiles/product/s/{$c.p_image1}" width="30" height="30" />
+            </td>
+            <td  > 
+                <div>
+                    {$c.p_name} 
+                </div>
+                <div style="text-align: right;">
+                    {$c.cart_quantity|price_format} 
+                    <a href="#" class="ajax_remove_cart_item" data-id="{$c.cart_id}">
+                        <i class="icon-trash"></i>
+                    </a>
+                    
+                    <div>
+                        Rp. {$c.cart_subtotal|price_format},-
+                    </div>
+                </div>
+            </td> 
+        </tr> 
+    {/foreach}
+    
+    <tr> 
+        <th style="text-align: right;" colspan="2">
+            <strong>Rp. {$cart.cart_subtotal|price_format},-</strong>
+        </th>
+    </tr> 
+</table>
+
+    <div style="text-align: right;" >
+        <a class="" href="{site_url}checkout/" >Proceed to Checkout &gt;</a>
+    </div>
+    
+    
+
+
+{else}
+    <div class="red" style="text-align: center;" >
+        no item in cart
+    </div>
+{/if}
+
+
+
+<script>
+    $('.ajax_remove_cart_item').each(function(){
+        $(this).click(function(e){
+            e.preventDefault();
+            var id = $(this).attr('data-id');
+            $.post(site_url+'cart/ajax_remove/'+id, {},  function(data) {
+                if(data['status'] == 'ok') {
+                } else {
+                }
+                load_display_cart();
+                $('#size').trigger('change');
+            },'json');
+        });
+    });
+</script>

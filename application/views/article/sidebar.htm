@@ -1,0 +1,29 @@
+<div style="height: 100px;"></div>
+
+{if $sb_articles}
+<div class="sidebox"  >
+	<div style="border-bottom: solid 1px #333333; padding-bottom: 20px; margin-bottom: 10px; ">
+		<div style="letter-spacing: 2px; font-weight: bold; ">
+			LATEST POST
+		</div>
+	</div>
+
+	{foreach from=$sb_articles item=m name=m}
+		<div class="sidebox_entry" style="">
+			<div style=" font-weight: bold; line-height: normal; margin-bottom: 3px;">
+				{$m.c_date|date_format:'d.M.y'}
+			</div>
+			<div class="title" style="font-weight: bold; line-height: normal;">
+				<a href="{site_url}article/view/{$m.c_id}/{$m.c_title|url_title}">{$m.c_title}</a>
+			</div>
+		</div>
+	{/foreach}
+</div>
+{/if}
+
+<div class="sidebox" >
+	<div class="header">CONTACT US</div>
+	{$sidebar_address.c_content_full}
+</div>
+
+<div class="spacer20"></div>

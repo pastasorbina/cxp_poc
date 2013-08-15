@@ -1,0 +1,113 @@
+<script type="text/javascript">
+	var current_uri = '{$current_uri}';
+	var mod_url = '{$mod_url}';
+	var use_ajax = '{$use_ajax|default:FALSE}';
+</script>
+<script src="{asset_url}js/vizard/slave.js" ></script>
+
+
+<ul class="breadcrumb">
+	<li><a href="{$LAST_LIST}" class="cancel" >back</a></li>
+	<li class="divider">»</li>
+	<li>edit</li>
+</ul>
+
+<div class="mod_title">
+	{$ajax_action} partner
+</div>
+
+{''|validation_errors}
+
+<form enctype="multipart/form-data" name="formSubmit" id="formSubmit"  method="post" class="form-horizontal" >
+	<input type="hidden" name="current_id" value="{$data.dlr_id}" />
+	<input type="hidden" name="ajax_action" value="{$ajax_action}" />
+	
+	
+	
+	
+	<div class="control-group">
+		<label class="control-label">Name</label>
+		<div class="controls">
+			<input type="text" name="dlr_name" class="span6" value="{'dlr_name'|set_value|default:$data.dlr_name}" >
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Image</label>
+		<div class="controls">
+			{if $data.dlr_image}
+				<a href="{site_url}userfiles/upload/{$data.dlr_image}" class="colorbox" title="{$data.dlr_name}"  >
+					<img src="{site_url}userfiles/upload/thumb/{$data.dlr_image}" class="thumb" width="50" />
+				</a>
+				<div class="spacer10" ></div>
+			{/if}
+			<input type="file" name="dlr_image" />
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Wilayah</label>
+		<div class="controls">
+			<input type="text" name="dlr_region" class="span6" value="{'dlr_region'|set_value|default:$data.dlr_region}" >
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Contact Person</label>
+		<div class="controls">
+			<input type="text" name="dlr_contact" class="span6" value="{'dlr_contact'|set_value|default:$data.dlr_contact}" >
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Alamat</label>
+		<div class="controls"> 
+				<textarea name="dlr_address" cols="40" rows="3" >{'dlr_address'|set_value|default:$data.dlr_address}</textarea>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Business No.</label>
+		<div class="controls">
+			<input type="text" name="dlr_phone" class="span6" value="{'dlr_phone'|set_value|default:$data.dlr_phone}" >
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Mobile No.</label>
+		<div class="controls">
+			<input type="text" name="dlr_mobile" class="span6" value="{'dlr_mobile'|set_value|default:$data.dlr_mobile}" >
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Business Fax No.</label>
+		<div class="controls">
+			<input type="text" name="dlr_fax" class="span6" value="{'dlr_fax'|set_value|default:$data.dlr_fax}" >
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Email</label>
+		<div class="controls">
+			<input type="text" name="dlr_email" class="span6" value="{'dlr_email'|set_value|default:$data.dlr_email}" >
+		</div>
+	</div>
+	
+	
+	
+	<div class="control-group">
+		<label class="control-label">Google Maps Position</label>
+		<div class="controls "> 
+			<label>Latitude</label>&nbsp;<input type="text" name="dlr_lat" class="span3" value="{'dlr_lat'|set_value|default:$data.dlr_lat}" > 
+			<label>Longitude</label>&nbsp;<input type="text" name="dlr_long" class="span3" value="{'dlr_long'|set_value|default:$data.dlr_long}" >
+		</div>
+	</div>
+ 
+
+	<div class="form-actions" align="right" >
+		<input class="btn btn-primary" type="submit" value="Save" >
+		<a href="{$LAST_LIST}" class="btn do_cancel">Cancel</a>
+	</div>
+
+</form>

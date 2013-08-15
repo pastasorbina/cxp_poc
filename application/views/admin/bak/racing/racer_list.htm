@@ -1,0 +1,89 @@
+<script type="text/javascript">
+	var current_uri = '{$current_uri}';
+	var mod_url = '{$mod_url}';
+	var use_ajax = '{$use_ajax|default:FALSE}';
+</script>
+ 
+<div class="mod_title">Racing Table</div>
+ 
+<ul class="breadcrumb">
+	<li><a href="{site_url}admin/racing/racing_list">All Races</a></li>
+	<li class="divider">»</li>
+	<li>
+		<a href="{site_url}admin/racing/region_list/{$racing_series.r_id}">{$racing_series.r_name}</a>
+	</li>
+	<li class="divider">»</li>
+	<li>
+		<a href="{site_url}admin/racing/series_list/{$racing_series.rr_id}">{$racing_series.rr_name}</a>
+	</li>
+	<li class="divider">»</li>
+	<li class="active">{$racing_series.rs_name}</li>
+</ul>
+ 
+<ul class="module-links">
+	<li><a href="{$mod_url}racer_add/{$rs_id}"  class="add"  >+ add new racer</a></li>
+</ul>
+
+<div class="index_filter_cont" >
+	<div class="index_search_cont" >
+		<form name="frmSearch" action="{$mod_url}search" method="post"> 
+			<input type="hidden" name="pagelimit" value="{$pagelimit}" />
+			<input type="hidden" name="offset" value="{$offset}" />
+			<input type="hidden" name="orderby" value="{$orderby}" />
+			<input type="hidden" name="ascdesc" value="{$ascdesc}" />
+			<input type="hidden" name="page" value="{$mod_url}racer_list/" />
+			Search : <input type="text" name="searchkey" value="{$searchkey}"> <input class="btn small" type="submit" value="Find">
+		</form>
+	</div>
+</div>
+
+
+{if !$maindata}
+	<div class="red">
+		data not found
+	</div>
+{else}
+
+	
+	<table class="table table-striped" id="mainData" width="100%">
+	<thead>
+		<tr> 
+			<th><a href="javascript:doSort('rc_name');">Racer Name</a></th> 
+			
+			<th ><a href="javascript:doSort('rc_team');">Team Name</a></th>
+			<th width="120"><a href="javascript:doSort('rc_score');">Score</a></th>
+			<th width="120"><a href="javascript:doSort('rc_entry');">Entry Date</a></th>
+			<th width="70"></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		{foreach from=$maindata item=m name=m key=mk}
+		<tr> 
+			<td>
+				<a href="{$mod_url}racer_list/{$m.rc_id}" class="edit" >{$m.rc_name}</a>
+			</td>
+			 
+			<td>{$m.rc_team}</td>
+			<td>{$m.rc_score}</td>
+			<td>{$m.rc_entry}</td>
+			<td >
+				<div class="btn-group">
+					{if $m.rc_status == 'Active' }
+						<a href="{$mod_url}racer_edit/{$m.rc_id}" class="btn btn-small edit" ><i class="icon-edit"></i></a>
+						<a href="{$mod_url}racer_delete/{$m.rc_id}" class="btn btn-small delete areyousure" ><i class="icon-trash"></i></a>
+					{else}
+						<a href="{$mod_url}change_status/{$m.c_id}/Active" class="btn btn-small">restore</a>
+					{/if}
+				</div>
+			</td>
+
+		</tr>
+		{/foreach}
+	</tbody>
+	</table>
+	
+	{$paging}
+	{$paging_js}
+
+{/if}

@@ -1,0 +1,55 @@
+<script>
+	$(function() {
+		$('#reset_form').click(function(e) {
+			e.preventDefault(); 
+			$('#contactus_form').resetForm();
+		});
+	});
+</script>
+
+<ul class="breadcrumb"> 
+      {foreach from=$breadcrumb name=b item=b}
+      <li>{$b}</li>
+       <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+      {/foreach} 
+</ul>
+
+<style>
+	.contactus-form-table td {
+		padding: 10px;
+		vertical-align: top;
+	}
+</style>
+
+<div class="page_title" style="margin-top: 0px;" >KESEMPATAN BERKARIR <img src="{asset_url}img/fdr/news_title_arrow.png"> </div>
+
+<div class="row-fluid">
+	
+	<div class="span3">
+		{$career_sidebar}
+	</div>
+	
+	<div class="span9">
+		
+		<div class="page_wrap">
+			<div class="page_container"> 
+				
+			</div>
+			<div class="page_content">
+				{$career_main.c_content_full}
+				
+				<div class="spacer20"></div>
+				
+				<div>
+					 
+				</div>
+			</div>
+		</div>
+		  
+	</div>
+   
+	
+   
+</div>
+
+

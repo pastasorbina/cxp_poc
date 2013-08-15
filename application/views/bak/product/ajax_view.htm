@@ -1,0 +1,54 @@
+
+
+<div class="row-fluid">
+   
+    <div class="span5">
+        <div class="product_name" style="font-weight: bold; margin-bottom: 10px; font-size: 22px;"  >
+            {$product.p_name}
+        </div> 
+        <div class="product_desc" style="margin-top: -5px; margin-bottom: 10px; min-height: 12px;" >
+            {$product.p_brief}
+        </div>
+        <div class="" style="margin-top: -5px; margin-bottom: 10px; min-height: 12px;" >
+            SKU : {$product.p_code}
+        </div>
+        
+        <div style="">
+            <div style="text-align:right; margin-bottom: 10px; font-weight: bold; font-size: 14px;" >
+                Rp. {$product.p_price|price_format},-     
+            </div> 
+            <div class="list_addtocart form-inline " style=" text-align: right; ">
+                <form>
+                    <select name="quantity" class="cart_quantity input-small small" style="width: auto;" >
+                        <option value="1" >1</option>
+                        <option value="2" >2</option>
+                        <option value="3" >3</option>
+                        <option value="4" >4</option>
+                        <option value="5" >5</option>
+                    </select>
+                    <select name="size" class="cart_size input-small small size hide"  >
+                        {foreach from=$product_quantities item=pq name=pq}
+                            <option value="{$pq.pq_id}">{$pq.pq_size}</option>
+                        {/foreach}
+                    </select> 
+                    <input type="hidden" class="cart_p_id" name="p_id" value="{$product.p_id}">
+                    <input type="hidden" class="cart_pr_id" name="pr_id" value="0">
+                    <a class="cart_submit btn btn-small addtocart"> Add To Cart</a>
+                </form>
+            </div>
+        </div>
+        
+        <div style="padding:5px; border: solid 1px #dddddd;">
+            {$product.p_description}
+        </div>
+    </div>
+    
+     <div class="span3">
+        {if $product.p_image1}
+            <img src="{site_url}userfiles/product/l/{$product.p_image1}" style="width: 300px;" />
+        {else}
+            <img src="{asset_url}img/no_image.gif" style="width: 300px;" />
+        {/if}
+    </div>
+    
+</div>

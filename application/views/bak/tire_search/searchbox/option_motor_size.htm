@@ -1,0 +1,4 @@
+<option value="0" class="ts_option ts_option_default"  id="tsr_0">TIRE SIZE</option>
+{foreach from=$motor_tire_size item=mm name=mm}
+    <option value="{$mm.tsr_id}"class="ts_option" data-id="{$mm.tsr_id}" id="tsr_{$mm.tsr_id}" >{$mm.ts_name} - {$mm.tr_name}</option>
+{/foreach}

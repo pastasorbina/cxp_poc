@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        
+        <title>GPS Finder</title>
+		<script src="{asset_url}js/jquery/jquery-latest.js" ></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale = 1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no">
+		<script>var site_url = '{site_url}';</script>
+		{literal}
+		<script>
+			$(function() {
+				$('#noscript').hide();
+				$('#gpserror').hide();
+				if (navigator.geolocation) {
+					$('#nogps').hide();
+					navigator.geolocation.getCurrentPosition(showPosition, onError);
+				}
+			});
+			
+			function showPosition(position) {
+				var lat = position.coords.latitude;
+				var lng = position.coords.longitude;
+				
+				$('#coord').html("Found your coordinate, please wait...");
+				document.location = site_url + 'find_dealer/locator/11/' + lat + '/' + lng;
+			}
+			
+			function onError() {
+				$("#gpserror").show();
+			}
+		</script>
+		{/literal}
+    </head>
+    <body>
+		<div id=noscript>No Javascript detected</div>
+		<div id=nogps>No GPS support detected</div>
+		<div id=gpserror>GPS cannot get location</div>
+		<div id=coord></div>
+	</body>
+</html>

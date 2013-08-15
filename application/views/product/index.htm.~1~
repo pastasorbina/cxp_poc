@@ -1,0 +1,125 @@
+<script> 
+	var TSearch = new Stacklet('#TSearch_box');  
+	TSearch.start('{site_url}tire_search/load_searchbox/'); 
+	$(function() { 
+		$('#ds_refresh').live('click', function(e) {
+			e.preventDefault();
+			DS.reset();
+		}); 
+	});
+</script>
+
+<ul class="breadcrumb">
+    <li><a href="{site_url}">Home</a></li>
+    <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+    <li><a href="#">Products</a></li>
+</ul>
+
+
+<div class="row-fluid">
+    <div class="span9">
+        
+        <div class="prodtype_header">{$tire_category.tc_banner}
+			{if $this_category.tc_id == $tc_id && $tc_id != 0}
+				<img src="{site_url}userfiles/upload/{$this_category.tc_banner}" >
+			{elseif $tc_id == 0}
+				<img src="{asset_url}img/fdr/prod-type-banner-1.jpg" >
+			{/if} 
+            <div>
+                <table class="prodtype_link" >
+                    <tr>
+						<td >
+                            <a class="{if $tc_id == 0}active{/if}" href="{site_url}product/index/">ALL</a>
+                        </td>
+			{foreach from=$tire_category name=tc item=tc}
+			    <td >
+				<a class="{if $tc.tc_id == $tc_id}active{/if}" href="{site_url}product/index/{$tc.tc_id}">
+				    <img src="{site_url}userfiles/upload/{$tc.tc_logo}" style="height: 16px;" /> {$tc.tc_name}
+				</a>
+			    </td>
+			{/foreach} 
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="spacer10"></div>
+        <div class="" >
+	     
+	  
+            {if !$tires}
+		<div class="red" style="text-align: center;" >-- product not found --</div>
+	    {else}
+		<table class="tire_entry_table" style=" " >
+		    <tr>
+			{foreach from=$tires item=t name=t} 
+			    <td style="width: 343px;" >
+				<a href="{site_url}product/view/{$t.t_id}/{$t.t_name|url_title}" class="tire_entry_link">
+				   <div class="tire_entry_box">
+					    <div class="tire_entry_image"><img src="{site_url}userfiles/upload/{$t.t_image}" /></div>
+					    <div class="tire_entry_content">
+						    <div class="tire_entry_title"><div class="tire_entry_title_inner">{$t.t_name}</div></div>
+						    <div class="clear"></div>
+						    <div class="tire_entry_tag_box">
+							<ul class="tire_entry_tag">
+							{foreach from=$t.tags item=tt name=tt}
+							    {if $tt.tt_logo != ''}
+								<li><img src="{site_url}userfiles/upload/{$tt.tt_logo}" /></li>
+							    {/if}
+							{/foreach}
+							</ul>
+						    </div>
+						    
+						    <div class="tire_entry_desc_box">
+							<div class="tire_entry_desc_ina">{$t.t_desc|word_limiter:15|strip_tags|trim}</div>
+							<div class="tire_entry_desc_en">{$t.t_desc_en|word_limiter:15|strip_tags|trim}</div>
+						    </div>
+						    
+						    <div class="tire_entry_button">DETAILS <i class="icon-chevron-right icon-small"></i></div>
+					    </div>
+					    <div class="clear"></div>
+				   </div>
+				</a>
+			    </td>
+			    {if $smarty.foreach.t.iteration % 2 == 0} </tr><tr>{/if}
+			{/foreach}
+		    </tr>
+		</table>
+	    {/if}
+        </div>
+        
+	
+	<!-- {foreach from=$tires item=t name=t} 
+                        <td style="width: 50%; padding-bottom: 5px;">
+                            <a href="{site_url}product/view/{$t.t_id}" class="tires_link">
+                                <img src="{site_url}userfiles/upload/{$t.t_banner}" />
+                            </a>
+                        </td>
+                        {if $smarty.foreach.t.iteration % 2 == 0} </tr><tr>{/if}
+                    {/foreach}-->
+            
+    </div>
+    
+    <div class="span3">
+        <div id="TSearch_box"></div>
+        
+        <div style="margin-bottom: 10px; margin-top: 10px;">
+            <a href="{site_url}find_dealer">
+                <img src="{asset_url}img/fdr/banner-find-dealer.png" >
+            </a>
+        </div>
+        
+        <div style="margin-bottom: 10px;">
+            <a href="{$site_config.facebook_url}" target="_blank">
+                <img src="{asset_url}img/fdr/sm-facebook.png" >
+            </a>
+        </div>
+        
+        <div style="margin-bottom: 10px;">
+            <a href="{$site_config.twitter_url}" target="_blank">
+                <img src="{asset_url}img/fdr/sm-twitter.png" >
+            </a>
+        </div>
+        
+    </div>
+</div>

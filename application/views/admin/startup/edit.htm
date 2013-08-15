@@ -1,0 +1,84 @@
+<script type="text/javascript">
+	var current_uri = '{$current_uri}';
+	var mod_url = '{$mod_url}';
+	var use_ajax = '{$use_ajax|default:FALSE}';
+</script>
+
+
+<ul class="breadcrumb">
+	<li><a href="{$LAST_LIST}" class="cancel" >back</a></li>
+	<li class="divider">»</li>
+	<li>edit</li>
+</ul>
+
+
+
+{''|validation_errors}
+
+<form enctype="multipart/form-data" name="formSubmit" id="formSubmit"  method="post" class="form-horizontal"  >
+	<input type="hidden" name="current_id" value="{$data.sc_id}" />
+	<input type="hidden" name="ajax_action" value="{$ajax_action}" />
+
+	<div class="use_right_sidebar">
+
+
+		<div class="inner_content">
+
+
+			<div class="control-group">
+				<div class="control-label">Startup Name</div>
+				<div class="controls">
+					<input type="text" name="s_name" class="" value="{'s_name'|set_value|default:$data.s_name}" >
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="control-label">Company Name</div>
+				<div class="controls">
+					<input type="text" name="s_company" class="" value="{'s_company'|set_value|default:$data.s_company}" >
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="control-label">Category</div>
+				<div class="controls">
+					<select name="sc_id" >
+						{foreach from=$category name=c item=c}
+							<option value="{$c.sc_id}" {if $c.sc_id == $data.sc_id}selected="selected"{/if} >{$c.sc_name}</option>
+						{/foreach}
+					</select>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="control-label">Thumbnail</div>
+				<div class="controls">
+					{if $data.s_thumbnail}
+						<div>
+						<a href="{site_url}userfiles/upload/{$data.s_thumbnail}" class="colorbox" >
+							<img src="{site_url}userfiles/upload/thumb/{$data.s_thumbnail}" width="40" >
+						</a>
+						</div>
+					{/if}
+					<input type="file" name="s_thumbnail" id="s_thumbnail" />
+					<div class="small">220px × 127px</div>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="control-label">Description</div>
+				<div class="controls">
+					<textarea name="s_desc" class="ckeditor">{'s_desc'|set_value|default:$data.s_desc}</textarea>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+	<div class="form-actions" align="right" >
+		<input class="btn btn-primary" type="submit" value="Save" >
+		<a href="{$LAST_LIST}" class="btn do_cancel">Cancel</a>
+	</div>
+
+</form>

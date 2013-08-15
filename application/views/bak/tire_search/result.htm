@@ -1,0 +1,232 @@
+<script>
+	load_tire_search();  
+</script>
+
+<style>
+    .prodtype_link {
+        
+        width: 100%;
+        /*display: block;*/ 
+    }
+    .prodtype_link td{
+        /*display: inline-block;*/
+        margin:0px;
+        /*margin-top: 5px;*/
+        padding: 0px;
+        text-align: center;
+        border-right: 1px solid #000000;
+    }
+    .prodtype_link td a {
+        padding:5px 10px;
+        color: #ffffff;
+        display: block;
+        text-align: center;
+        background: url({asset_url}img/fdr/prod-type-banner-bg.png) repeat-x;
+        border-bottom: solid 4px #232323;
+    }
+    .prodtype_link td a:hover {
+        /*background: url({asset_url}img/fdr/prod-type-banner-bg-hover.png) repeat-x;*/
+        text-decoration: none;
+        border-bottom: solid 4px #ff0000;
+    }
+	
+	.tires_link {
+		
+		display: block;
+	}
+	
+	.tires_link img { 
+		display: block; 
+	}
+	.tires_link:hover img {
+		opacity: 0.8;
+	}
+	
+	.search_ribbon_wrap {
+		
+	}
+	.search_ribbon {
+		background: url({asset_url}img/fdr/search_ribbon_bg.png) repeat-x;
+		height: 53px;
+		/*padding:10px;  */
+		margin-bottom: 10px;
+	}
+	.search_ribbon_title {
+		color: #ffffff; text-shadow: 1px 1px 2px #333333; font-weight: bold;
+		padding: 10px; margin-top: 10px;
+	}
+	.search_ribbon_body {
+		padding-top: 6px;
+	}
+	.search_ribbon_body .btn {
+		cursor: default;
+	}
+	.search_ribbon_subtitle {
+		color: #ffffff;
+		/*font-family: verdana;*/
+		text-shadow: 1px 1px 2px #333333;
+		/*font-weight: bold;*/
+		font-size: 10px; line-height: 10px; margin-top: 3px;}
+	.search_ribbon li { display: inline-block; margin-right: 5px; }
+	.search_ribbon .btn { font-weight: normal; }
+</style>
+
+
+
+<ul class="breadcrumb">
+    <li>
+        <a href="{site_url}">Home</a>
+    </li>
+    <li class="divider">
+        &gt;
+    </li>
+    <li>
+        <a href="#">Tire Search</a>
+    </li>
+</ul>
+
+
+<div class="row-fluid">
+    <div class="span9">
+        
+        <h2 style="margin-bottom: 10px; border-bottom: 1px #cccccc solid; padding-bottom: 10px;">TIRE SEARCH</h2> 
+        
+        <div class="well well-small hide">
+            <div style="font-weight: bold; font-size: 15px;">Search Criteria :</div>
+            search by : {$searchby}
+            <div>
+				{if $searchby=='size'}
+					<div>rim size : {$tire_rim.tr_name|default:'-'}</div>
+					<div>tire ratio : {$tire_size.ts_name|default:'-'}</div>
+				{else}
+					<div>motor manufacturer : {$motor_brand.mb_name|default:'-'}</div> 
+					<div>motor model : {$motor_model.mm_name|default:'-'}</div>
+					<div>tire size category: {$tire_size_category.tsc_name|default:'-'}</div>
+					<div>tire size : {$tire_size_rim.tr_name} - {$tire_size_rim.ts_name}</div>
+				{/if}
+            </div>
+        </div>
+		
+		<div>
+			<div class="search_ribbon_wrap">
+				<div class="search_ribbon pull-left">
+					<div class="pull-left search_ribbon_title" style="margin-left: 10px; padding-top: 5px; " >
+						Search Criteria : 
+					</div>
+					<div class="pull-left search_ribbon_body" style="margin-left: 10px;" >
+						<ul>
+							{if $searchby=='size'}
+								<li>
+									<div class="btn" >{$tire_rim.tr_name|default:'-'}</div>
+									<div class="search_ribbon_subtitle">Rim Size</div>
+								</li>
+								<li>
+									<div class="btn" >{$tire_size.ts_name|default:'-'}</div>
+									<div class="search_ribbon_subtitle">Tire Ratio</div>
+								</li>
+							{else}
+								<li>
+									<div class="btn" >{$motor_brand.mb_name|default:'-'}</div>
+									<div class="search_ribbon_subtitle">Manufacturer</div>
+								</li>
+								<li>
+									<div class="btn" >{$motor_model.mm_name|default:'-'}</div>
+									<div class="search_ribbon_subtitle">Model</div>
+								</li>
+								<li>
+									<div class="btn" >{$tire_size_category.tsc_name|default:'-'}</div>
+									<div class="search_ribbon_subtitle">Tire Category</div>
+								</li>
+								<li>
+									<div class="btn" >{$tire_size_rim.ts_name} - {$tire_size_rim.tr_name}</div>
+									<div class="search_ribbon_subtitle">Tire Size</div>
+								</li>
+							{/if}
+						</ul>
+					</div>
+				</div>
+				<div class="pull-left" style="" >
+					<img src="{asset_url}img/fdr/search_ribbon_r.png" />
+				</div>
+				<div class="clear"></div>
+			</div>
+			 
+		</div>
+		
+		<style>.disclaimer p{ margin-bottom: 5px; line-height: 12px; }</style>
+		<div class="disclaimer" style="margin:5px 0px 20px 0px; font-size: 12px; line-height: 14px;" >
+		{$findtire_disclaimer.c_content_full}
+		</div>
+         
+        <div class="" > 
+	    
+			<table class="tire_entry_table" style="">
+				<tr>
+					{foreach from=$tires item=t name=t} 
+					<td style="width: 343px;" >
+						{if $t.t_is_new == 'Yes'}<div class="is_new_ribbon"></div>{/if} 
+						
+					<a href="{site_url}product/view/{$t.t_id}" class="tire_entry_link">
+						
+					   <div class="tire_entry_box">
+							
+							<div class="tire_entry_image"><img src="{site_url}userfiles/upload/{$t.t_image}" /></div>
+							<div class="tire_entry_content">
+								<div class="tire_entry_title"><div class="tire_entry_title_inner">{$t.t_name}</div></div> 
+								<div class="clear"></div>
+								<div class="tire_entry_tag_box" style="height: 25px;">
+								<ul class="tire_entry_tag">
+								{foreach from=$t.tags item=tt name=tt}
+									{if $tt.tt_logo != ''}
+									<li class="ttips" rel="tooltip" title="{$tt.tt_name}">
+										<img src="{site_url}userfiles/upload/{$tt.tt_logo}" height="18" width=18" />
+									</li>
+									{/if}
+								{/foreach}
+								</ul>
+								</div>
+								
+								<div class="tire_entry_desc_box">
+								<div class="tire_entry_desc_ina">{$t.t_brief|strip_tags|trim|word_limiter:15}</div>
+								<div class="tire_entry_desc_en">{$t.t_brief_en|strip_tags|trim|word_limiter:15}</div>
+								</div> 
+							</div> 
+					   </div>
+					   <div class="tire_entry_button">DETAILS <img src="{asset_url}img/fdr/arrow_small.png"></div>
+					</a>
+					</td>
+					{if $smarty.foreach.t.iteration % 2 == 0} </tr><tr>{/if}
+				{/foreach}
+				</tr>
+			</table>
+			
+			<div class="spacer10"></div>
+			
+        </div>
+            
+            
+    </div>
+    
+    <div class="span3">
+        <div id="TSearch_box"></div>
+        
+        <div style="margin-bottom: 10px; margin-top: 10px;">
+            <a href="{site_url}find_dealer">
+                <img src="{asset_url}img/fdr/banner-find-dealer.png" >
+            </a>
+        </div>
+        
+        <div style="margin-bottom: 10px;">
+            <a href="{$site_config.facebook_url}" target="_blank">
+                <img src="{asset_url}img/fdr/sm-facebook.png" >
+            </a>
+        </div>
+        
+        <div style="margin-bottom: 10px;">
+            <a href="{$site_config.twitter_url}" target="_blank">
+                <img src="{asset_url}img/fdr/sm-twitter.png" >
+            </a>
+        </div>
+        
+    </div>
+</div>

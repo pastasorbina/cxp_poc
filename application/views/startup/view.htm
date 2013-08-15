@@ -1,0 +1,83 @@
+<div class="topbanner" style="background-image:url({asset_url}img/poc/banner_startups.jpg);" ></div>
+
+<div class="maincontent_wrap">
+<div class="container">
+
+	<div class="page_main">
+
+		<ul class="breadcrumb">
+			{foreach from=$breadcrumb name=b item=b}<li>{$b}</li> <li class="divider">&gt;&gt;</li>{/foreach}
+		</ul>
+
+		<div class="page_wrap">
+			<div class="page_container">
+				<div class="page_title"
+					 style="border-bottom: dotted 1px #CCCCCC; margin-bottom: 10px; padding-bottom: 10px;"
+					 >{$startup.s_name} </div>
+
+			</div>
+			<div class="page_content">
+				<table>
+					<tr>
+						<td style="vertical-align: top; width: 250px;">
+							{if $startup.s_thumbnail != ''}
+								<img src="{site_url}userfiles/upload/{$startup.s_thumbnail}" width="250" />
+							{/if}
+						</td>
+						<td style="vertical-align: top; padding-left: 20px;">
+							<div class="" style="margin-bottom: 10px; font-weight: bold;" > {$startup.s_company} </div>
+							{$startup.s_desc}
+
+							<div class="spacer10"></div>
+							<div class="share-box">
+								<div class="share-buttons" >
+
+									<div class="share-button-wrap googleplus">
+									  <div class="share-button" data-service="googleplus">
+										<div class="g-plusone" data-size="medium" data-annotation="none"></div>
+										{literal}
+										<script type="text/javascript">
+										  (function() {
+											var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+											po.src = 'https://apis.google.com/js/plusone.js';
+											var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+										  })();
+										</script>
+										{/literal}
+									  </div>
+									</div>
+
+									<div class="share-button-wrap linkedin">
+									  <div class="share-button" data-service="linkedin" title="">
+										<script src="//platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
+										<script type="IN/Share" data-url="{current_url}" data-counter="none"></script>
+									  </div>
+									</div>
+
+									<div class="share-button-wrap twitter">
+									  <div class="share-button" data-service="twitter" title="">
+										<a href="https://twitter.com/share" class="twitter-share-button" data-url="{current_url}" data-counturl="{current_url}" data-lang="en" data-count="none">&nbsp;</a>
+									  </div>
+									</div>
+
+									<div class="share-button-wrap facebook">
+									  <div class="share-button" data-service="facebook" >
+										<div class="fb-like" data-href="{current_url}" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+									  </div>
+									</div>
+
+								</div>
+							</div>
+							<!--SHARE END-->
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+
+
+	</div>
+
+</div>
+</div>

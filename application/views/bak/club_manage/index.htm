@@ -1,0 +1,105 @@
+
+<ul class="breadcrumb">  
+      <li><a href="{site_url}">Home</a></li>
+       <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+       <li>Manage Club</li>
+</ul>
+
+<div class="row-fluid">
+    <div class="span9 cclean2">
+        
+        <div class="" style="border-bottom: 5px; margin-bottom: 5px;" >
+            <div style="text-align: right;">
+                <a class="" href="{site_url}club_manage/edit_club_info"><i class="icon-edit"></i> Edit Information</a>
+            </div>
+        </div>
+        
+        <table class="table table-form table-bordered"> 
+            </tr>   
+                <th width="90">Name</th>
+                <td>{$club.club_name}</td>
+            </tr> 
+            
+            <tr>
+                <th>Logo</th>
+                <td>
+                    <a href="{site_url}userfiles/upload/{$club.club_logo}" class="colorbox">
+                        <img src="{site_url}userfiles/upload/thumb/{$club.club_logo}" class="thumb" />
+                    </a>
+                </td>
+            <tr>
+                
+            </tr>   
+                <th>Email</th>
+                <td>{$club.club_email|default:'-'}</td>
+            </tr>
+            
+            </tr>   
+                <th>Address</th>
+                <td>{$club.club_address|default:'-'}</td>
+            </tr>
+            
+            </tr>   
+                <th>Contact</th>
+                <td>{$club.club_contact|default:'-'}</td>
+            </tr>
+            
+            </tr>   
+                <th>Description</th>
+                <td>{$club.club_desc|default:'-'}</td>
+            </tr>
+            
+            </tr>   
+                <th>Website</th>
+                <td>{$club.club_website|default:'-'}</td>
+            </tr>
+            
+            </tr>   
+                <th>Facebook</th>
+                <td>{$club.club_facebook|default:'-'}</td>
+            </tr>
+            
+            </tr>   
+                <th>Twitter</th>
+                <td>{$club.club_twitter|default:'-'}</td>
+            </tr>
+            
+            </tr>   
+                <th>Milis</th>
+                <td>{$club.club_milis|default:'-'}</td>
+            </tr>
+            
+            </tr>   
+                <th>Other Links 1</th>
+                <td>{$club.club_other1|default:'-'}</td>
+            </tr>
+            
+            </tr>   
+                <th>Other Links 2</th>
+                <td>{$club.club_other2|default:'-'}</td>
+            </tr>
+            
+            </tr>   
+                <th>Other Links 3</th>
+                <td>{$club.club_other3|default:'-'}</td>
+            </tr>
+            
+            </tr>   
+                <th>Est. Date</th>
+                <td>{if $club.club_est_date=='0000-00-00'}-{else}{$club.club_est_date}{/if}</td>
+            </tr>
+            
+            </tr>   
+                <th>Join Date</th>
+                <td>{if $club.club_join_date=='0000-00-00'}-{else}{$club.club_join_date}{/if}</td>
+            </tr>
+        </table>
+                    
+    </div>
+    
+    
+    
+    <div class="span3">
+        {$sidebar}
+    </div>
+</div>

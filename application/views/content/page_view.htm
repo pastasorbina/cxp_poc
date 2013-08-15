@@ -1,0 +1,86 @@
+<script> 
+	
+	var TSearch = new Stacklet('#TSearch_box');  
+	TSearch.start('{site_url}tire_search/load_searchbox/'); 
+	$(function() { 
+		$('#ds_refresh').live('click', function(e) {
+			e.preventDefault();
+			DS.reset();
+		}); 
+	});
+    
+</script>  
+<ul class="breadcrumb"> 
+      {foreach from=$breadcrumb name=b item=b}
+      <li>{$b}</li>
+       <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+      {/foreach} 
+</ul> 
+
+<div class="row-fluid">
+	<div class="span9">
+		
+		<div class="page_wrap">
+			<div class="page_container">
+				{if $content.c_banner != ''}
+				<img src="{site_url}userfiles/upload/{$content.c_banner}" width="700" height="250" />
+				{/if}
+			   
+				<h2 class="page_title" >{$content.c_title} <img src="{asset_url}img/fdr/news_title_arrow.png"> </h2>
+			</div>
+			<div class="page_content">
+				{$content.c_content_full}
+			</div>
+		</div>
+		  
+	</div>
+   
+	<div class="span3">
+		 
+		
+		<div>
+			{if $parent}
+				<table class="sidebar-table table table-striped">
+					<tr class="{if $parent.c_id == $content.c_id}active{/if}">
+						<td width="9"><img src="{asset_url}img/fdr/bullet_black.png" class="sidebar-table-bullet" width="9" height="9" /></td>
+						<td>
+							<a href="{site_url}content/view/page/{$parent.c_id}/{$parent.c_title|url_title}/">{$parent.c_title}</a>
+						</td>
+					</tr>
+					{foreach from=$parent.child item=c name=c}
+						<tr class="{if $c.c_id == $content.c_id}active{/if}">
+							<td width="9"><img src="{asset_url}img/fdr/bullet_black.png" class="sidebar-table-bullet" width="9" height="9" /></td>
+							<td>
+								<a href="{site_url}content/view/page/{$c.c_id}/{$c.c_title|url_title}/">{$c.c_title}</a>
+							</td>
+						</tr>
+					{/foreach}
+				</table>
+			{/if}
+		</div>
+		
+		
+		<!--<div id="TSearch_box"></div>-->
+		  
+		<!--<div style="margin-bottom: 10px; margin-top: 10px;">
+		    <a href="{site_url}find_dealer">
+			<img src="{asset_url}img/fdr/banner-find-dealer.png" >
+		    </a>
+		</div>
+		
+		<div style="margin-bottom: 10px;">
+		    <a href="">
+			<img src="{asset_url}img/fdr/sm-facebook.png" >
+		    </a>
+		</div>
+		
+		<div style="margin-bottom: 10px;">
+		    <a href="">
+			<img src="{asset_url}img/fdr/sm-twitter.png" >
+		    </a>
+		</div>-->
+	</div>
+   
+</div>
+
+

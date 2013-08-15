@@ -1,0 +1,96 @@
+<script type="text/javascript">
+	var current_uri = '{$current_uri}';
+	var mod_url = '{$mod_url}';
+	var use_ajax = '{$use_ajax|default:FALSE}';
+</script>
+
+<style>
+	tr.pending td {
+		background: #F9C5C5 !important;
+	}
+</style>
+
+<div id="addbox"></div>
+<div id="editbox"></div>
+
+<ul class="breadcrumb">
+	<li>all entries</li>
+</ul>
+ 
+<ul class="module-links">
+	<li><a href="{$mod_url}add_club/"  class="add"  >+ add new entry</a></li>
+</ul>
+
+<div class="index_filter_cont" >
+	<div class="index_search_cont" >
+		<form name="frmSearch" action="{$mod_url}search" method="post"> 
+			<input type="hidden" name="pagelimit" value="{$pagelimit}" />
+			<input type="hidden" name="offset" value="{$offset}" />
+			<input type="hidden" name="orderby" value="{$orderby}" />
+			<input type="hidden" name="ascdesc" value="{$ascdesc}" />
+			<input type="hidden" name="page" value="{$mod_url}index/" />
+			Search : <input type="text" name="searchkey" value="{$searchkey}"> <input class="btn small" type="submit" value="Find">
+		</form>
+	</div>
+</div>
+
+
+{if !$maindata}
+	<div class="red">
+		data not found
+	</div>
+{else}
+
+	
+	<table class="table table-striped" id="mainData" width="100%">
+	<thead>
+		<tr>
+			<th width="50">Image</th>
+			<th><a href="javascript:doSort('t_name');">Name</a></th>
+			<th width="200">Admin Name</th> 
+			<th width="200">Username</th> 
+			<th width="30"><a href="javascript:doSort('t_order');">Order</a></th> 
+			<th width="120"><a href="javascript:doSort('t_entry');">Created</a></th>
+			<th width="70"></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		{foreach from=$maindata item=m name=m key=mk}
+		<tr class="{if $m.club_is_pending == 'Yes'}pending{/if}" >
+			<td>
+				{if $m.club_logo !=''}
+					<a href="{site_url}userfiles/upload/{$m.club_logo}" class="colorbox" >
+						<img src="{site_url}userfiles/upload/thumb/{$m.club_logo}" class="thumb thumb50" />
+					</a>
+				{else}
+					<img src="{asset_url}img/spacer.png" class="thumb thumb50" />
+				{/if}
+			</td>
+			<td>
+				<a href="{$mod_url}view/{$m.club_id}" class="" >{$m.club_name}</a>
+			</td>
+			<td>{$m.club_admin_name}</td> 
+			<td>{$m.club_login}</td> 
+			<td>{$m.club_order}</td> 
+			<td>{$m.club_entry}</td>
+			<td >
+				<div class="btn-group">
+					{if $m.club_status == 'Active' }
+						<a href="{$mod_url}view/{$m.club_id}" class="btn btn-small edit" ><i class="icon-search"></i></a>
+						<a href="{$mod_url}delete/{$m.club_id}" class="btn btn-small delete areyousure" ><i class="icon-trash"></i></a>
+					{else}
+						<a href="{$mod_url}change_status/{$m.club_id}/Active" class="btn btn-small">restore</a>
+					{/if}
+				</div>
+			</td>
+
+		</tr>
+		{/foreach}
+	</tbody>
+	</table>
+	
+	{$paging}
+	{$paging_js}
+
+{/if}

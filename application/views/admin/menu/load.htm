@@ -1,0 +1,19 @@
+<style>
+	.menu_list_ul {
+		
+	}
+	.menu_list_li {
+		border: solid 1px #dddddd;
+		padding: 5px;
+	}
+</style> 
+<ul class="menu_list_ul" >
+{foreach from=$menu item=m}
+	<li class="menu_list_li" >
+		{$m.m_name} - <a href="javascript:load({$mp_id} , {$m.m_id});">Load</a>
+		<div id="child_for_{$m.m_id}"></div>
+	</li>
+{/foreach}
+</ul>
+
+<a href="javascript:add_menu({$mp_id} , {$m_id});">Add Menu</a>

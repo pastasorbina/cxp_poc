@@ -1,0 +1,103 @@
+<div class="spacer20"></div>
+<div class="spacer20"></div>
+
+<div class="sidebox" style="margin-top: 14px;"  >
+	<div style="border-bottom: solid 1px #000000; padding-bottom: 10px; margin-bottom: 20px; ">
+		<div style="letter-spacing: 2px; font-weight: bold; ">
+			WHEN &amp; WHERE
+		</div>
+	</div>
+
+	{foreach from=$sb_events item=m name=m}
+		<div class="sidebox_entry" style="">
+			<div style=" font-weight: bold; line-height: normal; margin-bottom: 5px;">
+				{$m.e_date|date_format:'d.M.y'} - <br>{$m.e_end_date|date_format:'d.M.y'}
+			</div>
+			<div class="title" style="font-weight: bold; line-height: normal;">
+				<a href="{site_url}events/view/{$m.e_id}/{$m.e_name|url_title:'_':TRUE}">{$m.e_name}</a>
+			</div>
+			<div class="location" style="margin-top: 5px;">{$m.e_location}</div>
+		</div>
+	{/foreach}
+
+</div>
+
+<div class="sidebox"  >
+	<div class="header" style="">
+		CONTACT US
+	</div>
+
+	<b>POC</b>
+	<p>
+		Jl. Lorem Ipsum xXXXX no. 23 <br>
+		Bandung 1033
+	</p>
+	<p>
+		Phone : 1.800.23.030 <br>
+		Fax : 1.492.23.232 <br>
+		Email : info@proofofconcept.co.id
+	</p>
+
+</div>
+
+<div class="spacer20"></div>
+
+
+
+<!--<div class="sidearticle_box">
+        <div class="sidearticle_header">EVENTS</div>
+        <div class="entries_box">
+                <table class="entries_table">
+                    {foreach from=$events item=m name=m}
+                    <tr>
+                        <td>
+                            <div class="entries_title" >
+                                <a href="{site_url}article/view/{$m.c_id}/{$m.c_title|url_title}">{$m.c_title}</a>
+                            </div>
+                            <div class="entries_date" >{$m.c_date|date_format:'d F Y'}</div>
+                        </td>
+                    </tr>
+                    {/foreach}
+                </table>
+
+        </div>
+        <div class="entries_footer" >
+            <a href="{site_url}article/view_list/{$m.cl_id}" class="btn-fdr" >VIEW ALL</a>
+        </div>
+
+</div>
+
+{if $motogp}
+<div class="sidearticle_box">
+        <div class="sidearticle_header">MOTOGP STANDINGS</div>
+        <div class="entries_box">
+                <table class="entries_table">
+                    {foreach from=$motogp_racer name=gpc item=gpc}
+                    <tr>
+                        <td>
+                            <div class="red large" >0{$smarty.foreach.gpc.iteration}.</div>
+                            <div class="entries_title" >{$gpc.gpc_name}</div>
+                            <div class="entries_date" >{$gpc.gpc_team}</div>
+                        </td>
+                        <td>
+                            points <div class="large">{$gpc.gpc_score}</div>
+                        </td>
+                    </tr>
+                    {/foreach}
+                </table>
+        </div>
+        <div class="entries_footer">
+            <a href="{site_url}motogp/" class="btn-fdr" >VIEW ALL</a>
+        </div>
+</div>
+{/if}
+
+<div class="spacer10"></div>
+
+{foreach from=$racing name=r item=r}
+<div style="margin-bottom: 15px;">
+    <a href="{site_url}racing/view_race/{$r.r_id}">
+        <img src="{site_url}userfiles/upload/{$r.r_banner}" class="shadow1 rounded_all" >
+    </a>
+</div>
+{/foreach}-->

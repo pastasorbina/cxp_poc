@@ -1,0 +1,231 @@
+<ul class="breadcrumb">
+    <li><a href="{site_url}">Home</a></li>
+    <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+    <li><a href="#">Products</a></li>
+</ul>
+
+<style>
+    .fd_header {
+	background: #000000;
+    }
+	
+	.closest {
+		margin: 0px; margin-left: -10px; margin-right: 0px;
+		padding: 5px;
+		margin-top:5px;
+	}
+	.closest_header {
+		background: #D60F15; padding:5px 10px;
+		color: #ffffff; font-weight: bold; font-size: 16px;
+		border-radius: 10px 10px 0px 0px;
+		
+	}
+	.closest_ul{
+		overflow-y: auto;
+		max-height: 540px;
+		color: #ffffff;
+		margin:0px; padding:0px;
+	}
+	.closest_ul li{
+		list-style: none;
+		margin:0px; padding: 0px;
+		/*padding:5px 0px;*/
+		/*margin:5px 0px;*/
+		border-bottom: solid 1px #999999;
+		line-height: 15px;
+		color: #ffffff;
+	}
+	.closest_ul li a:hover {
+		text-decoration: none;
+		
+	}
+	.closest_ul li a:hover td{
+		background: #222222;
+	}
+	.closest_name {
+		font-size: 13px; font-weight: bold; color: #ffffff;
+		margin-bottom: 5px;
+	}
+	.closest_address {
+		font-size: 11px; color: #cccccc;
+	}
+	.closest_td_rank {
+		font-size: 12px; font-weight: bold; color: #ffffff;
+		padding: 5px 3px 5px 0px;
+		
+		background: #111111;
+		width: 20px;
+		text-align: right;
+	}
+	.closest_td_content {
+		padding:5px;
+	}
+	.closest_distance {
+		text-align: right;
+		font-size: 11px;
+		color: #ffffff;
+	}
+	.dlr_type {
+		/*background: #D60F15;*/
+		color: #ffffff;
+		font-size: 11px;
+		line-height: 11px;
+		padding:3px 7px;
+		border-radius: 0px 7px 7px 0px;
+		margin-left: -10px;
+	}
+	.dlr_type.Dealer {
+		background: #D60F15;
+		/*color: #D60F15;*/
+	}
+	.dlr_type.Store {
+		background: #0B107A;
+		/*color: #0B107A;*/
+	}
+	.tr_Dealer td:first-child, .tr_Dealer:hover td:first-child {
+		background: #D60F15;
+	}
+	.tr_Store td:first-child, .tr_Store:hover td:first-child {
+		background: #0B107A;
+	}
+</style>
+ 
+<script>  
+	
+</script>
+
+<script type="text/javascript">
+	$(function(){
+		//load_tire_search();
+		
+		$('.mapchange').click(function(e) {
+		    e.preventDefault();
+		    var lat = $(this).attr('data-lat');
+		    var long = $(this).attr('data-long');
+		    var zoom = $(this).attr('data-zoom');
+		    document.getElementById('mapframe').src = "{site_url}find_dealer/map/yes/"+zoom+"/"+lat+"/"+long+"/";
+		    var destination = $('#mapframe').offset().top;
+            $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination-150}, 500 ); 
+		});
+	}); 
+</script>
+ 
+<div>
+	<div class="fd_box">
+		<div class="fd_header">
+			<div class="fd_title" style="font-weight: bold;">FIND A DEALER</div>
+		</div>
+		<div class="fd_body">
+			<div class="row-fluid">
+				<div class="span9">
+					<div class="leftside"> 
+						<iframe id="mapframe" width="700" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+								src="{site_url}find_dealer/map/yes/{$zoom}/{$lat}/{$long}"></iframe> 
+					   
+						<div class="spacer20"></div>
+						<div class="locator_disclaimer">
+							<a href="{site_url}find_dealer/do_locator" class="btn btn-danger">Store Locator</a>
+							<div class="spacer5"></div>
+							Temukan toko terdekat yang menjual ban FDR dari lokasi anda berada.
+						</div> 
+					</div>
+				</div>
+				
+				<div class="span3">
+					<div class="closest">
+						<div class="closest_header">Dealers / Stores</div>
+						{if !$closest_dealers}
+						
+						{else}
+							<ul class="closest_ul">
+								{foreach from=$closest_dealers item=d name=d}
+								<li>
+									<a class="mapchange" data-lat="{$d.dlr_lat}" data-long="{$d.dlr_long}" data-zoom="12" >
+										<table style="width:100%;" >
+											<tr class="tr_{$d.dlr_type}" >
+												<td class="closest_td_rank">
+													<div class="">{$smarty.foreach.d.iteration}</div>
+												</td>
+												<td  class="closest_td_content" {if $d.dlr_image == ''}colspan="2"{/if} >
+													<div class="closest_name">{$d.dlr_name}</div>
+													<div class="closest_address">{$d.dlr_address}</div>
+													
+													<div style="margin-top: 4px;">
+														<div style="float:left;" class="dlr_type {$d.dlr_type}">{$d.dlr_type}</div>
+														<div style="float: right;" class="closest_distance" >{$d.distance} Km</div>
+														<div class="clear"></div>
+													</div>
+													
+												</td> 
+											</tr>
+										</table>
+									</a> 
+								</li> 	
+								{/foreach}
+							</ul>
+						{/if} 
+					</div>
+					
+					<!--<div class="closest">-->
+					<!--	<div class="closest_header">Closest Stores</div>-->
+					<!--	{if !$closest_stores}-->
+					<!--	-->
+					<!--	{else}-->
+					<!--		<ul class="closest_ul">-->
+					<!--			{foreach from=$closest_stores item=d name=d}-->
+					<!--			<li>-->
+					<!--				<a class="mapchange" data-lat="{$d.dlr_lat}" data-long="{$d.dlr_long}" data-zoom="12" >-->
+					<!--					<table style="width:100%;" >-->
+					<!--						<tr>-->
+					<!--							<td class="closest_td_rank">-->
+					<!--								<div class="">{$smarty.foreach.d.iteration}</div>-->
+					<!--							</td>-->
+					<!--							<td  class="closest_td_content" {if $d.dlr_image == ''}colspan="2"{/if} >-->
+					<!--								<div class="closest_name">{$d.dlr_name}</div>-->
+					<!--								<div class="closest_address">{$d.dlr_address}</div>-->
+					<!--								<div class="closest_distance" >{$d.distance} Km</div>-->
+					<!--							</td> -->
+					<!--						</tr>-->
+					<!--					</table>-->
+					<!--				</a> -->
+					<!--			</li> 	-->
+					<!--			{/foreach}-->
+					<!--		</ul>-->
+					<!--	{/if}-->
+					<!--</div>-->
+				   <!--<div id="TSearch_box" class="front_search_box"></div>-->
+				</div>
+			</div>
+		</div>
+		
+		<div class="fd_footer">
+			<div class="spacer20"></div>
+		</div>
+	</div>
+	
+	<div>
+	    <style>
+		.area_table  td { vertical-align: top; padding-right: 10px; padding-bottom: 5px; }
+		.area_table table td { vertical-align: top;  padding: 3px; }
+	    </style>
+	    <div class="spacer20"></div>
+	    <div class="" style="font-size: 18px; font-weight: bold; border-bottom: solid 1px #cccccc; padding-bottom: 10px; margin-bottom: 10px;  " >
+		Navigate Area
+	    </div>
+	     <table class="area_table" style="width: 100%;"> 
+		<tr>
+		    {foreach from=$dealer_area name=dlra item=dlra}
+		    <td width="100">
+			<a class="mapchange" data-lat="{$dlra.dlra_lat}" data-long="{$dlra.dlra_long}" data-zoom="7" >{$dlra.dlra_name}</a> 
+		    </td>
+			{if $smarty.foreach.dlra.iteration %6 == 0}
+			    </tr><tr>
+			{/if} 
+		    {/foreach}
+		</tr>
+	    </table> 
+	</div>
+</div>
+
+
+ 

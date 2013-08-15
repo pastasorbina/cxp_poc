@@ -1,0 +1,73 @@
+<style>
+	.startup_entries li{
+		border-bottom: solid 2px #DBD9D9;
+	}
+	.startup_entries li:hover{
+		border-bottom: solid 2px #666666;
+	}
+
+	.startup_entries li a{ padding-bottom: 10px; }
+	img.st_thumbnail {
+		background: #000000; width: 220px; height: 127px;
+	}
+
+	.st_detail { text-align: center; margin-top: 10px; margin-bottom: 10px; }
+	.st_category { margin-top: 6px; color: #666666; line-height: normal; }
+	.st_name { color: #333333; font-weight: bold; font-size: 13px; line-height: normal; }
+</style>
+
+<div class="topbanner" style="background-image:url({asset_url}img/poc/banner_startups.jpg);" >
+    <!--<div class="adesc">
+        <div class="topbanner_caption_wrap">
+        <div class="topbanner_caption_container">
+            <div class="topbanner_caption_inner">
+                <span class="topbanner_caption">
+                    <h2>
+                        We Provide Technology, support, visibility, and community to promising startup and enterpreneurs at no charge
+                    </h2>
+                    <div class="content">
+                        Donec eget dui dapibus dui lobortis pretium. Fusce condimentum fringilla pharetra. Proin nec pharetra odio.
+                        <button class="btn btn-poc">Join POC</button>
+                    </div>
+                </span>
+            </div>
+        </div>
+        </div>
+    </div>-->
+</div>
+
+
+<div class="container">
+    <div class="row-fluid">
+
+        <div class="span12">
+
+            <ul class="breadcrumb">
+                <li><a href="{site_url}">Home</a></li>
+                <li class="divider">&gt;&gt;</li>
+                <li><a href="#">Startups</a></li>
+            </ul>
+
+            <div>
+				<ul class="startup_entries thumbnails" style="margin-left: -20px;">
+					{foreach from=$startup name=s item=s}
+					<li>
+						<a href="{site_url}startup/view/{$s.s_id}">
+							<img class="st_thumbnail" src="{site_url}userfiles/upload/{$s.s_thumbnail}" >
+							<div class="st_detail">
+								<div class="st_name">{$s.s_name|character_limiter:26}</div>
+								<div class="st_category">{$s.sc_name}</div>
+							</div>
+						</a>
+					</li>
+					{/foreach}
+				</ul>
+                <div class="spacer20"></div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+    
+<ul class="breadcrumb">  
+    <li><a href="{site_url}">Home</a></li>
+    <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+    <li><a href="{site_url}club">Clubs</a></li>
+    <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+    <li>Send E-Card</li> 
+</ul>
+     
+     
+    <div class="article_entry_header">
+        <div class="article_entry_header_text">Send E-Card <img src="{asset_url}img/fdr/news_title_arrow.png" /> </div>
+    </div>
+    
+    <div style="margin:10px;" >
+        
+    </div>
+    <div style="margin-top: 10px;">
+        
+        {''|validation_errors}
+         
+          <form  id="form_send_email_{$download.dl_id}" data-id="{$download.dl_id}" method="post" class="form-horizontal form_send_email" >
+                <input type="hidden" name="id" value="{$download.dl_id}" >
+                
+                <div class="control-group">
+                      <div class="control-label"></div>
+                      <div class="controls">
+                            
+                            <a href="{site_url}userfiles/upload/{$download.dl_image}" class="colorbox">
+                                <img src="{site_url}userfiles/upload/{$download.dl_image}" alt="download" style="max-width: 300px;" class="shadow" />
+                            </a>
+                            <div class="small">click to view larger image</div>
+                      </div>
+                </div>
+                <div class="control-group">
+                      <div class="control-label">Your Name</div>
+                      <div class="controls">
+                            <input type="text" name="name" />
+                      </div>
+                </div>
+                <div class="control-group">
+                      <div class="control-label">From</div>
+                      <div class="controls">
+                            <input type="text" name="senderemail" placeholder="sender@email.com" />
+                      </div>
+                </div>
+                <div class="control-group">
+                      <div class="control-label">To</div>
+                      <div class="controls">
+                            <input type="text" name="email" placeholder="recipient@email.com" />
+                      </div>
+                </div>
+                
+                <div class="control-group">
+                      <div class="control-label">Message</div>
+                      <div class="controls">
+                            <textarea rows="6" cols="100" name="message"></textarea>
+                      </div>
+                </div>
+                
+                <div class="form-actions">
+                      <input type="submit" value="Send">
+                </div>
+          </form>
+    </div>

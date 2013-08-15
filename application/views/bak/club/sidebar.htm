@@ -1,0 +1,168 @@
+<style>
+        .loginbox {
+                margin: 10px 0px 20px 0px;
+        }
+         .loginbox .control-group{
+                margin-bottom: 5px;
+         }
+</style>
+
+        {if !$userinfo}
+            <a href="{site_url}register">
+                <img src="{asset_url}img/fdr/join_now.jpg" />
+            </a>
+            <div class="loginbox">  
+                <form name="form1" method="post" style="padding:0; margin: 0;" action="{site_url}auth/login" >
+                    {$error_string}
+                    <div class="control-group" >
+                        <div class="control-label hide" for="username">Email</div>
+                        <div class="controls">
+                            <input type="text" class="span12" name="username" id="username" placeholder="Administrator ID" value="" >
+                        </div>
+                    </div>
+                    <div class="control-group" style="margin-top: -10px;" >
+                        <div class="control-label hide" for="password">Password</div>
+                        <div class="controls">
+                            <input type="password" class="span12"  name="pass" id="pass" placeholder="Password" value="" >
+                        </div>
+                    </div> 
+                    <div style="text-align: right; margin-top: -10px;" >
+                       <a href="{site_url}register" class="btn btn">Signup</a>
+                       <input class="btn btn-inverse" type="submit" value="Login"> 
+                    </div>  
+                </form>
+            </div>
+        {else} 
+            
+            <div class="">
+                <div style="padding:0px 0px 10px 0px;" >
+                    Welcome, {$userinfo.club_admin_name}
+                </div>
+                <ul class="nav nav-tabs nav-stacked"> 
+                    <li><a href="{site_url}club_manage">Manage Club</a></li>
+                    <li><a href="{site_url}club_manage/list_content/">Manage Club News/Events</a></li> 
+                    <li><a href="{site_url}auth/logout"><i class="icon-off"></i> logout</a></li>
+                </ul>
+            </div>
+        {/if}
+
+
+<div class="sidearticle_box shadow1 rounded_all" style=""  >
+        <div class="sidearticle_header">CLUB EVENTS</div>
+        <div class="entries_box" style="min-height: 253px; overflow: auto; background: #dddddd;">
+                <table class="entries_table" >
+                    {foreach from=$event item=m name=m}
+                    <tr>
+                        <td>
+                            <div class="entries_title" >
+                                <a href="{site_url}club/view_content/{$m.clubc_id}/{$m.clubc_title|url_title}">{$m.clubc_title}</a>
+                            </div>
+                            <div class="entries_date" >{$m.clubc_date|date_format:'d F Y'}</div> 
+                        </td>
+                    </tr>
+                    {/foreach}
+                </table>
+               
+        </div>
+         <div class="entries_footer rounded_bottom">
+            <a href="{site_url}club/list_content/Event/" class="btn-fdr hide" >VIEW ALL</a>
+        </div>
+</div>
+
+<div class="sidearticle_box shadow1 rounded_all">
+        <div class="sidearticle_header">CLUB NEWS</div>
+        <div class="entries_box" style="height: 253px; overflow: auto; background: #dddddd;">
+                <table class="entries_table">
+                    {foreach from=$news item=m name=m}
+                    <tr>
+                        <td>
+                            <div class="entries_title" >
+                                <a href="{site_url}club/view_content/{$m.clubc_id}/{$m.clubc_title|url_title}">{$m.clubc_title}</a>
+                            </div>
+                            <div class="entries_date" >{$m.clubc_date|date_format:'d F Y'}</div> 
+                        </td>
+                    </tr>
+                    {/foreach}
+                </table>
+                
+        </div>
+        <div class="entries_footer rounded_bottom ">
+            <a href="{site_url}club/list_content/News/" class="btn-fdr hide" >VIEW ALL</a>
+        </div>
+</div>
+
+<style>
+        .artgallery_box{
+                 background: #ffffff;
+                 padding:10px;
+                 display: block;
+        }
+        .thumbnails.artgallery {
+                background: #ffffff;
+                
+        }
+          .thumbnails.artgallery li:first-child{
+                margin-left: 0px;
+          }
+         .thumbnails.artgallery li{
+                margin-left: 5px;
+        }
+        
+        .artgallery_table td {
+                padding-right: 5px;
+        }
+        .artgallery_table td:last-child {
+                padding-right: 0px;
+        }
+</style>
+
+{if $club_id != 0}
+        <div class="sidearticle_box" style="box-shadow: none;">
+            <div class="sidearticle_header">GALLERY</div>
+            <div class="entries_box" >
+                    <div class="artgallery_box" style="background: #dddddd;">
+                        {if !$files}
+                            <div class="red">no gallery available</div>
+                        {else}
+                        <table class="artgallery_table">
+                            <tr>
+                            {foreach from=$files item=m name=m} 
+                                <td>
+                                    <div class="" style="text-align: center; margin-bottom: 5px;" >
+                                        <a href="{site_url}userfiles/upload/{$m.clubf_file}" class="colorbox">
+                                                <img src="{site_url}userfiles/upload/thumb/{$m.clubf_file}" class="thumb" style=" " width="60" height="60">
+                                        </a>
+                                    </div>
+                                    <!--<div class="entries_title" style="text-align: center;" >-->
+                                        <!--{$m.clubf_title}-->
+                                    <!--</div>-->
+                                    <!--<div class="entries_date"  style="text-align: center; margin-top: -5px; font-size: 11px;" >{$m.clubf_date|date_format:'d F Y'}</div> -->
+                                </td>
+                                {if $smarty.foreach.m.iteration % 3 == 0}</tr><tr>{/if}
+                            {/foreach}
+                            </tr>
+                        </table>
+                        {/if}
+                    </div>
+                    <!--<div class="artgallery_box">-->
+                    <!--        <ul class="thumbnails artgallery"> -->
+                    <!--                {foreach from=$files item=m name=m}-->
+                    <!--                   <li>-->
+                    <!--                        <a href="{site_url}userfiles/upload/{$m.clubf_file}" class="colorbox">-->
+                    <!--                                <img src="{site_url}userfiles/upload/thumb/{$m.clubf_file}" class="thumb" style="" width="60" height="50">-->
+                    <!--                        </a>-->
+                    <!--                    </li>-->
+                    <!--                {/foreach}-->
+                    <!--        </ul>-->
+                    <!--        <div class="clear"></div>-->
+                    <!--</div>-->
+                    <div class="sidearticle_footer hide">
+                        <a href="{site_url}article/view_list/{$m.cl_id}" class="btn-fdr hide" >VIEW ALL</a>
+                    </div>
+            </div>
+            <div class="entries_footer rounded_bottom ">
+                <!--<a href="{site_url}article/view_list/{$m.cl_id}" class="btn-fdr hide" >VIEW ALL</a>-->
+            </div>
+        </div> 
+{/if}
+  

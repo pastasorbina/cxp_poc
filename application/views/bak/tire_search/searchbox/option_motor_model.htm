@@ -1,0 +1,4 @@
+<option value="0" class="ts_option ts_option_default" >MODEL</option>
+{foreach from=$motor_model item=mm name=mm}
+    <option value="{$mm.mm_id}" {if $mm_id == $mm.mm_id}selected="selected"{/if} class="ts_option" data-id="{$mm.mm_id}" id="mm_{$mm.mm_id}" >{$mm.mm_name}</option>
+{/foreach}

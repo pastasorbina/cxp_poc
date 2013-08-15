@@ -1,0 +1,44 @@
+<div class="spacer20"></div>
+<div class="spacer20"></div>
+
+<style>
+	.form_list li a{ color: #000000;}
+	.form_list li a:hover, .form_list li.active a{ color: #F64807;}
+</style>
+
+<div class="sidebox"  >
+	<div style="border-bottom: solid 1px #333333; padding-bottom: 20px; margin-bottom: 10px; ">
+		<div style="letter-spacing: 2px; font-weight: bold; ">
+			LATEST POST
+		</div>
+	</div>
+
+	<ul class="form_list">
+	{foreach from=$all_forms item=m name=m}
+		<li class="{if $m.f_id == $f_id}active{/if}" >
+			<a href="{site_url}form/view/{$m.f_id}/">{$m.f_name}</a>
+		</li>
+	{/foreach}
+	</ul>
+
+</div>
+
+<div class="sidebox"  >
+	<div class="header" style="">
+		CONTACT US
+	</div>
+
+	<b>POC</b>
+	<p>
+		Jl. Lorem Ipsum xXXXX no. 23 <br>
+		Bandung 1033
+	</p>
+	<p>
+		Phone : 1.800.23.030 <br>
+		Fax : 1.492.23.232 <br>
+		Email : info@proofofconcept.co.id
+	</p>
+
+</div>
+
+<div class="spacer20"></div>

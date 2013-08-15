@@ -1,0 +1,107 @@
+<script type="text/javascript" >
+	function doSave(savekey){
+		document.formSubmit.save_status.value = savekey;
+		document.formSubmit.submit();
+	}
+
+
+	$(document).ready(function() {
+		$("#content_option_link_add").bind('click', function(e) {
+			e.preventDefault();
+			var html = '<tr class="product_option_tr" ><td>';
+			html += '<div class="pull-right"> <a class="content_option_link_detach" href="#">remove</a></div>';
+			html += '<input type="text" name="co_key[]" value="" size="27" style="margin-bottom:5px;" >';
+			html += '<input type="hidden" name="co_id[]" value="0">';
+			html += '<textarea name="co_value[]" cols="30" rows="4"  ></textarea>';
+			html += '</td></tr>';
+			$("#content_option_table").append(html);
+		});
+
+		$(".content_option_link_detach").live('click', function(e) {
+			e.preventDefault();
+			var answer = confirm("are you sure？");
+			if (answer){
+				$(this).parents("tr").remove();
+			}
+		});
+	});
+
+	function remove_media(ap_pos) {
+		var target = $('#target_media_'+ap_pos);
+		target.children('#data').html('');
+		target.children('#m_id').val('');
+	}
+</script>
+
+
+<ul class="breadcrumb breadcrumb-small"  >
+	<li><a href="{site_url}admin/club/list_club_files/{$club_id}">back</a></li>
+	<li class="divider">»</li>
+	<li>{$content.clubf_title}</li>
+</ul>
+
+<div class="mod_title">
+	{$ajax_action} gallery
+</div>
+
+
+{$mod_subtitle_html}
+
+{''|validation_errors}
+
+<form enctype="multipart/form-data" name="formSubmit" method="post" class="form-horizontal" >
+	<input type="hidden" name="club_id" value="{$club_id|default:$content.club_id}" >
+
+	<div class="form-actions form-actions-top" align="right" >
+		
+		<input class="btn btn-primary" name="add" type="submit" value="Publish" />
+		<input class="btn btn-info" name="save_draft" type="submit" value="Draft"  />
+		<a href="{'content-list'|get_bread}" ><input type="button" class="btn" value="Cancel" /></a>
+	</div>
+
+
+	<div class="">
+	<div class="row-fluid">
+ 
+		<div class="span12">
+			
+			<div class="control-group groupbox">
+				<label class="control-label">File</label>
+				<div class="controls"> 
+					{if $content.clubf_file !=''}
+						<a href="{site_url}userfiles/upload/{$content.clubf_file}" class="colorbox" >
+							<img src="{site_url}userfiles/upload/thumb/{$content.clubf_file}" class="thumb" />
+						</a>
+					{/if}
+					<input type="file" name="clubf_file" class="span8" >
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label">Title</label>
+				<div class="controls">
+					<input type="text" name="clubf_title" style="" class="span12" value="{$content.clubf_title}">
+				</div>
+			</div>
+			
+			<div class="control-group groupbox">
+				<label class="control-label">Date</label>
+				<div class="controls">
+					<input type="text" name="clubf_date" value="{$content.clubf_date|date_format:'Y-m-d'}" class=" datepicker"  />
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+	</div>
+
+
+
+	<div class="form-actions" align="right" >
+			<!--<input type="hidden" name="cl_id" value="{$content.cl_id}" >-->
+			<input class="btn btn-primary" name="add" type="submit" value="Save" /> 
+			<a href="{site_url}admin/club/list_club_files/{$club_id}" ><input type="button" class="btn" value="Cancel" /></a>
+	</div>
+
+</form>

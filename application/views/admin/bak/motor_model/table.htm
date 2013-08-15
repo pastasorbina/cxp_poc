@@ -1,0 +1,24 @@
+
+<h2><a href="{$mod_url}">&lt; back</a> | {$motor.mm_name}</h2>
+
+<table class="table table-condensed">
+    {foreach from=$maindata item=m name=m}
+    <tr>
+        <td>
+            {$m.t_name}
+        </td>
+        <td>
+            {$m.ts_name}
+        </td>
+        <td>
+            {$m.tr_name}
+        </td>
+        <td>
+            {$m.tsc_name}
+        </td>
+        <td>
+            {$m.mm_name}
+        </td>
+    </tr>
+    {/foreach}
+</table>

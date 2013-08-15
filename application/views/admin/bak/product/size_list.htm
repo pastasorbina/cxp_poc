@@ -1,0 +1,87 @@
+
+<ul class="nav nav-tabs">
+	<li class="{if $pq_status == 'Active'}active{/if}" >
+		<a href="#" class="" id="ajax_list_size_active" title="view active sizes"><i class="icon-ok"></i> Active</a>
+	</li>
+	<li class="{if $pq_status == 'Deleted'}active{/if}" >
+		<a href="#" class="" id="ajax_list_size_deleted" title="view deleted sizes"><i class="icon-trash"></i> Deleted</a>
+	</li>
+</ul>
+<div class="spacer5"></div>
+
+<table class="table table-bordered table-striped table-condensed">
+	<tr class="blue">
+		<th>Size</th>
+		<th>Current Stock</th>
+		<th width="60"></th>
+		<th width="80"></th>
+	</tr>
+	{foreach from=$product_quantity name=pq item=pq}
+		<tr>
+			<td>
+				{$pq.pq_size}
+			</td>
+			<td>
+				{$pq.pq_quantity|strip_zero}
+			</td>
+			<td>
+				<form method="post" action="{site_url}item_stock/change_stock" id="change_stock_form" style="margin:0;">
+					<a href="{site_url}admin/item_stock/stock_change/{$pq.pq_id}/stock_in"
+					   class="wgm_open_modal" id="" >+ in</a> | 
+					<a href="{site_url}admin/item_stock/stock_change/{$pq.pq_id}/stock_out"
+					   class="wgm_open_modal" id="" >- out</a>
+				</form>
+			</td>
+			<td>
+				{if $pq.pq_status == 'Deleted'}
+					<a href="{$mod_url}ajax_restore_size/{$pq.pq_id}" class="ajax_restore_size" title="restore size">restore</a>
+				{elseif $pq.pq_status == 'Active'}
+					<a href="{$mod_url}ajax_edit_size/{$pq.pq_id}" class="wgm_open_modal" title="edit size">edit</a> |
+					<a href="{$mod_url}ajax_delete_size/{$pq.pq_id}" class="ajax_delete_size">delete</a>
+				{/if}
+			</td>
+			
+		</tr>
+	{/foreach}
+</table>
+
+
+
+
+
+<script>
+	var mod_url = "{$mod_url}";
+	var p_id = "{$p_id}";
+	$(document).ready(function() {
+		$('.ajax_delete_size').bind('click', function(e) {
+			e.preventDefault();
+			var answer = confirm("are you sure ?");
+			var href = $(this).attr('href');
+			if (answer){
+				$.post(href, { }, function(data){
+					load_list_size(p_id, 'Active');
+				},'html');
+			}
+		});
+
+		$('.ajax_restore_size').bind('click', function(e) {
+			e.preventDefault();
+			var answer = confirm("are you sure ?");
+			var href = $(this).attr('href');
+			if (answer){
+				$.post(href, { }, function(data){
+					load_list_size(p_id, 'Deleted');
+				},'html');
+			}
+		});
+
+		$('#ajax_list_size_active').bind('click', function(e) {
+			e.preventDefault();
+			load_list_size(p_id, 'Active');
+		});
+		$('#ajax_list_size_deleted').bind('click', function(e) {
+			e.preventDefault();
+			load_list_size(p_id, 'Deleted');
+		});
+	});
+</script>

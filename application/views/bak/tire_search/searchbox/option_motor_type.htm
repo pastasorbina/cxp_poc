@@ -1,0 +1,4 @@
+<option value="0">MOTOR TYPE</option>
+{foreach from=$motor_type item=mt name=mt}
+    <option value="{$mt.mt_id}" {if $mt_id == $mt.mt_id}selected="selected"{/if} >{$mt.mt_name}</option>
+{/foreach}

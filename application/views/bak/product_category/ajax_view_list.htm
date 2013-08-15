@@ -1,0 +1,203 @@
+<!--{$pc_id} - {$viewtype} - {$orderby} - {$ascdesc}-->
+
+<script>
+    $(document).ready(function(){
+        
+        $('#ajax_filter_product_category').submit(function(e) {
+			e.preventDefault();
+			$('#ajax_filter_product_category').ajaxSubmit({
+				success: function(data ) {
+					if (data.status == 'ok') {
+                        //alert(data.href);
+                        console.log(data.uri);
+						load_midpane(data.href); 
+					}
+					else {
+						alert(data.msg);
+					}
+				},
+				dataType: 'json'
+			});
+		});
+          
+
+        $('#orderby').change( function(e) {
+            $('#ajax_filter_product_category').submit();
+        });
+        
+        
+    });
+</script>
+
+<div>
+	<ul class="breadcrumb">
+		{foreach from=$breadcrumb item=b name=b}
+		<li>
+			<a href="{site_url}product_category/ajax_view_list/{$b.pc_id}/{$viewtype}" class="load_midpane" >{$b.pc_name}</a>
+		</li>
+		<li class="divider">&gt;</li>
+		{/foreach}
+	</ul>
+</div>
+
+{if !$maindata}
+    <div class="alert alert-error">
+        No product available
+    </div>
+{else}
+    
+    <!--{foreach from=$pc_list name=pcl item=pcl}-->
+    <!--{$pcl.pc_name}[{$pcl.pc_id}]-->
+    <!--{/foreach}-->
+    
+    <div class="filter form-inline" style="clear: both; padding:5px; margin-bottom: 10px;" >
+        <form class="form-inline" id="ajax_filter_product_category" method="post" action="{site_url}/product_category/ajax_filter/" >
+            <input type="hidden" name="page" value="{site_url}product_category/ajax_view_list">
+            <input type="hidden" name="offset" value="{$offset}">
+            <input type="hidden" name="pagelimit" value="{$pagelimit}">
+            <input type="hidden" name="viewtype" value="{$viewtype}">
+            <input type="hidden" name="pc_id" value="{$pc_id}">
+        
+            <ul class="nav nav-inline pull-left"> 
+                <li class="{if $viewtype == "list"}active{/if}" >
+                    <a class="load_midpane" href="{site_url}product_category/ajax_view_list/{$pc_id}/list" style="border: solid 1px #dddddd;" ><i class="icon-th-list"></i></a>
+                </li>
+                <li class="{if $viewtype == "grid"}active{/if}" >
+                    <a class="load_midpane" href="{site_url}product_category/ajax_view_list/{$pc_id}/grid" style="border: solid 1px #dddddd;" ><i class="icon-th-large"></i></a>
+                </li>
+            </ul>
+            
+            <div class="pull-right">
+               <!-- Show : 
+                <select class="small">
+                    <option>- All Brand -</option>
+                    <option>asdasdasdasd</option>
+                    <option>asdasdasdasd</option>
+                    <option>asdasdasdasd</option>
+                </select>-->
+                Sort : 
+                <select id="orderby" name="orderby" class="small input-small">
+                    <option value="p_name" {if $orderby == 'p_name'}selected="selected"{/if} >Name</option>
+                    <option value="p_price" {if $orderby == 'p_price'}selected="selected"{/if} >Price</option> 
+                </select>
+            </div>
+        
+        </form> 
+        <div class="clear"></div>
+    </div>
+    
+	{if $viewtype == 'list'}
+		<table class="table table-striped table-condensed" style="margin:0 auto;"> 
+			{foreach from=$maindata name=m item=m} 
+				<tr>
+					<td width="80">
+						<a href="{site_url}product/ajax_view/{$m.p_id}" class="load_midpane">
+							{if $m.p_image1}
+								<img src="{site_url}userfiles/product/m/{$m.p_image1}" width="80" height="80" />
+							{else}
+								<img src="{asset_url}img/no_image.gif" width="80" height="80" />
+							{/if}
+						</a>
+					</td>
+					<td>
+						<div class="product_name" style="font-weight: bold; margin-bottom: 5px;" >
+							<a href="{site_url}product/ajax_view/{$m.p_id}" class="load_midpane">
+								{$m.p_name}
+							</a>
+						</div>
+						{if $m.p_brief}
+						<div class="product_desc" style="margin-top: -5px; margin-bottom: 5px;" >
+							{$m.p_brief}
+						</div>
+						{/if}
+						 <div class="list_addtocart form-inline">
+							<form>
+								<select name="quantity" class="cart_quantity input-small small" style="width: auto;" >
+									<option value="1" >1</option>
+									<option value="2" >2</option>
+									<option value="3" >3</option>
+									<option value="4" >4</option>
+									<option value="5" >5</option>
+								</select>
+								<select name="size" class="cart_size input-small small size hide"  >
+									{foreach from=$m.pq item=pq name=pq}
+										<option value="{$pq.pq_id}">{$pq.pq_size}</option>
+									{/foreach}
+								</select> 
+								<input type="hidden" class="cart_p_id" name="p_id" value="{$m.p_id}">
+								<input type="hidden" class="cart_pr_id" name="pr_id" value="0">
+								<a class="cart_submit btn btn-small addtocart"> Add To Cart</a>
+							</form>
+						</div>
+					</td>
+					<td style="text-align:right;" width="100" >
+						Rp. {$m.p_price|price_format},-     
+					</td> 
+				</tr>   
+			{/foreach}
+		</table>
+	{elseif $viewtype == 'grid'}
+		<div style="text-align: center;">
+			<table class="table " style="width: auto;">
+				<tr>
+				{foreach from=$maindata name=m item=m}
+					
+					<td style="width: 200px; border: solid 1px #cccccc;" >
+						<div style="padding: 5px; text-align: center;">
+							<a href="{site_url}product/ajax_view/{$m.p_id}" class="load_midpane">
+								{if $m.p_image1}
+									<img src="{site_url}userfiles/product/m/{$m.p_image1}" style="width: 100%;" />
+								{else}
+									<img src="{asset_url}img/no_image.gif" width="100" height="100" />
+								{/if}
+							</a>
+						</div>
+						
+						<div class="caption" style=" border-top: solid 1px #cccccc;">
+							<div class="product_name" style="font-weight: bold; margin-bottom: 10px;" >
+								<a href="{site_url}product/ajax_view/{$m.p_id}" class="load_midpane">
+									{$m.p_name}
+								</a>
+							</div> 
+							<div class="product_desc" style="margin-top: -5px; margin-bottom: 10px; min-height: 12px;" >
+								{$m.p_brief}
+							</div>
+							
+							<div style="">
+								<div style="text-align:right; margin-bottom: 10px; font-weight: bold; font-size: 14px;" >
+									Rp. {$m.p_price|price_format},-     
+								</div> 
+								<div class="list_addtocart form-inline " style=" text-align: right; ">
+									<form>
+										<select name="quantity" class="cart_quantity input-small small" style="width: auto;" >
+											<option value="1" >1</option>
+											<option value="2" >2</option>
+											<option value="3" >3</option>
+											<option value="4" >4</option>
+											<option value="5" >5</option>
+										</select>
+										<select name="size" class="cart_size input-small small size hide"  >
+											{foreach from=$m.pq item=pq name=pq}
+												<option value="{$pq.pq_id}">{$pq.pq_size}</option>
+											{/foreach}
+										</select> 
+										<input type="hidden" class="cart_p_id" name="p_id" value="{$m.p_id}">
+										<input type="hidden" class="cart_pr_id" name="pr_id" value="0">
+										<a class="cart_submit btn btn-small addtocart"> Add To Cart</a>
+									</form>
+								</div>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</td>
+					{if $smarty.foreach.m.iteration % 4 == 0}</tr><tr>{/if}
+				{/foreach}
+				</tr>
+			</table>
+		</div>
+		 
+	{/if}
+	
+	{$paging}
+	{$paging_js}
+{/if}

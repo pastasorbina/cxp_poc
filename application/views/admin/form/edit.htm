@@ -1,0 +1,151 @@
+
+<style>
+	.fields_entry {
+		border: dashed 1px #CCCCCC;
+		border-bottom: solid 1px #333333;
+		margin-bottom: 10px;
+		padding: 10px 10px;
+		background: #F4F9C0;
+		background: #EEEEEE;
+	}
+</style>
+<script>
+	$(function() {
+
+		site_url = "{site_url}";
+
+		$('#add_new_field').click(function() {
+			$.post( '{$mod_url}add_new_field/{$f_id}' , { dummy : 1 } , function(data) {
+				$('#fields_info').append(data);
+			});
+
+			return false;
+		});
+
+		$('#add_new_grouping').click(function() {
+			$.get( '{$mod_url}grouping_list' , function(data) {
+				$('#grouping_box').append(data);
+			});
+			return false;
+		});
+	} );
+</script>
+
+<div class="error">
+	{''|validation_errors}
+</div>
+
+<fieldset>
+<legend>Edit Form</legend>
+<form name="form1" method="post" class="form-horizontal">
+
+	<!--<div class="control-group">
+		<label class="control-label">Name</label>
+		<div class="controls">
+			<input type="text" name="f_name" value="{$maindata->f_name}" class="span7" >
+		</div>
+	</div>-->
+
+	<div class="control-group">
+		<label class="control-label">Name</label>
+		<div class="controls">
+			<input type="text" name="f_name" value="{$maindata->f_name}" class="span7" >
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Fields</label>
+		<div class="controls ">
+			<div class="grouping_box"></div>
+
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Fields</label>
+		<div class="controls">
+			<div id="fields_info">
+			{foreach from=$form_detail item=fd}
+				<div class="fields_entry">
+					<div>
+						<input type="hidden" name="uniq[]" value="{$fd.fd_id}" />
+						Key : <input type="text" name="key[{$fd.fd_id}]" value="{$fd.fd_key}" />
+						Type : 	<select name="type[{$fd.fd_id}]">
+									{html_options options=$form_type selected=$fd.fd_type}
+								</select>
+						Regex : <input type="text" name="regex[{$fd.fd_id}]" value="{$fd.fd_regex}" />
+						Required : <input type="checkbox" name="required[{$fd.fd_id}]" value="1" {if $fd.fd_req=='True'}checked{/if} />
+
+					</div>
+					<div>
+						Option :
+						<textarea name="options[{$fd.fd_id}]" rows="2" style="width: 80%;">{$fd.fd_options}</textarea>
+					</div>
+					<div>
+						Grouping :
+						<select name="grouping[{$fd.fd_id}]">
+							{foreach from=$allgrouping name=ag item=ag}
+							 <option value="{$ag.fg_id}" {if $ag.fg_id == $fd.fg_id}selected="selected"{/if} >{$ag.fg_name|character_limiter:100}</option>
+							{/foreach}
+						</select>
+					</div>
+					<div>
+						Display Title : 
+						<select name="displaytitle[{$fd.fd_id}]">
+							<option value="Yes" {if $fd.fd_display_title == 'Yes'}selected="selected"{/if}>Yes</option>
+							<option value="No" {if $fd.fd_display_title == 'No'}selected="selected"{/if}>No</option>
+						</select>
+					</div>
+				</div>
+			{/foreach}
+			</div>
+
+			<div class="spacer10"></div>
+			<a href="#" id="add_new_field" class="btn">Add new Field</a>
+			<div class="spacer10"></div>
+			<pre style="padding: 0 10px;">
+{literal}
+Key : Pertanyaan yang akan tampil di form
+Type : Type jenis input
+Reqex : Reqular expression untuk validasi input
+	Alpha : ^[a-zA-Z]*$
+	Numeric : ^[0-9]*$
+	Alpha Numeric : ^[a-zA-Z0-9]*$
+	Email : ^\w[-._\w]*\w@\w[-._\w]*\w\.\w{2,3}$
+	Atau anda bisa bikin regex anda sendiri
+Option : Dipakai untuk tipe SELECT, RADIO, CHECKBOX untuk menampilkan nilai pilihan yang tersedia
+	Dipisahkan oleh tanda pipe (|)
+	Contoh : Ya | Tidak
+		atau
+		Managemen | Akuntansi | Finance | Komputer | Yang lain
+Required : Centangkan bila field ini diperlukan
+{/literal}
+			</pre>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Header Text</label>
+		<div class="controls">
+			<textarea name="f_header_text" class="ckeditor">{$maindata->f_header_text}</textarea>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Footer Text</label>
+		<div class="controls">
+			<textarea name="f_footer_text" class="ckeditor">{$maindata->f_footer_text}</textarea>
+		</div>
+	</div>
+
+
+
+
+
+<div class="form-actions" style="text-align: right;" >
+	<input class="btn btn-primary" name="add" type="submit" value="Save" />
+	<a href="{$LAST_LIST}" class="btn do_cancel">Cancel</a>
+</div>
+
+</form>
+</fieldset>

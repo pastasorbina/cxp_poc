@@ -1,0 +1,94 @@
+    <div class="footer_wrap">
+        <div class="footer_inner container">
+
+            <div class="fwrap">
+            <div class="row-fluid">
+                    <div class="span3">
+                        <div class="fmilis_header">Join Our Mailing List :</div>
+                        <div class="fmilis_box">
+                            <form class="fmilis_form">
+                                <input type="text" placeholder="First Name" />
+                                <input type="text" placeholder="Last Name" />
+                                <input type="text" placeholder="Email Address" />
+                                <div style="text-align: right;" >
+                                    <input type="submit" value="Submit" class="btn" >
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="span3">
+                        <div class="flist_header">About Proof Of Concept</div>
+                        <ul class="flist">
+							{foreach from=$about_footer name=am item=am}
+							<li><a href="{$am.m_link}">{$am.m_name}</a></li>
+							{/foreach}
+                        </ul>
+                    </div>
+
+                    <div class="span3">
+                        <div class="flist_header">Proof Of Concept Partners</div>
+                         <ul class="flist">
+							{foreach from=$footer_partners item=f name=f}
+                            <li><a href="{site_url}page/view/{$f.c_id}/{$f.c_title|url_title:'_':TRUE}">{$f.c_title}</a></li>
+							{/foreach}
+                        </ul>
+                    </div>
+
+                    <div class="span3">
+                        <div class="flist_header">Upcoming Events</div>
+                        <ul class="flist">
+							{foreach from=$footer_events item=fe name=fe}
+                            <li><a href="">{$fe.e_name}</a></li>
+							{/foreach}
+                        </ul>
+                    </div>
+            </div>
+            </div>
+
+            <div class="fextra_wrap">
+                <div class="row-fluid">
+                    <div class="span3">
+
+                    </div>
+                    <div class="span3">
+                        <ul class="fextra_links">
+                            <li><a href="{$site_config.facebook_url}">follow @poc on twitter</a></li>
+                            <li><a href="{$site_config.twitter_url}">like proofofconcept on facebook</a></li>
+                        </ul>
+                    </div>
+                    <div class="span6" style="position: relative;" >
+						<img class="fbigimg" src="{asset_url}img/poc/poc_footer_logo.png" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="footer_dock">
+                <div class="pull-left">
+                    <div class="fcopyright"><span style="color: #FFFFFF;">Copyright 2013 Proof Of Concept.</span> Design by Ricksdesign</div>
+                </div>
+                <div class="pull-right">
+                    <ul class="footer_links">
+                        <li><a href="{site_url}">Home</a></li>
+                        <li><a href="{site_url}page/view/5/about-us">About</a></li>
+                        <li><a href="{site_url}startup/view_list">Startups</a></li>
+                        <li><a href="{site_url}">Partners</a></li>
+                        <li><a href="{site_url}form/view/1/">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div> <!--master_container--END-->
+</div> <!--master_wrap--END-->
+
+
+
+
+</body>
+</html>

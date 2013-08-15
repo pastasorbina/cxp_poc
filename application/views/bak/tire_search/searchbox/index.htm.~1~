@@ -1,0 +1,203 @@
+<style>
+    .TS_wrap {
+        margin-top: -12px;
+    }
+    .TS_header {
+        
+    }
+    .TS_body {
+        background: #313131;
+        border-radius: 0px 0px 10px 10px;
+        /*padding:10px;*/
+    }
+    .TS_inset {
+        padding:8px 12px;
+        color: #999999;
+    }
+    img.TS_inset_header {
+        border-top: solid 1px #222222;
+        border-bottom: solid 1px #222222;
+    }
+    .TS_inset_header:hover {
+        background: #AB0C11;
+    }
+    .TS_set {
+        margin-bottom: 5px;
+    }
+    .TS_set_header {
+        background: url({asset_url}img/fdr/fyt-group-header.png) no-repeat left;
+        
+    }
+    .TS_set_header a {
+        color: #ffffff;
+        display: block;
+        padding: 3px 10px 3px 15px;
+        text-shadow: 1px 1px #333333;
+    }
+    .TS_set_header a:hover {
+        text-decoration: none;
+        color: #F2CDCD; 
+    }
+    
+    .TS_submit_wrap {
+        text-align: center;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        
+    }
+    .TS_submit_button{
+        box-shadow: 0px 0px 3px #5B5858;
+    }
+</style>
+
+<script>
+    $('.TS_open_inset').click(function(e) {
+        e.preventDefault();
+        var insetid = $(this).attr('data-insetid');
+        var searchby = $(this).attr('data-searchby');
+        //$('#searchby').val(searchby);
+        $('.TS_inset').hide('fast');
+        $('#'+insetid).show('fast');
+    });
+    
+    $(function(){
+        
+        $('#get_tire_ratio').click(function(e) {
+            e.preventDefault();
+            $.post('{site_url}tire_search/get_list_rim', {}, function(data) {
+                $('#tire_ratio_box').html(data);
+            },'html');
+        });
+        
+        $("#tr_id").selectbox();
+        $("#ts_id").selectbox();
+        $("#mt_id").selectbox();
+        $("#mb_id").selectbox();
+        $("#mm_id").selectbox();
+        
+        $('.TS_submit_button').click(function(e) {
+            e.preventDefault();
+            var by = $(this).attr('data-by');
+            $('#TS_form_'+by).submit();
+        });
+    });
+    
+   
+</script>
+<!--{$searchby}-->
+
+
+<div class="TS_wrap">
+    <div class="TS_header">
+        <img src="{asset_url}img/fdr/fyt-top.png" >
+    </div>
+    <div class="TS_body">
+        
+    
+        <a href="" class="TS_inset_header TS_open_inset" id="TS_open_by_motor" data-insetid="TS_by_motor" data-searchby="motor" >
+            <img src="{asset_url}img/fdr/fyt-by-motor.png"  />
+        </a>
+        
+        <div class="TS_inset hide" id="TS_by_motor">
+            <form id="TS_form_bymotor" method="post" action="{site_url}tire_search/do_search">
+                <div class="TS_set">
+                    <div class="TS_set_header">
+                        <select name="mb_id" id="mb_id" tabindex="1">
+                            <option value="0">MOTOR BRAND</option>
+                            {foreach from=$motor_brand item=mb name=mb}
+                                <option value="{$mb.mb_id}" {if $mb_id == $mb.mb_id}selected="selected"{/if} >{$mb.mb_name}</option>
+                            {/foreach}
+                        </select>
+                    </div> 
+                </div> 
+            
+                <div class="TS_set">
+                    <div class="TS_set_header">
+                        <select name="mt_id" id="mt_id" tabindex="1">
+                            <option value="0">MOTOR TYPE</option>
+                            {foreach from=$motor_type item=mt name=mt}
+                                <option value="{$mt.mt_id}" {if $mt_id == $mt.mt_id}selected="selected"{/if} >{$mt.mt_name}</option>
+                            {/foreach}
+                        </select>
+                    </div> 
+                </div>
+                
+                <div class="TS_set">
+                    <div class="TS_set_header">
+                        <select name="mm_id" id="mm_id" tabindex="1">
+                            <option value="0">MOTOR MODEL</option>
+                            {foreach from=$motor_model item=mm name=mm}
+                                <option value="{$mm.mm_id}" {if $mm_id == $mm.mm_id}selected="selected"{/if} >{$mm.mm_name}</option>
+                            {/foreach}
+                        </select>
+                    </div> 
+                </div>
+            
+                <div class="TS_set hide">
+                    <div class="TS_set_header">
+                        <a href="">TIRE SIZE</a>
+                    </div> 
+                </div>
+            
+                <div class="TS_submit_wrap">
+                    <input type="hidden" name="searchby" id="searchby" value="motor">
+                    <button class="TS_submit_button btn btn-small btn-inverse" data-by="bymotor">Search <i class="icon icon-chevron-right icon-white"></i></button>
+                </div>
+            </form>
+            
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        <a href="" class="TS_inset_header TS_open_inset" id="TS_open_by_size" data-insetid="TS_by_size"  data-searchby="size"  >
+            <img src="{asset_url}img/fdr/fyt-by-size.png" class=""  />
+        </a>
+        
+        <div class="TS_inset hide" id="TS_by_size">
+            <form id="TS_form_bysize" method="post" action="{site_url}tire_search/do_search">
+                <div class="TS_set">
+                    <div class="TS_set_header"> 
+                        <select name="ts_id" id="ts_id" tabindex="1">
+                            <option value="0">RIM SIZE</option>
+                            {foreach from=$tire_size item=ts name=ts}
+                                <option value="{$ts.ts_id}" {if $ts_id == $ts.ts_id}selected="selected"{/if} >{$ts.ts_name}</option>
+                            {/foreach}
+                        </select>
+                    </div> 
+                </div>
+                
+                <div class="TS_set">
+                    <div class="TS_set_header">
+                        <select name="tr_id" id="tr_id" tabindex="1">
+                            <option value="0">TIRE RATIO</option>
+                            {foreach from=$tire_rim item=tr name=tr}
+                                <option value="{$tr.tr_id}" {if $tr_id == $tr.tr_id}selected="selected"{/if} >{$tr.tr_name}</option>
+                            {/foreach}
+                        </select>
+                    </div> 
+                </div>
+                <div class="TS_submit_wrap">
+                    <input type="hidden" name="searchby" id="searchby" value="size">
+                    <button class="TS_submit_button btn btn-small btn-inverse" data-by="bysize">Search <i class="icon icon-chevron-right icon-white"></i></button>
+                </div>
+            </form>
+        </div>
+        
+        
+        
+        </form>
+    </div>
+    
+</div>
+
+ {if $searchby == 'motor' }
+   <script>  $(function(){ $('#TS_open_by_motor').trigger('click'); }); </script>
+{elseif $searchby == 'size' }
+   <script> $(function(){ $('#TS_open_by_size').trigger('click'); }); </script>
+{else}
+   <script> $(function(){ $('.TS_open_inset:first-child').trigger('click'); }); </script>
+{/if}

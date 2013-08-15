@@ -1,0 +1,4 @@
+<option value="0" class="ts_option ts_option_default" >RIM DIAMETER</option>
+{foreach from=$tire_rim item=tr name=tr} 
+    <option value="{$tr.tr_id}"class="ts_option" data-id="{$tr.tr_id}" id="ts_{$tr.tr_id}" >{$tr.tr_name}</option>
+{/foreach}

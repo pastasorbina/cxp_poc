@@ -1,0 +1,147 @@
+
+<script>
+	var waiting = false;
+
+	$(document).ready(function() {
+
+
+
+//		$('.upload_button').each(function() {
+//			var id = $(this).attr('id');
+//			new AjaxUpload(id , {
+//				action: site_url + 'upload/do_upload/' + id,
+//				onSubmit: function(file, extension) {
+//					$('#' + id).html('Uploading ' + file);
+//					waiting = true;
+//				},
+//				onComplete: function(file, response) {
+//					$('#' + id).html(response);
+//					waiting = false;
+//				}
+//			});
+//		});
+//		$('#form_form').submit(function() {
+//			if (waiting == true) {
+//				alert("File still uploading...\nPlease Wait a moment");
+//				return false;
+//			}
+//		});
+//
+//        $('#form_form').ajaxForm(function(data) {
+//			if (data) {
+//				$('#validation_error')
+//					.html(data)
+//					.show("slow");
+//			}
+//			else {
+//				$('#validation_error')
+//					.html('Form submitted. Thank you for your post')
+//					.removeClass()
+//					.addClass('validation_info')
+//					.show("slow");
+//				$('#form_form').hide();
+//			}
+//        });
+
+		//$('#validation_error').hide();
+
+	});
+</script>
+ 
+<ul class="breadcrumb"> 
+      {foreach from=$breadcrumb name=b item=b}
+      <li>{$b}</li>
+       <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+      {/foreach} 
+</ul> 
+
+
+<div class="page_title" style="margin-top: 0px;" >APPLICATION FORM <img src="{asset_url}img/fdr/news_title_arrow.png">  </div>
+
+<div class="row-fluid">
+	
+	<div class="span3">
+		{$career_sidebar}
+	</div>
+	
+	<div class="span9">
+		<div class="page_wrap">
+		<div class="page_container">
+ 
+			<div class="page_content">
+
+				<!--<div class="validation_error" id="validation_error"></div>-->
+
+				<form name="form_form" id="form_form" method="post" action="{site_url}career/submit/{$form.f_id}" class="form-horizontal">
+
+					<fieldset>
+						<legend>{$form.f_name}</legend>
+						<div class="form_header" style="margin-bottom:20px;" >{$form.f_header_text}</div>
+						{if ''|validation_errors}
+							<div class="alert alert-error">{''|validation_errors}</div>
+						{/if}
+						
+						<div class="control-group">
+							<div class="control-label">Position</div>
+							<div class="controls">
+								<div style="padding:5px; font-weight: bold;" class="large">{$form.f_position} ({$form.f_code})</div>
+							</div>
+						</div>
+								
+						{foreach from=$form_detail item=fd}
+							<div class="control-group">
+								<div class="control-label">
+									{$fd.fd_key}{if $fd.fd_req == 'True'} <abbr style="color: red" title="This field is required">*)</abbr>{/if}
+								</div>
+								<div class="controls">
+									{if $fd.fd_type=='TEXT'}
+										<input type="text" name="{$fd.fd_id}" id="{$fd.fd_id}" value="" size="40" style="width:100%;" />
+									{elseif $fd.fd_type=='TEXTAREA'}
+										<textarea name="{$fd.fd_id}" id="{$fd.fd_id}" cols="40" rows="7"  style="width:100%;"></textarea>
+									{elseif $fd.fd_type=='RADIO'}
+										{foreach from=$fd.fd_options_ex item=fdoe}
+											<input type="radio" name="{$fd.fd_id}" id="{$fd.fd_id}{$fdoe}" value="{$fdoe}"><label for="{$fd.fd_id}{$fdoe}">{$fdoe}</label></input>
+										{/foreach}
+									{elseif $fd.fd_type=='SELECT'}
+										<select name="{$fd.fd_id}" id="{$fd.fd_id}{$fdoe}" style="width: auto;">
+										{foreach from=$fd.fd_options_ex item=fdoe}
+											<option>{$fdoe}</option>
+										{/foreach}
+										</select>
+									{elseif $fd.fd_type=='CHECKBOX'}
+										{foreach from=$fd.fd_options_ex item=fdoe}
+											<input type="checkbox" name="{$fd.fd_id}[]" id="{$fd.fd_id}{$fdoe}" value="{$fdoe}"><label for="{$fd.fd_id}{$fdoe}">{$fdoe}</label></input>
+										{/foreach}
+									{elseif $fd.fd_type=='FILE'}
+										<div class="upload_button" id="{$fd.fd_id}">Upload</div>
+									{elseif $fd.fd_type=='DATE'} 
+										<input type="text" name="{$fd.fd_id}" id="{$fd.fd_id}" value=""  style="width:100px;" class="datepicker" />
+									{/if}
+								</div>
+							</div>
+						{/foreach}
+
+						<div class="control-group">
+							<label class="control-label">Captcha</label>
+							<div class="controls">
+								{$captcha.image}
+								<div class="spacer10"></div>
+								enter above text: <br> <input type="text" size="20" name="captcha_answer" value="" />
+								{'captcha_answer'|form_error}
+							</div>
+						</div>
+
+						<div class="form_footer" style="margin:10px 0;" >{$form.f_footer_text}</div>
+
+						<div class="form-actions" style="text-align: right;">
+							<input type="submit" value="Submit" class="btn btn-danger" >
+						</div>
+
+					</fieldset>
+				</form>
+
+			</div>
+		</div>
+	</div>
+</div>
+

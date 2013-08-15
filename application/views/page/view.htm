@@ -1,0 +1,154 @@
+<style>
+	.topbanner {
+		{if $content.c_banner != ''}
+			background-image:url({site_url}userfiles/upload/{$content.c_banner});
+		{else}
+			background-image:url({asset_url}img/poc/banner_about.jpg);
+		{/if}
+	}
+</style>
+
+<div class="topbanner" >
+    <div class="adesc">
+        <div class="topbanner_caption_wrap">
+        <div class="topbanner_caption_container">
+            <div class="topbanner_caption_inner">
+                <span class="topbanner_caption">
+                    <h2>
+                        We Provide Technology, support, visibility, and community to promising startup and enterpreneurs at no charge
+                    </h2>
+                    <div class="content">
+                        Donec eget dui dapibus dui lobortis pretium. Fusce condimentum fringilla pharetra. Proin nec pharetra odio.
+                        <button class="btn btn-poc">Join POC</button>
+                    </div>
+                </span>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+	<table class="scaffold" >
+		<tr>
+			<td class="lefty" >
+				<!--{$content_sidebar}-->
+
+				{if $aboutus_sidebar}
+					<div style="margin-top: 120px; width: 145px;">
+						{$aboutus_sidebar.c_content_full}
+					</div>
+					<div style="margin-top: 20px; width: 80px; border-bottom: solid 1px #000000; height: 1px;"></div>
+				{/if}
+
+				{if $startups}
+					<style>
+						.service_sidebar_item{
+							display: block; border-bottom: solid 1px #333333; padding: 10px 5px;
+						}
+						.service_sidebar_item:hover {
+							background: #F2EDED;
+						}
+					</style>
+					 <div style="width: 130px; margin:50px 20px 0 auto;">
+						<div style="border-bottom: solid 1px #333333; padding-bottom: 10px; margin-bottom: 10px; ">
+							<div style="letter-spacing: 2px; font-weight: bold;">
+								FEATURED STARTUP APPS
+							</div>
+						</div>
+
+						{foreach from=$startups name=s item=s}
+							<a class="service_sidebar_item" href="{site_url}startup/view/{$s.s_id}">
+								<div style=" font-weight: bold; color: #000000;">
+									{$s.s_company}
+								</div>
+								<div class="orange" style="font-weight: bold;">
+									{$s.s_name}
+								</div>
+							</a>
+						{/foreach}
+
+					</div>
+				{/if}
+			</td>
+			<td class="righty">
+
+				<ul class="breadcrumb">
+					{foreach from=$breadcrumb name=b item=b}
+					<li>{$b}</li>
+					<li class="divider">&gt;&gt;</li>
+					{/foreach}
+				</ul>
+
+				<div class="page_wrap">
+					<div class="page_container">
+						<div class="page_title" style="margin-bottom: 25px; padding-bottom: 10px; border-bottom: solid 1px #CCCCCC;">{$content.c_title} </div>
+					</div>
+					<div class="page_content">
+						{$content.c_content_full}
+					</div>
+				</div>
+
+				<div class="share-box">
+					<div class="share-buttons" >
+
+						<div class="share-button-wrap googleplus">
+						  <div class="share-button" data-service="googleplus">
+							<div class="g-plusone" data-size="medium" data-annotation="none"></div>
+							{literal}
+							<script type="text/javascript">
+							  (function() {
+								var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+								po.src = 'https://apis.google.com/js/plusone.js';
+								var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+							  })();
+							</script>
+							{/literal}
+						  </div>
+						</div>
+
+						<div class="share-button-wrap linkedin">
+						  <div class="share-button" data-service="linkedin" title="">
+							<script src="//platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
+							<script type="IN/Share" data-url="{current_url}" data-counter="none"></script>
+						  </div>
+						</div>
+
+						<div class="share-button-wrap twitter">
+						  <div class="share-button" data-service="twitter" title="">
+							<a href="https://twitter.com/share" class="twitter-share-button" data-url="{current_url}" data-counturl="{current_url}" data-lang="en" data-count="none">&nbsp;</a>
+						  </div>
+						</div>
+
+						<div class="share-button-wrap facebook">
+						  <div class="share-button" data-service="facebook" >
+							<div class="fb-like" data-href="{current_url}" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+						  </div>
+						</div>
+
+					</div>
+				</div>
+
+
+				<div style="padding: 10px;" >
+					<!-- AddThis Button BEGIN -->
+					<!--<div class="addthis_toolbox addthis_default_style ">-->
+					<!--	<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>-->
+					<!--	<a class="addthis_button_tweet"></a>-->
+					<!--	<a class="addthis_button_pinterest_pinit"></a>-->
+					<!--	<a class="addthis_counter addthis_pill_style"></a>-->
+					<!--</div>-->
+					<!--<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-511414206a2fbf14"></script>-->
+					<!-- AddThis Button END -->
+				</div>
+
+
+				<div class="spacer20"></div>
+
+
+			</td>
+		</tr>
+	</table>
+
+</div>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{asset_url}css/global.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="{asset_url}css/main/style.css" type="text/css" media="screen" />
+ 
+	 
+	
+    <style>
+      .gmap_thumb { 
+        height: 80px;
+        width: 80px;
+        text-align: right;
+      }
+      .dlr_name{ font-weight: bold; font-size: 16px; }
+      .dlr_table { width: 100%; }
+	  
+	  .dlr_table td p{ margin:0px; }
+      
+      .dlr_table td { vertical-align: top; }
+      .dlr_table th { 
+        vertical-align: top;
+        text-align: right;
+        padding-right: 5px;
+        width: 70px;
+      }
+      .dlr_table td {
+        width: 200px;
+      }
+      .dlr_table .header_tr td, .dlr_table .header_tr th {
+        vertical-align: bottom;
+        padding-bottom: 5px;
+        border-bottom: solid 1px #cccccc;
+      }
+    </style>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map_canvas { height: 100% }
+    </style>
+    
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBkyAsag270SWkjXGrYpRc-gcNbAEFSsY&sensor=false">
+    </script>
+	 
+	
+	
+    <script type="text/javascript"> 
+        
+        var icon = '{asset_url}img/fdr/gmarker.png';
+        var map;
+        var infowindow;
+        var marker = new Array();
+        var mark = new Array();
+		
+         
+	 {if $d.dlr_desc != ''}
+		var desc = '{$d.dlr_desc|trim}';
+	 {else}
+		var desc = '';
+	 {/if}
+		var coords = new Array();
+		
+		{foreach from=$all_dealers item=d name=d key=dk}
+		
+		  var content = '<table class="dlr_table"><tr>';
+		  content += '<th>{if $d.dlr_image != ''}<img src="{site_url}userfiles/upload/thumb/{$d.dlr_image}" class="gmap_thumb">{/if}</th>';
+		  content += '<td style="vertical-align:bottom;" ><div class="dlr_name">{$d.dlr_name}</div></td>';
+		  {if $d.dlr_contact != ''}
+			content += '</tr><tr>';
+			content += '<th><strong>Contact</strong></th><td>{$d.dlr_contact}</td>';
+		  {/if}
+		  {if $d.dlr_address != ''}
+			content += '</tr><tr>';
+			content += '<th><strong>Address</strong></th><td>{$d.dlr_address}</td>';
+		  {/if}
+		  {if $d.dlr_phone != ''}
+			content += '</tr><tr>';
+			content += '<th><strong>Phone</strong></th><td>{$d.dlr_phone}</td>';
+		  {/if}
+		  {if $d.dlr_fax != ''}
+			content += '</tr><tr>';
+			content += '<th><strong>Fax</strong></th><td>{$d.dlr_fax}</td>';
+		  {/if}
+		  {if $d.dlr_email != ''}
+			content += '</tr><tr>';
+			content += '<th><strong>Email</strong></th><td>{$d.dlr_email}</td>';
+		  {/if}
+		  {if $d.dlr_facebook != ''}
+			content += '</tr><tr>';
+			content += '<th><strong>Facebook</strong></th><td><a href="{$d.dlr_facebook}" target="_blank" >{$d.dlr_facebook}</a></td>';
+		  {/if}
+		  {if $d.dlr_twitter != ''}
+			content += '</tr><tr>';
+			content += '<th><strong>Twitter</strong></th><td><a href="{$d.dlr_twitter}" target="_blank" >{$d.dlr_twitter}</a></td>';
+		  {/if}
+		  {if $d.dlr_desc != ''}
+			content += '</tr><tr>';
+			content += '<th><strong></strong></th><td>{$d.dlr_desc|trim|strip}</td>';
+		  {/if}
+		  
+		  content += '</tr></table>';
+		
+		  coords[{$dk}] = {
+				title  : '{$d.dlr_name}'
+				, lat   : '{$d.dlr_lat}'
+				, long  : '{$d.dlr_long}' 
+				, content: content
+            };
+        {/foreach}
+ 
+        
+          
+        function initialize() {
+          //LOAD INITIAL MAP 
+          var initial_lat = '{$lat}';
+          var initial_long = '{$long}'; 
+          var initlocation = new google.maps.LatLng(initial_lat, initial_long);
+          var zoom = {$zoom}; 
+          
+          //DEFINE MAP CANVAS
+          var mapOptions = { zoom: zoom, center: initlocation, mapTypeId: google.maps.MapTypeId.ROADMAP };
+          map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+          
+          {if $markme == 'yes'}
+            var myloc = new google.maps.LatLng( {$mylat}, {$mylong} );
+            markme = new google.maps.Marker({
+                position: myloc, map: map, title: 'You Are Here'  
+            });
+            google.maps.event.addListener(markme, 'click', function() { 
+              map.setCenter(this.getPosition());
+            });
+          {/if}
+          
+          //ITERATES TROUCH COORDS  
+          for(var i = 0; i < coords.length; i++) { 
+            var iteration = i;
+            var data = coords[iteration]; 
+            var content = coords[iteration].content;
+            var title = coords[iteration].title;  
+            var location = new google.maps.LatLng(coords[iteration].lat, coords[iteration].long);
+            
+            mark[iteration] = new google.maps.Marker({
+                position: location, icon: icon, map: map
+                , title: coords[iteration].title 
+                , cont: coords[iteration].content
+            });
+            
+            //ATTACH LISTENER TO MARKER
+            google.maps.event.addListener(mark[iteration], 'click', function() {
+              if (infowindow) { infowindow.close(); }
+              infowindow = new google.maps.InfoWindow();  
+              infowindow.setContent(this.cont);
+              infowindow.open(map, this);
+              map.setCenter(this.getPosition());
+            });
+          }
+          
+           
+           
+        }
+         
+        //infowindow.setContent(coords[i].content);
+        //google.maps.event.addListener(marker, 'click', function() {
+        //  if (infowindow) { infowindow.close(); }
+        //  infowindow = new google.maps.InfoWindow(); 
+        //});
+        //attachContent(marker, coords[i].content, i);
+        //attachBounce(marker);
+        //attachAll(marker, i); 
+        //function attachAll(marker, i) {
+        //  google.maps.event.addListener(marker, 'click', function() {
+        //    map.setCenter(marker.getPosition());
+        //  });
+        //}
+        //
+        //function attachBounce(marker){ 
+        //  google.maps.event.addListener(marker, 'click', function() {
+        //    marker.setAnimation(google.maps.Animation.BOUNCE);
+        //  });
+        //}
+        //
+        //function attachContent(marker, content, number) { 
+        //  //var infowindow = new google.maps.InfoWindow(
+        //  //{ content: content 
+        //  //  , size: new google.maps.Size(50,50)
+        //  //});
+        //  google.maps.event.addListener(marker, 'click', function() {
+        //    //if (infowindow) { infowindow.close(); } 
+        //    if (infowindow) { console.log(infowindow); } 
+        //    //infowindow.close(); 
+        //    
+        //    var infowindow = new google.maps.InfoWindow();
+        //    infowindow.setContent(content);
+        //    infowindow.open(map, marker); 
+        //  }); 
+        //}
+	 
+    </script>
+  </head>
+  <body onload="initialize();" >
+    <div id="map_canvas" style="width:100%; height:100%"></div>
+  </body>
+</html>
+
+
+<!--https://maps.google.co.id/?ll=-1.142502,124.584961&spn=35.992823,37.353516&t=m&z=5-->

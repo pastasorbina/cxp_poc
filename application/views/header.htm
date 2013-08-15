@@ -1,0 +1,478 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="{$site_config.meta_generator}">
+	<meta name="description" content="{$site_config.meta_description}"/>
+	<meta name="keywords" content="{$site_config.meta_keywords}"/>
+	<meta name="author" content="{$site_config.meta_author}"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="icon" type="image/ico" href="" />
+
+	<title>
+
+		Proof Of Concept
+	</title>
+
+	<!--{if $module_title}{$module_title} - {/if}{$site_config.main_title} -->
+
+	<script>
+		var site_url = "{site_url}";
+		var asset_url = "{asset_url}";
+		var mod_url = "{$mod_url}";
+		var current_url_safe = "{''|current_url|safe_base64_encode}";
+	</script>
+
+	<!-- load JQUERY and JQUERYUI -->
+	<script src="{asset_url}js/jquery/jquery-latest.js" ></script>
+	<script src="{asset_url}js/jquery/jquery-ui-1.8.14.custom.min.js" ></script>
+	<link rel="stylesheet" href="{asset_url}css/ui/redmond/style.css" type="text/css"  />
+
+	<!-- load JQUERY plugins -->
+	<script src="{asset_url}js/jquery/jquery.form.js" ></script>
+	<script src="{asset_url}js/jquery/jquery.thickbox.js" ></script>
+	<script src="{asset_url}js/jquery/jquery.clockpick.1.2.7.min.js" ></script>
+	<script src="{asset_url}js/jquery/jquery-ui-timepicker-addon.js" ></script>
+
+	<link rel="stylesheet" href="{asset_url}css/ui/timepicker-addon.css" type="text/css"  />
+
+	<!--load BOOTSTRAP -->
+	<link rel="stylesheet" type="text/css"  href="{asset_url}css/bootstrap/230/bootstrap.css" />
+	<script src="{asset_url}js/bootstrap/230/bootstrap.js" ></script>
+
+	<script src="{asset_url}js/wigo/wg_modal.js" ></script>
+
+
+	<script type="text/javascript" charset="utf-8" src="{asset_url}js/jcarousel/jquery.jcarousel.js" ></script>
+	<link rel="stylesheet"  type="text/css"  href="{asset_url}css/jcarousel/skins/ie7/skin.css" />
+
+	<!--<script src="{asset_url}js/superfish/superfish.js" ></script>--> <!--<script src="{asset_url}js/superfish/supersubs.js" ></script>-->
+
+
+	<script src="{asset_url}js/jqzoom/jquery.jqzoom-core.js" ></script>
+	<link rel="stylesheet" href="{asset_url}css/jqzoom/jquery.jqzoom.css" type="text/css"  />
+
+	<!-- load FlexSlider -->
+
+
+	<!-- load Colorbox -->
+	<script src="{asset_url}js/jquery/jquery.colorbox.js" ></script>
+	<link rel="stylesheet" href="{asset_url}css/colorbox/01/colorbox.css" type="text/css"  />
+
+	<!-- treeview -->
+	<script src="{asset_url}js/treeview/jquery.treeview.js" ></script>
+	<script src="{asset_url}js/treeview/jquery.treeview.edit.js" ></script>
+	<script src="{asset_url}js/treeview/jquery.treeview.async.js" ></script>
+	<link rel="stylesheet"  type="text/css"  href="{asset_url}js/treeview/jquery.treeview.css" />
+
+	<!-- load Global JS -->
+	<script src="{asset_url}js/global.js" ></script>
+	<script src="{asset_url}js/functions.js" ></script>
+	<!--<script src="{asset_url}js/stacklet.js" ></script>-->
+
+	<!-- load Global CSS and user defined CSS -->
+	<!--<link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'>-->
+	<link rel="stylesheet" href="{asset_url}css/global.css" type="text/css"  />
+	<link rel="stylesheet" href="{asset_url}css/main/style.css" type="text/css"  />
+
+	<!--<script src="{asset_url}js/bgcarousel/bgcarousel.js" type="text/javascript">-->
+
+	<script src="{asset_url}js/flexslider/jquery.flexslider.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="{asset_url}css/main/flexslider.css" type="text/css" media="screen" />
+	<!--<link rel="stylesheet" href="{asset_url}css/flexslider2/custom.css" type="text/css" media="screen" />-->
+	<!--<script>
+		$(document).ready(function(){
+			$('#mainbanner_slider').flexslider({
+				animation: "fade"
+				,easing:"swing"
+				,controlNav: false
+				,directionNav:true
+				,slideshowSpeed: 4000
+				,pauseOnHover: true
+			});
+		});
+	</script>-->
+
+	<link href='http://fonts.googleapis.com/css?family=Arimo:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+	{if $userinfo} <script>var is_loggedin = true;</script> {else} <script>var is_loggedin = false;</script> {/if}
+
+	<script type="text/javascript">
+		var $ = jQuery.noConflict();
+
+
+
+		function get_viewport() {
+			var width = document.documentElement.clientWidth;
+			var height = document.documentElement.clientHeight;
+			var size = new Array();
+			size['width'] = width;
+			size['height'] = height;
+			return size;
+		}
+
+		function redraw_banner() {
+			var size = get_viewport();
+			$('.bgcarousel').css('width', size['width']);
+		}
+
+
+		$(function(){
+			//redraw banner width to maintain ratio when viewport resized
+			setInterval(function(){ redraw_banner(); },500 );
+			window.onresize = function(e) { redraw_banner(); }
+
+
+
+			$(".colorbox").live('click', function(e){ e.preventDefault();
+				$.colorbox({ href : $(this).attr('href'), rel : $(this).attr('rel'), title : $(this).attr('title') });
+			});
+
+			$('.tipsy').each(function() {
+				$(this).mouseover(function(e){ $(this).tooltip('show'); });
+				$(this).mouseout(function(e){ $(this).tooltip('hide'); });
+			});
+
+		});
+
+
+
+		var slidedownSpeed = 1200;
+		var slideupSpeed = 700;
+		function myMouseOut(id){
+			if ($(id).hasClass("over")){
+				$(id).mouseleave(function(){
+					$(id).slideUp(slideupSpeed);
+					$(".nav_item").removeClass("over");
+				});
+			} else{
+				$(".nav_submenu").slideUp(slideupSpeed);
+				$(".nav_submenu").removeClass("over");
+				$(".nav_item").removeClass("over");
+			}
+		}
+		$(function(){
+			//$(".nav_submenu").slideUp(slideupSpeed);
+			$(".nav_submenu").hide();
+			$(".nav_submenu").mouseover(function(e) {
+				$(this).addClass("over");
+			});
+
+			$(".nav_item").hover(
+				function() {
+					id = $(this).attr('data-id');
+					$("#"+id).slideDown({ easing: 'linear', speed: slidedownSpeed });
+					$('.nav_submenu:not('+"#"+id+')').each(function(){
+						a_id = $(this).attr('id');
+						$(this).slideUp(slideupSpeed);
+						$(this).removeClass("over");
+						$("#ln_"+a_id).removeClass("over");
+					});
+					$("#"+id).slideDown(slidedownSpeed);
+					$("#"+id).addClass("over");
+					$(this).addClass("over");
+
+				},function(a) {
+					id = $(this).attr('data-id');
+					myMouseOut("#"+id);
+				}
+			);
+
+			$(".mainbanner_wrap").hover( function(){
+				$(".nav_submenu").slideUp(slideupSpeed).removeClass("over");
+				$(".nav_item").removeClass("over");
+			});
+		});
+	</script>
+
+
+
+
+
+
+
+
+<style>
+	.mainbanner_wrap { }
+	.nav_submenu { display: none;}
+</style>
+
+</head>
+
+
+<body>
+
+	{literal}
+		<!-- FACEBOOK CONNECT -->
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=447266508652777";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
+
+		<!-- TWITTER CONNECT -->
+		<script>
+		!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+		</script>
+
+		<!-- GPLUS -->
+
+
+
+	{/literal}
+
+
+	<a id="top" class="hide" >&nbsp;</a>
+
+
+<!--layout assets start-->
+	<div class="modal hide fade" id="modal_generic"  >
+		<div class="modal-header">
+			<button class="close" data-dismiss="modal">×</button>
+			<h3 class="modal-title">&nbsp;</h3>
+		</div>
+		<div class="modal-body"></div>
+		<div class="modal-footer">&nbsp;</div>
+	</div>
+
+	<div class="modal hide fade" id="wgmodal">
+		<div class="modal-header">
+			<button class="close" data-dismiss="modal">×</button>
+			<h3 class="modal-title">&nbsp;</h3>
+		</div>
+		<div class="modal-body"></div>
+		<div class="modal-footer">&nbsp;</div>
+	</div>
+<!--layout assets end-->
+
+
+<div class="master_wrap">
+	<div class="master_container row-fluid">
+
+	<div class="header_1">
+		<div class="container">
+			<table class="scaffold" >
+				<tr>
+					<td class="lefty" >&nbsp;</td>
+					<td class="righty">
+						<div class="row-fluid">
+							<div class="span3">
+								<a class="level1 nav_item nav_item2" href="#" data-id="nav_contact_hello"  style="font-weight: bold;" >Hello</a>
+							</div>
+							<div class="span3">
+								<a href="{$site_config.facebook_url}" target="_blank"><img src="{asset_url}img/poc/fb_small.png" /></a>
+								<a href="{$site_config.twitter_url}" target="_blank"><img src="{asset_url}img/poc/twitter_small.png" /></a>
+							</div>
+							<div class="span6" style="text-align: right;" >
+								<div class="search_box">
+									<div class="input-append">
+										<form id="form_main_search" method="post" action="{site_url}search/do_search">
+											<input class="input-small" id="searchkey" name="searchkey" type="text" placeholder="Search" >
+											<button id="button_main_search" class="btn" type="button"><i class="icon-search"></i>&nbsp;</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="horz_line"></div>
+
+
+	<div class="header_2">
+		<div class="container">
+
+
+			<table class="scaffold" >
+				<tr>
+					<td class="lefty" >
+						<!--LOGO-->
+						<div class="header_logo_wrap">
+							<div class="header_logo">
+								<a href="{site_url}"><img src="{asset_url}img/poc/logo.png" style="height: 140px;"  /></a>
+							</div>
+						</div>
+					</td>
+					<td class="righty">
+
+							<div class="row-fluid nav_submenu" id="nav_contact_hello" style="height: 100px;">
+								<div class="sp span3 cont" style="height: 100%;" >{$snippet['quote-1'].c_content_full}</div>
+								<div class="sp span3 cont" style="height: 100%;" >{$snippet['quote-2'].c_content_full}</div>
+								<div class="sp span3 cont" style="height: 100%;" >{$snippet['quote-3'].c_content_full}</div>
+								<div class="sp span3 cont" style="height: 100%;" >{$snippet['quote-4'].c_content_full}</div>
+							</div>
+
+							<div class="row-fluid">
+								<div class="span3"></div>
+								<div class="span3"></div>
+								<div class="span3"></div>
+								<div class="span3">
+									<a class="level1 nav_item nav_item2" href="#" data-id="nav_contact_us"  style="font-weight: bold;" >CONTACT US</a>
+								</div>
+							</div>
+
+							<div class="nav_submenu aa row-fluid" id="nav_contact_us">
+								<div class="span3 sp"></div>
+								<div class="span3 sp"></div>
+								<div class="span3 sp"></div>
+								<div class="span3 sp cont">
+									{$snippet['menu-contactus'].c_content_full}
+								</div>
+							</div>
+
+
+						<div class="mainmenu" style="margin-top: 80px; margin-bottom: 0; padding: 0;">
+							<div class="mainmenu_inner" style="margin: 0; padding: 0;">
+									<div class="row-fluid"  style="margin: 0; padding: 0;">
+										<div class="nav_item_block span3">
+											<a class="level1 nav_item" id="ln_nav_1" href="{site_url}demo/aboutus" data-id="nav_1" >ABOUT</a>
+										</div>
+										<div class="nav_item_block span3">
+											<a class="level1 nav_item" id="ln_nav_2" href="{site_url}demo/startup" data-id="nav_2" >STARTUPS</a>
+										</div>
+										<div class="nav_item_block span3">
+											<a class="level1 nav_item" id="ln_nav_3" href="#" data-id="nav_3" >PARTNERS</a>
+										</div>
+										<div class="nav_item_block span3">
+											<a class="level1 nav_item" id="ln_nav_4" href="{site_url}calendar" data-id="nav_4" >CALENDARS</a>
+										</div>
+									</div>
+							</div>
+						</div>
+
+
+						<div style=" " >
+							<div class="nav_submenu row-fluid" id="nav_1">
+								<div class="sp2 cont span3">
+									<ul class="">
+										{foreach from=$about_menu name=am item=am}
+										<li><a href="{$am.m_link}">{$am.m_name}</a></li>
+										{/foreach}
+									</ul>
+								</div>
+								<div class="sp2 span3"></div>
+								<div class="sp2 span3"></div>
+								<div class="sp2 span3"></div>
+							</div>
+
+							<div class="nav_submenu row-fluid" id="nav_2">
+								<div class="sp2 span3"></div>
+								<div class="sp2 cont span3">
+									<ul class="">
+										{foreach from=$home_startup name=hs item=hs}
+										<li><a href="{site_url}startup/view/{$hs.s_id}/{$hs.s_name|url_title:'_':TRUE}">{$hs.s_name}</a></li>
+										{/foreach}
+									</ul>
+								</div>
+								<div class="sp2 span3"></div>
+								<div class="sp2 span3"></div>
+							</div>
+
+							<div class="nav_submenu row-fluid" id="nav_3">
+								<div class="sp2 span3"></div>
+								<div class="sp2 span3"></div>
+								<div class="sp2 cont span3">
+									<ul class="">
+										{foreach from=$footer_partners item=f name=f}
+										<li><a href="{site_url}page/view/{$f.c_id}/{$f.c_title|url_title:'_':TRUE}">{$f.c_title}</a></li>
+										{/foreach}
+									</ul>
+								</div>
+								<div class="sp2 span3"></div>
+							</div>
+						</div>
+
+
+					</td>
+				</tr>
+			</table>
+
+
+		</div>
+	</div>
+
+
+
+
+	<div class="spacer10"></div>
+
+		{if $curr_page == 'home'}
+		<style>
+			#mbs { height: 450px; }
+			#mbs ul { width:100%; height: 450px; margin:0; padding: 0; }
+			#mbs .slides .link{ width:100%; height: 450px; overflow-y: hidden; }
+			#mbs .slides .img {
+				background-size: cover;
+				background-position: 10% 0 0 0;
+				background-repeat: no-repeat;
+				height: 450px; width: 100%; margin: 0; padding: 0;
+			}
+
+
+		</style>
+		<script>
+			$(function(){
+				$('#mbs').flexslider({
+					animation: "slide"
+					,easing:"swing"
+					,controlNav: true
+					,directionNav:true
+					,slideshowSpeed: 4000
+					,pauseOnHover: false
+					,before: function(slider){
+						//CHANGE BANNER CONTENT
+						console.log(slider);
+					}
+				});
+			});
+			//{site_url}userfiles/upload/{$mb.bn_image}
+		</script>
+
+		<div id="mbs" class="flexslider" >
+			<ul class="slides">
+				{foreach from=$mainbanner name=mb item=mb}
+				<li>
+					<a class="link">
+						<img class="img" src="{asset_url}img/spacer.png"
+							style="background-image:url({site_url}userfiles/upload/{$mb.bn_image});"/>
+
+						{if $mb.bn_display_caption == 'Yes'}
+						<div style="position: absolute; width: 100%; height: 1px; text-align: center; margin: 0 auto;">
+							<div class="banner_caption_wrap">
+								<div class="banner_caption_inner" style="top:-450px; height: 400px;">
+									<span class="banner_caption">
+										<div class="dvdiag"></div>
+										<h2>{$mb.bn_title}</h2>
+										<h3>{$mb.bn_subtitle}</h3>
+										<div class="dvdiag"></div>
+										<span>
+											{$mb.bn_desc}
+											{if $mb.bn_display_button == 'Yes'}<button class="btn btn-poc">Join POC</button>{/if}
+										</span>
+									</span>
+								</div>
+							</div>
+						</div>
+						{/if}
+					</a>
+				</li>
+				{/foreach}
+			</ul>
+		</div>
+
+		{/if}
+
+
+
+
+	<!------START CONTENT----->
+
+	<!--<script src="//platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
+	<script type="IN/Share" data-url="google.com" data-counter="right"></script>-->

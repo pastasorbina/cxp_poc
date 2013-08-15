@@ -1,0 +1,151 @@
+<script type="text/javascript">
+	var current_uri = '{$current_uri}';
+	var mod_url = '{$mod_url}';
+	var use_ajax = '{$use_ajax|default:FALSE}';
+</script>
+<script src="{asset_url}js/vizard/slave.js" ></script>
+
+
+<ul class="breadcrumb">
+	<li><a href="{$LAST_LIST}" class="cancel" >back</a></li>
+	<li class="divider">»</li>
+	<li>edit</li>
+</ul>
+
+<div class="mod_title">
+	{$ajax_action} province
+</div>
+
+{''|validation_errors}
+
+<form enctype="multipart/form-data" name="formSubmit" id="formSubmit"  method="post" class="form-horizontal" >
+	<input type="hidden" name="current_id" value="{$data.dlr_id}" />
+	<input type="hidden" name="ajax_action" value="{$ajax_action}" />
+	
+	<div class="control-group">
+		<label class="control-label">Type</label>
+		<div class="controls">
+			<select name="dlr_type">
+				<option value="Dealer" {if $data.dlr_type == "Dealer"}selected="selected"{/if} >Dealer</option>
+				<option value="Store" {if $data.dlr_type == "Store"}selected="selected"{/if} >Store</option>
+			</select> 
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">City</label>
+		<div class="controls"> 
+			<select name="ac_id">
+				{foreach from=$all_city name=ac item=ac}
+				
+					<option value="{$ac.ac_id}" disabled="disabled" style="background: #cccccc; color: #ffffff;" >{$ac.ap_name}</option>
+					{foreach from=$ac.city name=acc item=acc}
+						<option value="{$acc.ac_id}" {if $acc.ac_id == $this_city.ac_id}selected="selected"{/if} >{$acc.ac_name}</option>
+					{/foreach}
+				{/foreach}
+			</select>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Name</label>
+		<div class="controls">
+			<input type="text" name="dlr_name" class="span6" value="{'dlr_name'|set_value|default:$data.dlr_name}" >
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Alamat</label>
+		<div class="controls"> 
+			<textarea name="dlr_address" cols="40" rows="3" >{'dlr_address'|set_value|default:$data.dlr_address}</textarea>
+		</div>
+	</div>
+	
+	
+	
+	<div class="control-group">
+		<label class="control-label">Phone</label>
+		<div class="controls">
+			<input type="text" name="dlr_phone" class="span6" value="{'dlr_phone'|set_value|default:$data.dlr_phone}" >
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label">Fax</label>
+		<div class="controls">
+			<input type="text" name="dlr_fax" class="span6" value="{'dlr_fax'|set_value|default:$data.dlr_fax}" >
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label">Email</label>
+		<div class="controls">
+			<input type="text" name="dlr_email" class="span6" value="{'dlr_email'|set_value|default:$data.dlr_email}" >
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Contact Person</label>
+		<div class="controls">
+			<input type="text" name="dlr_contact" class="span6" value="{'dlr_contact'|set_value|default:$data.dlr_contact}" >
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Facebook</label>
+		<div class="controls">
+			<input type="text" name="dlr_facebook" class="span6" value="{'dlr_facebook'|set_value|default:$data.dlr_facebook}" >
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label">Twitter</label>
+		<div class="controls">
+			<input type="text" name="dlr_twitter" class="span6" value="{'dlr_twitter'|set_value|default:$data.dlr_twitter}" >
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Google Maps Position</label>
+		<div class="controls ">
+			<table class="table table-form table-bordered table-condensed" style="width: auto;" >
+				<tr>
+					<th >Latitude</th>
+					<td>
+						<input type="text" name="dlr_lat" class="span3" value="{'dlr_lat'|set_value|default:$data.dlr_lat}" > 
+					</td>
+				</tr>
+				<tr>
+					<th>Longitude</th>
+					<td>
+						<input type="text" name="dlr_long" class="span3" value="{'dlr_long'|set_value|default:$data.dlr_long}" >
+					</td>
+				</tr>
+			</table> 
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Image</label>
+		<div class="controls">
+			
+			{if $data.dlr_image != ''}
+			<img src="{site_url}userfiles/uploads/thumb/{$data.dlr_image}">
+				<br>
+				{$data.dlr_image}
+				<br>
+			{/if}
+			<input type="file" name="dlr_image" >
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Description</label>
+		<div class="controls"> 
+			<textarea name="dlr_desc" cols="40" rows="3" class="ckeditor" >{'dlr_desc'|set_value|default:$data.dlr_desc}</textarea>
+		</div>
+	</div>
+	 
+	<div class="form-actions" align="right" >
+		<input class="btn btn-primary" type="submit" value="Save" >
+		<a href="{$LAST_LIST}" class="btn do_cancel">Cancel</a>
+	</div>
+
+</form>

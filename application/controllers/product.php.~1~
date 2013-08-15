@@ -1,0 +1,115 @@
+<?php
+
+class Product extends MY_Controller {
+
+	var $mod_title = 'Form';
+
+	function __construct() {
+		parent::__construct();
+		$this->sci->init('front');
+		$this->_init();
+		$this->load->helper('captcha');
+		
+		
+	}
+
+	function index($tc_id=0) {
+		if($tc_id != 0) {
+			$this->db->where('tc_id' , $tc_id);
+		}
+		$this->db->where('t_status' , 'Active');
+		$this->db->order_by('t_order' , 'asc');
+		$res = $this->db->get('tire');
+		$tires = $res->result_array();
+		foreach($tires as $k=>$tmp) {
+			$this->db->join('tire_tag' , 'tire_tag.tt_id = tire_detail_tag.tt_id' , 'left');
+			$this->db->where('tire_tag.tt_status' , 'Active');
+			$this->db->where('t_id' , $tmp['t_id']);
+			$res = $this->db->get('tire_detail_tag');
+			$tire_tag = $res->result_array();
+			$tires[$k]['tags'] = $tire_tag;
+		}
+		$this->sci->assign('tires' , $tires);
+		
+		$this->db->where('tc_status' , 'Active');
+		$this->db->order_by('tc_order' , 'ASC');
+		$res = $this->db->get('tire_category');
+		$tire_category = $res->result_array();
+		$this->sci->assign('tire_category' , $tire_category);
+		
+		if($tc_id != 0) {
+			$this->db->where('tc_id' , $tc_id); 
+			$res = $this->db->get('tire_category');
+			$this_category = $res->row_array();
+			$this->sci->assign('this_category' , $this_category);
+		}
+		$this->sci->assign('tc_id' , $tc_id);
+		
+		$this->sci->da('index.htm');
+	}
+	
+	function view( $t_id=0) {
+		
+		$this->db->where('t_id' , $t_id);
+		$res = $this->db->get('tire');
+		$tire = $res->row_array();
+		
+		$this->sci->assign('tire' , $tire);
+		
+		//get tire detail rating
+		$this->db->start_cache();
+		$this->db->join('tire_rating trt' , 'trt.trt_id = tire_detail_rating.trt_id' , 'left');
+		$this->db->join('tire_rating_category trtc' , 'trtc.trtc_id = trt.trtc_id' , 'left');
+		$this->db->where('t_id' , $tire['t_id']);
+		$this->db->where('tdr_status' , 'Active');
+		$this->db->from('tire_detail_rating');
+		$this->db->stop_cache();
+		
+		$this->db->where('trtc.trtc_code' , 'performance');
+		$res = $this->db->get();
+		$performance = $res->result_array();
+		$this->sci->assign('performance' , $performance);
+		
+		$this->db->where('trtc.trtc_code' , 'usage');
+		$res = $this->db->get();
+		$usage = $res->result_array();
+		$this->sci->assign('usage' , $usage);
+		
+		$this->db->where('trtc.trtc_code' , 'road');
+		$res = $this->db->get();
+		$road = $res->result_array();
+		$this->sci->assign('road' , $road); 
+		
+		$this->db->flush_cache();
+		
+		$this->db->where('t_id' , $tire['t_id']);
+		$this->db->join('tire_tech tth' , 'tth.tth_id = tire_detail_tech.tth_id' , 'left');
+		$this->db->where('tdth_status' , 'Active');
+		$res = $this->db->get('tire_detail_tech');
+		$tire_tech = $res->result_array();
+		$this->sci->assign('tire_tech' , $tire_tech);
+		
+		//get tire gallery
+		$this->db->where('t_id' , $t_id);
+		$this->db->where('tg_status' , 'Active');
+		$this->db->order_by('tg_order' , 'asc');
+		$res = $this->db->get('tire_gallery');
+		$tire_gallery = $res->result_array();
+		$this->sci->assign('tire_gallery' , $tire_gallery);
+		
+		//get recomendded bike
+		$this->db->join('motor_model mm' , 'mm.mm_id = tire_detail_motor.mm_id' , 'left');
+		$this->db->join('motor_brand mb' , 'mb.mb_id = mm.mb_id' , 'left');
+		$this->db->where('tire_detail_motor.t_id' , $t_id);
+		$res = $this->db->get('tire_detail_motor');
+		$recommended = $res->result_array();
+		//print_r($recommended);
+		$this->sci->assign('recommended' , $recommended);
+		
+		
+		
+		$this->sci->da('view.htm');		
+	}
+}
+
+?>

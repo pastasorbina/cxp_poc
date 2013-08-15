@@ -1,0 +1,141 @@
+<style> 
+            .galaxy_normal { background: url({asset_url}img/fdr/kntire2.jpg) no-repeat top left; }  
+            .hov1 { margin-left:447px; margin-top:41px; } 
+            .hov2 { margin-left:275px; margin-top:206px; } 
+            .hov3 { margin-left:311px; margin-top:303px; }
+            .hov4 { margin-left:634px; margin-top:244px; }
+            
+             
+            #td_box { 
+                width: 200px;
+                height: 330px;
+                overflow-y: auto;
+                padding: 5px 10px; 
+            }
+            
+            .inset_title {
+                float:left; display: inline; position: absolute; 
+                color: #ffffff; font-size: 16px;  
+                margin-top:  20px;margin-left:  20px;
+            }
+            .inset_list {
+                float:left; display: inline; position: absolute; 
+                color: #ffffff; font-size: 16px;  
+                margin-top:  50px;margin-left:  20px;
+            }
+            .inset_list ul li { padding: 0px; margin: 0px; }
+            .inset_list ul li a{
+                display: block; 
+                padding: 1px 5px 1px 5px; color: #ffffff; font-size: 13px;
+                min-width: 150px;
+            }
+            .inset_list ul li a:hover{
+                background-color: #AA1E1E; color:  #ffffff; text-decoration: none;
+            }  
+            
+            .tth_1 { margin-left: 364px; margin-top: 59px; }
+            .tth_1 .inner {   width: 200px; height: 160px; }
+            .tth_1 .point { margin-left: 60px;}
+            
+            .tth_2 { margin-left: 20px; margin-top: 185px; }
+            .tth_2 .inner {  float:left; width: 200px; height: 160px; }
+            .tth_2 .point {  float:right; margin-top: 30px; }
+            
+            .tth_3 { margin-left: 45px; margin-top: 285px; }
+            .tth_3 .inner {  float:left; width: 200px; height: 160px; }
+            .tth_3 .point { float: right; margin-top: 30px;}
+              
+            .tth_4 { margin-left: 453px; margin-top: 29px; }
+            .tth_4 .inner { width: 200px; height: 160px; }
+            .tth_4 .point { margin-left: 145px;}
+        </style>
+          
+                
+            <div id="galaxy" class="galaxy_normal">
+                <div class="planets">
+                    <a href="" class="hov hov1"  id="hov1" data-id="1" data-index="1" title="1" ><img src="{asset_url}img/spacer.png" /></a>
+                    <a href="" class="hov hov2"  id="hov2" data-id="2" data-index="2" title="2" ><img src="{asset_url}img/spacer.png" /></a>
+                    <a href="" class="hov hov3" id="hov3" data-id="3" data-index="3" title="3" ><img src="{asset_url}img/spacer.png" /></a>
+                    <a href="" class="hov hov4" id="hov4" data-id="4" data-index="4" title="4" ><img src="{asset_url}img/spacer.png" /></a>
+                </div>
+                
+                <div class="overlay_black hide"></div>
+                
+                <div class="overlay_box">
+                    <img id="overlay_1" class="overlay" src="{asset_url}img/fdr/tr_ovr_struk_tread.png" />
+                    <img id="overlay_2" class="overlay" src="{asset_url}img/fdr/tr_ovr_struk_sidewall.png" />
+                    <img id="overlay_3" class="overlay" src="{asset_url}img/fdr/tr_ovr_struk_bead.png" />
+                    <img id="overlay_4" class="overlay" src="{asset_url}img/fdr/tr_ovr_struk_rimline.png" />
+                </div>
+                
+                <div class="inset_title">
+                    <span class="red" style="font-weight: bold;">02</span> <span>|</span> <span style="font-weight: bold;">STRUKTUR BAN</span>
+                </div>
+                
+                <!--<div class="inset_list">-->
+                <!--    <ul>-->
+                <!--        <li><a class="list_hov" data-id="1" ><img src="{asset_url}img/fdr/arrow_small.png"> Tread</a></li>-->
+                <!--        <li><a class="list_hov" data-id="2" ><img src="{asset_url}img/fdr/arrow_small.png"> Sidewall</a></li>-->
+                <!--        <li><a class="list_hov" data-id="3" ><img src="{asset_url}img/fdr/arrow_small.png"> Rim Line</a></li>-->
+                <!--        <li><a class="list_hov" data-id="4" ><img src="{asset_url}img/fdr/arrow_small.png"> Bead</a></li>-->
+                <!--    </ul>-->
+                <!--</div>-->
+            
+                <div id="tth_1" class=" tth_1 tth hide">
+                        <div class="point"><img src="{asset_url}img/fdr/tria_ul.png" /></div>
+                        <div class="inner">
+                            <a class="closebox" data-id="tth_1" >x</a>
+                            <div class="tth_name">Tread</div> 
+                            <div class="tth_brief">
+                                Bagian telapak ban  yang membentuk pattern (kembangan) yang berfungsi untuk membuang air saat melintasi jalan basah dan melindungi ban dari benturan.
+                            </div>
+                        </div>
+                        
+                 </div>
+                    
+                <div id="tth_2" class=" tth_2 tth hide"> 
+                    <div class="inner">
+                         <a class="closebox" data-id="tth_2" >x</a>
+                         <div class="tth_name">Sidewall</div> 
+                         <div class="tth_brief">
+                              Dinding pada ban sebagai penopang dan ini juga sebagai penentu kelenturan ban saat digunakan sehingga berefek pada kenyamanan ban.
+                         </div>
+                    </div>
+                    <div class="point"><img src="{asset_url}img/fdr/tria_dr.png" /></div>
+               </div>
+                    
+                <div id="tth_3" class=" tth_3 tth hide">
+                    <div class="point"><img src="{asset_url}img/fdr/tria_rd.png" /></div>
+                    <div class="inner">
+                         <a class="closebox" data-id="tth_3" >x</a>
+                         <div class="tth_name">RimLine</div> 
+                         <div class="tth_brief">
+                              Garis acuan yang berguna pada saat pemasangan ban terhadap velg sehingga ban tidak dirasa oleng.
+                         </div>
+                    </div>
+               </div>
+                
+                <div id="tth_4" class=" tth_4 tth hide">
+                           
+                    <div class="inner">
+                        <a class="closebox" data-id="tth_4" >x</a>
+                        <div class="tth_name">Bead</div> 
+                        <div class="tth_brief">
+                            Kawat yang disatukan oleh karet yang keras dan berfungsi sebagai pemegang ban terhadap pelek.
+                        </div>
+                    </div>
+                    <div class="point"><img src="{asset_url}img/fdr/tria_ld.png" /></div>
+               </div>
+             
+        </div>
+        
+       
+        
+      <!--  {foreach from=$tire_tech name=tth item=tth}
+        <div id="tth_{$tth.tth_id}" class=" tth_{$tth.tth_name} hide">  
+            <img src="{site_url}userfiles/upload/{$tth.tth_logo}" />
+            <div class="tth_name">{$tth.tth_name}</div>
+            <div class="tth_subtitle">{$tth.tth_subtitle}</div>
+            <div class="tth_brief">{$tth.tth_desc}</div>
+        </div>
+        {/foreach}-->

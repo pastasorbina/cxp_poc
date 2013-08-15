@@ -1,0 +1,393 @@
+<style>
+    .TS_wrap { margin-top: -12px; }
+    .TS_header { }
+    .TS_body {
+        background: #313131;
+        border-radius: 0px 0px 10px 10px;
+        padding-bottom: 10px;
+    }
+    .TS_body form{ margin:0px; }
+    .TS_inset { padding:8px 12px; color: #999999; }
+    .TS_inset_header {
+        display: block; 
+        background: url({asset_url}img/fdr/ts_headerbg.png) no-repeat left;
+        border-top: solid 1px #222222;
+        border-bottom: solid 1px #222222;
+        padding: 5px 10px;
+        color:  #ffffff; font-weight: bold;
+        letter-spacing: -1px; font-size: 13px;
+    }
+    .TS_inset_header.active, .TS_inset_header:hover {
+        background: #AB0C11; text-decoration: none; color:  #ffffff;
+    }
+    .TS_bullet {
+        margin-right: 5px; opacity: 0.8;
+        background: url({asset_url}img/fdr/ts_bullet1.png) no-repeat left; width: 11px; height: 11px; display: inline-block;  float:left; margin-top: 3px;
+    }
+     .TS_bullet.active{
+        margin-right: 5px; opacity: 0.8;
+        background: url({asset_url}img/fdr/ts_bullet2.png) no-repeat left; width: 11px; height: 11px; display: inline-block;  float:left; margin-top: 3px;
+    }
+    .TS_set { margin-bottom: 5px; }
+    .TS_set_header { }
+    .TS_set_header a {
+        color: #ffffff;
+        display: block;
+        padding: 3px 10px 3px 15px;
+        text-shadow: 1px 1px #333333;
+    }
+    .TS_set_header a:hover { text-decoration: none; color: #F2CDCD; }
+    
+    .TS_submit_wrap {
+        text-align: center;
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+    .TS_submit_button{ box-shadow: 0px 0px 3px #5B5858; }
+    
+    select.ts_select {
+        background: #AB0C11;
+        width: 200px;
+        border: none;
+        color: #ffffff;
+        border: solid 1px #666666;
+        margin-bottom: 3px;  
+        font-size: 13px;
+        line-height: 14px;
+         cursor: pointer;
+    }
+    .ts_option{
+       color: #333333;
+       background: #ffffff;
+       padding:5px;
+       border-bottom: dotted 1px #cccccc;
+       line-height: 29px;
+       cursor: pointer;
+    }
+    .ts_option span{ padding: 10px; }
+    .ts_option.ts_option_default{ background: #dddddd; }
+    select.ts_select:disabled { background: #4F2525; }
+    
+    .confirmby {
+        z-index: 402030;
+        float:left;
+        position: absolute;
+        margin-left: -26px;
+        width: 30px;
+        height: 30px;
+        /*border: solid 1px #666666;*/
+        
+        background: url({asset_url}css/img/light90.png) repeat;
+        /*background: #AB0C11; */
+        background: #F2FF00; 
+        color:#EF0000;
+        border-radius: 10px 0px 0px 10px;
+        /*box-shadow: -2px 0px 2px #999999;*/
+    }
+    .confirmby .inner { margin:5px 8px; }
+</style>
+
+<script>
+    function confirmby(box, msg) {
+        if(msg == undefined) { var msg = 'Error !'; } 
+        var boxobject = $("#"+box);
+        //$(boxobject).children('.inner').html(msg);
+        //$(boxobject).fadeIn(400).delay(1500).fadeOut(400); 
+        $(boxobject).fadeIn(400);
+    }
+    
+    function hide_confirmby() {
+        $('.confirmby').hide();
+    }
+    
+    function populate_motor_type() { 
+    }
+    
+    function populate_motor_model(mb_id) { 
+        $.post('{site_url}tire_search/get_motor_model_option/'+mb_id, {}, function(data) {
+            $('#mm_id').html(data); 
+        }, 'html');
+    }
+    
+    function populate_motor_tire_category(mm_id) {
+        $.post('{site_url}tire_search/get_motor_size_category/'+mm_id, {}, function(data) {
+            $('#tsc_id').html(data);
+            //console.log(data);
+        }, 'html');
+    }
+    
+    function populate_motor_tire_size(mm_id, tsc_id) {
+        $.post('{site_url}tire_search/get_motor_size_option/'+mm_id+'/'+tsc_id, {}, function(data) {
+            $('#tsr_id').html(data); 
+        }, 'html');
+    }
+    
+    //function populate_tire_size_rim(mm_id, tsc_id) {
+    //    $.post('{site_url}tire_search/get_tire_size_rim/', {}, function(data) {
+    //        $('#ts_id').html(data); 
+    //    }, 'html');
+    //}
+    
+    function populate_tire_rim() {
+        $.post('{site_url}tire_search/get_tire_rim/', {}, function(data) {
+            $('#tr_id').html(data); 
+        }, 'html');
+    }
+    
+    function populate_tire_size(tr_id) {
+        $.post('{site_url}tire_search/get_tire_size/'+tr_id, {}, function(data) {
+            $('#ts_id').html(data); 
+        }, 'html');
+    }
+    
+    function select_status() { 
+        var mb_id = $('#mb_id option:selected').val();
+        var mm_id = $('#mm_id option:selected').val();
+        var tsc_id = $('#tsc_id option:selected').val();
+        var tsr_id = $('#tsr_id option:selected').val();
+       
+        if(mb_id == '0') {
+            $('#mm_id').attr('disabled','disabled');
+            $('#tsc_id').attr('disabled','disabled');
+            $('#tsr_id').attr('disabled','disabled');
+        }
+        else if(mb_id != '0' && mm_id == '0' && tsc_id == '0') { 
+            $('#mm_id').removeAttr('disabled');
+            $('#tsc_id').removeAttr('disabled');
+            $('#tsr_id').attr('disabled','disabled');
+        }
+        else if(mm_id != '0' && tsc_id == '0') {
+           $('#tsr_id').attr('disabled','disabled');
+        }
+        else if(mm_id == '0' && tsc_id != '0') {
+           $('#tsr_id').attr('disabled','disabled');
+        } 
+        else if(mb_id != '0' && mm_id != '0' && tsc_id != '0') {
+           $('#tsr_id').removeAttr('disabled');
+        }
+    }
+    
+    function select_status2() { 
+        var tr_id = $('#tr_id option:selected').val();  
+        if(tr_id == '0') {
+            $('#ts_id').attr('disabled','disabled'); 
+        } else {
+            $('#ts_id').removeAttr('disabled');
+        }
+    }
+    
+    $(function(){
+        $('.TS_open_inset').click(function(e) {
+            e.preventDefault();
+            var insetid = $(this).attr('data-insetid');
+            var searchby = $(this).attr('data-searchby'); 
+            $('.TS_inset').hide('fast');
+            $('.TS_bullet').removeClass('active');
+            $('.TS_open_inset').removeClass('active');
+            $('#'+insetid).show('fast');
+            $(this).children('.TS_bullet').addClass('active');
+            $(this).addClass('active');
+            hide_confirmby();
+        });
+        
+         
+        populate_motor_model();
+        populate_motor_tire_category();
+        populate_motor_tire_size();
+        populate_tire_rim();
+        populate_tire_size(0);
+        
+        $('#tr_id').change(function(e) {
+            e.preventDefault();
+            var tr_id = $('#tr_id option:selected').val();
+            populate_tire_size(tr_id); 
+            select_status2();
+            hide_confirmby();
+        });
+        
+         $('#mb_id').change(function(e) {
+            e.preventDefault();
+            var mb_id = $('#mb_id option:selected').val();
+            populate_motor_model(mb_id);
+            select_status();
+            hide_confirmby();
+        });
+         
+         $('#mm_id').change(function(e) {
+            e.preventDefault();
+            var mm_id = $('#mm_id option:selected').val();
+            populate_motor_tire_category(mm_id);
+            select_status();
+            hide_confirmby();
+        });
+         
+         $('#tsc_id').change(function(e) {
+            e.preventDefault();
+            var tsc_id= $('#tsc_id option:selected').val();
+            var mm_id = $('#mm_id option:selected').val();
+            populate_motor_tire_size(mm_id, tsc_id);
+            select_status();
+            hide_confirmby();
+        });
+        
+        $('#get_tire_ratio').click(function(e) {
+            e.preventDefault();
+            $.post('{site_url}tire_search/get_list_rim', {}, function(data) {
+                $('#tire_ratio_box').html(data);
+            },'html');
+        }); 
+        
+        
+        //submit button, prevent form submit
+        $('.TS_submit_button').click(function(e) {
+            e.preventDefault(); 
+            hide_confirmby();
+            
+            var mb_id = $('#mb_id option:selected').val();
+            var mm_id = $('#mm_id option:selected').val();
+            var tsc_id = $('#tsc_id option:selected').val();
+            var tsr_id = $('#tsr_id option:selected').val();
+            var ts_id = $('#ts_id option:selected').val();
+            var tr_id = $('#tr_id option:selected').val();
+            
+            var by = $(this).attr('data-by');
+            if(by == 'bymotor') {
+                if(mb_id == 0) {
+                    confirmby('confirm_mb_id', '');
+                } else if(mm_id == 0) {
+                    confirmby('confirm_mm_id', '');
+                } else if(tsc_id == 0) {
+                    confirmby('confirm_tsc_id', '');
+                } else if(tsr_id == 0) {
+                    confirmby('confirm_tsr_id', '');
+                } else {
+                    $('#TS_form_bymotor').submit();
+                }
+            }else if(by == 'bysize') {
+                if(tr_id == 0) { 
+                    confirmby('confirm_tr_id', '');
+                } else {
+                    $('#TS_form_bysize').submit();
+                }
+            } 
+        });
+        
+    });
+    
+   
+</script>
+<!--{$searchby}-->
+
+
+<div class="TS_wrap">
+    <div class="TS_header">
+        <img src="{asset_url}img/fdr/fyt-top.png" >
+    </div>
+    <div class="TS_body">
+        
+    
+        <a href="" class="TS_inset_header TS_open_inset active" id="TS_open_by_motor" data-insetid="TS_by_motor" data-searchby="motor" >
+            <!--<img src="{asset_url}img/fdr/fyt-by-motor.png"  />-->
+            <div class="TS_bullet  active">&nbsp;</div> BY MOTORCYCLE
+        </a>
+        
+        <div class="TS_inset hide" id="TS_by_motor">
+            <form id="TS_form_bymotor" method="post" action="{site_url}tire_search/do_search">
+                <div id="confirm_mb_id" class="confirmby hide"><div class="inner"><i class="icon-warning-sign "></i></div></div>
+                <div class="TS_set">
+                    <div class="TS_set_header"> 
+                        <select name="mb_id" id="mb_id" tabindex="1" class="ts_select">
+                            <option value="0" class="ts_option ts_option_default" >MANUFACTURER</option>
+                            {foreach from=$motor_brand item=mb name=mb}
+                                <option value="{$mb.mb_id}"  class="ts_option" data-id="{$mb.mb_id}" id="mb_{$mb.mb_id}">
+                                    {$mb.mb_name}
+                                </option>
+                            {/foreach}
+                        </select>
+                    </div> 
+                </div>
+                
+                <div id="confirm_mm_id" class="confirmby hide"><div class="inner"><i class="icon-warning-sign "></i></div></div>
+                <div class="TS_set">
+                    <div class="TS_set_header"> 
+                        <select name="mm_id" id="mm_id" tabindex="1" class="ts_select" disabled></select>
+                    </div> 
+                </div>
+                
+                <div id="confirm_tsc_id" class="confirmby hide"><div class="inner"><i class="icon-warning-sign "></i></div></div>
+                <div class="TS_set">
+                    <div class="TS_set_header">
+                        <div id="confirm_tsc_id" class="confirmby hide"></div>
+                        <select name="tsc_id" id="tsc_id" tabindex="1" class="ts_select" disabled></select>
+                    </div> 
+                </div>
+                
+                <div id="confirm_tsr_id" class="confirmby hide"><div class="inner"><i class="icon-warning-sign "></i></div></div>
+                 <div class="TS_set">
+                    <div class="TS_set_header">
+                        <div id="confirm_tsr_id" class="confirmby hide"></div>
+                        <select name="tsr_id" id="tsr_id" tabindex="1" class="ts_select" disabled></select>
+                    </div> 
+                </div>
+            
+                <div class="TS_set hide">
+                    <div class="TS_set_header">
+                        <a href="">TIRE SIZE</a>
+                    </div> 
+                </div>
+            
+                <div class="TS_submit_wrap"> 
+                    <input type="hidden" name="searchby" id="searchby" value="motor">
+                    <button class="TS_submit_button btn btn-small btn-inverse" data-by="bymotor">FIND <i class="icon icon-chevron-right "></i></button>
+                </div>
+            </form>
+            
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        <a href="" class="TS_inset_header TS_open_inset" id="TS_open_by_size" data-insetid="TS_by_size"  data-searchby="size"  >
+            <div class="TS_bullet ">&nbsp;</div> BY SIZE
+        </a>
+        
+        <div class="TS_inset hide" id="TS_by_size">
+            <form id="TS_form_bysize" method="post" action="{site_url}tire_search/do_search">
+                
+                <div id="confirm_tr_id" class="confirmby hide"><div class="inner"><i class="icon icon-warning-sign "></i></div></div>
+                <div class="TS_set">
+                    <div class="TS_set_header"> 
+                        <select name="tr_id" id="tr_id" tabindex="1" class="ts_select"></select>
+                    </div> 
+                </div>
+                
+                <div id="confirm_ts_id" class="confirmby hide"><div class="inner"><i class="icon-warning-sign "></i></div></div>
+                <div class="TS_set">
+                    <div class="TS_set_header">
+                        <select name="ts_id" id="ts_id" tabindex="1" class="ts_select" disabled></select>
+                    </div> 
+                </div>
+                <div class="TS_submit_wrap"> 
+                    <input type="hidden" name="searchby" id="searchby" value="size">
+                    <button class="TS_submit_button btn btn-small btn-inverse" data-by="bysize">FIND <i class="icon icon-chevron-right "></i></button>
+                </div>
+            </form>
+        </div>
+        
+        
+        
+        </form>
+    </div>
+    
+</div>
+
+ {if $searchby == 'motor' }
+   <script>  $(function(){ $('#TS_open_by_motor').trigger('click'); }); </script>
+{elseif $searchby == 'size' }
+   <script> $(function(){ $('#TS_open_by_size').trigger('click'); }); </script>
+{else}
+   <script> $(function(){ $('.TS_open_inset:first-child').trigger('click'); }); </script>
+{/if}

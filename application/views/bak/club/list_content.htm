@@ -1,0 +1,86 @@
+<script>  
+	var TSearch = new Stacklet('#TSearch_box');  
+	TSearch.start('{site_url}tire_search/load_searchbox/'); 
+	$(function() { 
+		$('#ds_refresh').live('click', function(e) {
+			e.preventDefault();
+			DS.reset();
+		}); 
+	}); 
+</script>  
+<ul class="breadcrumb"> 
+      {foreach from=$breadcrumb name=b item=b}
+      <li>{$b}</li>
+       <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+      {/foreach} 
+</ul> 
+ 
+
+<div class="row-fluid">
+	<div class="span9">
+                
+		<div class="article_entry_box">
+			
+			<div class="article_entry_header">
+				<div class="article_entry_header_text">
+					Club News / Event <img src="{asset_url}img/fdr/news_title_arrow.png" /> 
+				</div>
+			</div>
+			<div class="spacer10"></div>
+			
+			<ul class="nav nav-tabs">
+				<li {if $clubc_type == 'News'}class="active"{/if} >
+				  <a href="{site_url}club/list_content/News/{$club_id}" style="font-weight: bold;" >Club News</a>
+				</li>
+				<li {if $clubc_type == 'Event'}class="active"{/if} >
+					<a href="{site_url}club/list_content/Event/{$club_id}" style="font-weight: bold;" >Club Events</a>
+				</li> 
+			</ul>
+			
+			{if !$maindata}
+			
+			{else}
+			<div class="article_entry_listbox">
+				<div style="text-align: right;">{$paging}</div>
+				
+				<table class="article_entry_table table table-striped table-striped">
+					{foreach from=$maindata item=m name=m}
+						<tr>
+							<!--{if $m.clubc_banner != ''}-->
+							<td class="article_entry_td_image">
+								<div class="article_image_box">
+								<img src="{site_url}userfiles/upload/thumb/{$m.clubc_banner}" class="thumb" height="200"   />
+								</div>
+							</td>
+							<!--{/if}-->
+							<td class="article_entry_td_content" {if $m.clubc_banner == ''}colspan="2"{/if} >
+								<div class="article_entry_date">
+									<span>{$m.clubc_date|date_format:'d F Y'}</span> . 
+									<span>By {$m.club_name}</span>
+								</div>
+								<div class="article_entry_title">{$m.clubc_title}</div>
+								<div class="article_entry_content">{$m.clubc_intro}</div> 
+								<div class="article_entry_readmore">
+									<a href="{site_url}club/view_content/{$m.clubc_id}/{$m.clubc_title|url_title}" >READ MORE</a>
+								</div>
+							</td>
+						</tr>
+					{/foreach}
+				</table>
+				
+				<div style="text-align: right;">{$paging}</div>
+			</div>
+			{/if}
+		</div>
+                
+                 
+		
+	</div>
+   
+	<div class="span3">
+        {$club_sidebar}
+	</div>
+   
+</div>
+
+

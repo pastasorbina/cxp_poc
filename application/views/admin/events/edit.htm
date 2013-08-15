@@ -1,0 +1,101 @@
+<script type="text/javascript">
+	var current_uri = '{$current_uri}';
+	var mod_url = '{$mod_url}';
+	var use_ajax = '{$use_ajax|default:FALSE}';
+</script>
+
+
+<ul class="breadcrumb">
+	<li><a href="{$LAST_LIST}" class="cancel" >back</a></li>
+	<li class="divider">»</li>
+	<li>edit</li>
+</ul>
+
+
+
+{''|validation_errors}
+
+<form enctype="multipart/form-data" name="formSubmit" id="formSubmit"  method="post" class="form-horizontal"  >
+	<input type="hidden" name="current_id" value="{$data.sc_id}" />
+	<input type="hidden" name="ajax_action" value="{$ajax_action}" />
+
+	<div class="use_right_sidebar">
+
+
+		<div class="inner_content">
+
+
+			<div class="control-group">
+				<div class="control-label">Event Name</div>
+				<div class="controls">
+					<input type="text" name="e_name" class="span8" value="{'e_name'|set_value|default:$data.e_name}" >
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="control-label">Start Date</div>
+				<div class="controls">
+					<input type="text" name="e_date" class="datepicker span2" value="{'e_date'|set_value|default:$data.e_date}" >
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="control-label">End Date</div>
+				<div class="controls">
+					<input type="text" name="e_end_date" class="datepicker span2" value="{'e_end_date'|set_value|default:$data.e_end_date}" >
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="control-label">Location</div>
+				<div class="controls">
+					<input type="text" name="e_location" class="span8" value="{'e_location'|set_value|default:$data.e_location}" >
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="control-label">Speakers</div>
+				<div class="controls">
+					<textarea name="e_speakers" class="" rows="3" style="width:500px;">{'e_speakers'|set_value|default:$data.e_speakers}</textarea>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="control-label">Thumbnail</div>
+				<div class="controls">
+					{if $data.e_thumbnail}
+						<div>
+						<a href="{site_url}userfiles/upload/{$data.e_thumbnail}" class="colorbox" >
+							<img src="{site_url}userfiles/upload/thumb/{$data.e_thumbnail}" width="40" >
+						</a>
+						</div>
+					{/if}
+					<input type="file" name="e_thumbnail" id="e_thumbnail" />
+					<div class="small">220px × 127px</div>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="control-label">Brief</div>
+				<div class="controls">
+					<textarea name="e_brief" class="" rows="4" style="width:500px;">{'e_brief'|set_value|default:$data.e_brief}</textarea>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="control-label">Content</div>
+				<div class="controls">
+					<textarea name="e_content" class="ckeditor">{'e_content'|set_value|default:$data.e_content}</textarea>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+	<div class="form-actions" align="right" >
+		<input class="btn btn-primary" type="submit" value="Save" >
+		<a href="{$LAST_LIST}" class="btn do_cancel">Cancel</a>
+	</div>
+
+</form>

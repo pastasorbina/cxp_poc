@@ -1,0 +1,323 @@
+<style> 
+            .galaxy_normal { background: url({asset_url}img/fdr/kntire3.jpg) no-repeat top left; }  
+            
+            .hov1 { margin-left:450px; margin-top:69px; } 
+            .hov2 { margin-left:604px; margin-top:157px; } 
+            .hov3 { margin-left:629px; margin-top:262px; }
+            .hov4 { margin-left:606px; margin-top:344px; }
+            .hov5 { margin-left:551px; margin-top:407px; }
+            .hov6 { margin-left:427px; margin-top:442px; }
+            .hov7 { margin-left:282px; margin-top:359px; }
+            .hov8 { margin-left:255px; margin-top:255px; }
+            .hov9 { margin-left:288px; margin-top:144px; }
+            .hov10 { margin-left:337px; margin-top:79px; }
+            
+            img.tirekn_thumb { border: solid 1px #000000; }
+             
+            #td_box { 
+                /*width: 200px;
+                height: 330px;*/
+                overflow-y: auto;
+                padding: 5px 10px; 
+            }
+            
+            
+            .inset_list {
+                float:left; display: inline; position: absolute; 
+                color: #ffffff; font-size: 16px;  
+                margin-top:  50px;margin-left:  20px;
+            }
+            .inset_list ul li { padding: 0px; margin: 0px; }
+            .inset_list ul li a{
+                display: block; 
+                padding: 1px 5px 1px 5px; color: #ffffff; font-size: 13px;
+                min-width: 150px;
+            }
+            .inset_list ul li a:hover{
+                background-color: #AA1E1E; color:  #ffffff; text-decoration: none;
+            } 
+            
+            .tth_1 { margin-left: 372px; margin-top: 88px; }
+            .tth_1 .inner {   width: 205px; height: 170px; }
+            .tth_1 .point { margin-left: 40px;}
+            
+            .tth_2 { margin-left: 340px; margin-top: 138px; }
+            .tth_2 .inner {  float:left; width: 205px; height: 205px; }
+            .tth_2 .point {  float:right; margin-top: 30px; }
+            
+            .tth_3 { margin-left: 362px; margin-top: 160px; }
+            .tth_3 .inner {  float:left; width: 205px; height: 250px; }
+            .tth_3 .point { float: right; margin-top: 110px;}
+              
+            .tth_4 { margin-left: 350px; margin-top: 100px; }
+            .tth_4 .inner { float:left; width: 205px; height: 270px; }
+            .tth_4 .point { float:right; margin-top: 210px;}
+            
+            .tth_5 { margin-left: 360px; margin-top: 125px; }
+            .tth_5 .inner { width: 205px; height: 230px; }
+            .tth_5 .point { margin-left: 150px;}
+            
+            .tth_6 { margin-left: 295px; margin-top: 205px; }
+            .tth_6 .inner { width: 205px; height: 167px; }
+            .tth_6 .point { margin-left: 95px;}
+            
+            .tth_7 { margin-left: 22px; margin-top: 110px; }
+            .tth_7 .inner { float:left; width: 205px; height: 295px; }
+            .tth_7 .point { float:right; margin-top: 210px;}
+            
+            .tth_8 { margin-left: 275px; margin-top: 150px; }
+            .tth_8 .inner { float:right; width: 235px; height: 270px; }
+            .tth_8 .point { float:left; margin-top: 115px;}
+            
+            .tth_9 { margin-left: 305px; margin-top: 55px; }
+            .tth_9 .inner {  float:right; width: 245px; height: 300px; }
+            .tth_9 .point { float:left; margin-top: 50px;}
+            
+            .tth_10 { margin-left: 323px; margin-top: 99px; }
+            .tth_10 .inner { width: 205px; height: 330px; }
+            .tth_10 .point { margin-left: 25px;}
+           
+        </style>
+          
+                
+            <div id="galaxy" class="galaxy_normal">
+                <div class="planets">
+                    <a href="" class="hov hov1" id="hov1" data-id="1" data-index="1"  ><img src="{asset_url}img/spacer.png" /></a>
+                    <a href="" class="hov hov2" id="hov2" data-id="2" data-index="2"  ><img src="{asset_url}img/spacer.png" /></a>
+                    <a href="" class="hov hov3" id="hov3" data-id="3" data-index="3"  ><img src="{asset_url}img/spacer.png" /></a>
+                    <a href="" class="hov hov4" id="hov4" data-id="4" data-index="4"  ><img src="{asset_url}img/spacer.png" /></a>
+                    <a href="" class="hov hov5" id="hov5" data-id="5" data-index="5"  ><img src="{asset_url}img/spacer.png" /></a>
+                    <a href="" class="hov hov6" id="hov6" data-id="6" data-index="6"  ><img src="{asset_url}img/spacer.png" /></a>
+                    <a href="" class="hov hov7" id="hov7" data-id="7" data-index="7"  ><img src="{asset_url}img/spacer.png" /></a>
+                    <a href="" class="hov hov8" id="hov8" data-id="8" data-index="8"  ><img src="{asset_url}img/spacer.png" /></a>
+                    <a href="" class="hov hov9" id="hov9" data-id="9" data-index="9"  ><img src="{asset_url}img/spacer.png" /></a>
+                    <a href="" class="hov hov10" id="hov10" data-id="10" data-index="10" title="10" ><img src="{asset_url}img/spacer.png" /></a>
+                </div>
+                
+                <div class="ln_wrap">
+                    <div style="" class="ln_prev_wrap">
+                        <a class="ln_prev" href="{site_url}tireology/view_knowledge/2"><i class="icon icon-chevron-left"></i> PREV</a>
+                    </div> 
+                </div>
+                
+                <div class="overlay_black hide"></div>
+                
+                <div class="overlay_box">
+                    <!--<img id="overlay_1" class="overlay" src="{asset_url}img/fdr/tr_ovr_struk_tread.png" />-->
+                    <!--<img id="overlay_2" class="overlay" src="{asset_url}img/fdr/tr_ovr_struk_sidewall.png" />-->
+                    <!--<img id="overlay_3" class="overlay" src="{asset_url}img/fdr/tr_ovr_struk_bead.png" />-->
+                    <!--<img id="overlay_4" class="overlay" src="{asset_url}img/fdr/tr_ovr_struk_rimline.png" />-->
+                </div>
+                
+                <div class="inset_title">
+                    <span class="red" style="font-weight: bold;">03</span> <span>|</span> <span style="font-weight: bold;">MEMBACA SIMBOL KODE BAN</span>
+                </div>
+                 
+            
+                <div id="tth_1" class="tth_1 tth hide">
+                    <div class="point"><img src="{asset_url}img/fdr/tria_lu.png" /></div>
+                    <div class="inner">
+                        <a class="closebox" data-id="tth_1" >x</a>
+                        <div class="tth_name">Merek</div>
+                        <div class="tth_brief">
+                            <img class="tirekn_thumb" src="{asset_url}img/fdr/tirekn_thumb/1.jpg" />
+                        </div> 
+                    </div> 
+                 </div>
+                    
+                <div id="tth_2" class="tth_2 tth hide"> 
+                    <div class="inner">
+                        <a class="closebox" data-id="tth_2" >x</a>
+                        <div class="tth_name">Negara Pembuat dan logo Standar Nasional Indonesia</div>
+                        <div class="tth_brief">
+                            <img class="tirekn_thumb" src="{asset_url}img/fdr/tirekn_thumb/2.jpg" />
+                        </div> 
+                    </div>
+                    <div class="point"><img src="{asset_url}img/fdr/tria_dr.png" /></div>
+               </div>
+                    
+                <div id="tth_3" class=" tth_3 tth hide">
+                    
+                    <div class="inner">
+                        <a class="closebox" data-id="tth_3" >x</a>
+                        <div class="tth_name">Usia Produksi</div> 
+                        <div class="tth_brief">
+                            <img class="tirekn_thumb" src="{asset_url}img/fdr/tirekn_thumb/3.jpg" />
+                            <div class="spacer5"></div>
+                            <img class="" src="{asset_url}img/fdr/tireology/tk-usia.png" />
+                        </div> 
+                    </div>
+                    <div class="point"><img src="{asset_url}img/fdr/tria_rd.png" /></div>
+               </div>
+                
+                <div id="tth_4" class=" tth_4 tth hide">                           
+                    <div class="inner">
+                        <a class="closebox" data-id="tth_4" >x</a>
+                        <div class="tth_name">Tire Cords</div> 
+                        <div class="tth_brief">
+                            <img class="tirekn_thumb" src="{asset_url}img/fdr/tirekn_thumb/4.jpg" />
+                            <div style="margin-top: 5px;">
+                                Menunjukkan materi yang digunakan untuk anyaman tire cords (lapisan yang berfungsi sebagai tulang ban) terbuat dari benang nylon.
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="point"><img src="{asset_url}img/fdr/tria_ur.png" /></div>
+               </div>
+                
+                <div id="tth_5" class="tth_5 tth hide">                           
+                    <div class="inner">
+                        <a class="closebox" data-id="tth_5" >x</a>
+                        <div class="tth_name">Rotasi Ban</div> 
+                        <div class="tth_brief">
+                            <img class="tirekn_thumb" src="{asset_url}img/fdr/tirekn_thumb/5.jpg" />
+                            <div style="margin-top: 5px;">
+                                Arah panah menunjukkan arah putaran ban untuk panduan saat pemasangan ban.
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="point"><img src="{asset_url}img/fdr/tria_ld.png" /></div>
+               </div>
+                
+                <div id="tth_6" class="tth_6 tth hide">                           
+                    <div class="inner">
+                        <a class="closebox" data-id="tth_6" >x</a>
+                        <div class="tth_name">Nama Merek Dagang</div> 
+                        <div class="tth_brief">
+                            <img class="tirekn_thumb" src="{asset_url}img/fdr/tirekn_thumb/6.jpg" />
+                        </div> 
+                    </div>
+                    <div class="point"><img src="{asset_url}img/fdr/tria_ld.png" /></div>
+               </div>
+                
+                <div id="tth_7" class="tth_7 tth hide">                           
+                    <div class="inner">
+                        <a class="closebox" data-id="tth_7" >x</a>
+                        <div class="tth_name">Ukuran</div> 
+                        <div class="tth_brief">
+                            <img class="tirekn_thumb" src="{asset_url}img/fdr/tirekn_thumb/7.jpg" />
+                            <div class="spacer5"></div>
+                            <img class="" src="{asset_url}img/fdr/tireology/tk-ukuran.png" /> 
+                        </div>
+                        <div style="text-align: right; margin-top: 10px;">
+                            <a onClick="load_detail('7');" class="btn btn-inverse btn-small" >more <img src="{asset_url}img/arrow_right_grey.png"></a>
+                        </div>
+                    </div>
+                    <div class="point"><img src="{asset_url}img/fdr/tria_ur.png" /></div>
+               </div>
+                
+                <div id="tth_8" class="tth_8 tth hide">
+                    <div class="point"><img src="{asset_url}img/fdr/tria_dl.png" /></div>
+                    <div class="inner">
+                        <a class="closebox" data-id="tth_8" >x</a>
+                        <div class="tth_name">Jenis Ban</div> 
+                        <div class="tth_brief">
+                            <img class="tirekn_thumb" src="{asset_url}img/fdr/tirekn_thumb/8.jpg" />
+                            <div style="margin-top: 5px;">
+                                <ol>
+                                    <li>Tubeless berarti ban tersebut <strong>tidak</strong> membutuhkan ban dalam.</li>
+                                    <li>Tubetype berarti ban tersebut <strong>harus</strong> menggunakan ban dalam.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div> 
+               </div>
+                
+                <div id="tth_9" class="tth_9 tth hide">
+                    <div class="point"><img src="{asset_url}img/fdr/tria_ul.png" /></div>
+                    <div class="inner">
+                        <a class="closebox" data-id="tth_9" >x</a>
+                        <div class="tth_name">Beban maksimum</div> 
+                        <div class="tth_brief">
+                            <img class="tirekn_thumb" src="{asset_url}img/fdr/tirekn_thumb/9.jpg" />
+                            <div class="spacer5"></div>
+                            <!--<img class="" src="{asset_url}img/fdr/tireology/bebanmax.png" />-->
+                            Menunjukkan beban maksimum yang bisa tanggung ban, yaitu 170 kg (374lbs) dengan tekanan ban 260kPa (33psi) pada kondisi ban dingin.
+                        </div> 
+                    </div>
+                   
+                    
+               </div>
+                
+                <div id="tth_10" class="tth_10 tth hide">
+                    <div class="point"><img src="{asset_url}img/fdr/tria_ru.png" /></div>
+                    <div class="inner">
+                        <a class="closebox" data-id="tth_10" >x</a>
+                        <div class="tth_name">TWI (Tread Wire Indicator)</div> 
+                        <div class="tth_brief">
+                            <img class="tirekn_thumb" src="{asset_url}img/fdr/tirekn_thumb/10.jpg" />
+                            <div style="margin-top: 5px;">
+                                Simbol segitiga yang terletak di sejumlah titik yang menunjukkan lokasi TWI (tread wear indicator atau batas pemakaian ban).Jika keausan tread sudah mencapai tanda TWI maka ban harus segera diganti.
+                            </div>
+                        </div> 
+                    </div> 
+               </div>
+             
+        </div>
+            
+            <div class="tdetail hide" id="tdetail_1">
+                        
+            </div>
+            <div class="tdetail hide" id="tdetail_2">
+                        
+            </div>
+            <div class="tdetail hide" id="tdetail_3">
+                <div style="text-align: center;">
+                    <img src="{asset_url}img/fdr/tireology/tk-usia.png" />
+                </div>
+            </div>
+            <div class="tdetail hide" id="tdetail_4">
+                        Menunjukkan anyaman benang untuk tire cords atau lapisan yang berfungsi sebagai tulang ban terbuat dari benang nilon.
+            </div>
+            <div class="tdetail hide" id="tdetail_5">
+                        Menunjukkan arah putaran ban untuk panduan saat pemasangan ban.
+            </div>
+            <div class="tdetail hide" id="tdetail_6">
+                        Nama merek dagang.
+            </div>
+            <div class="tdetail hide" id="tdetail_7">
+                Ukuran pada ban terdiri dari dua jenis yaitu ukuran metric dan inch
+                <div class="spacer10"></div>
+                <strong class="large">Ukuran Metric</strong>
+                <div style="padding-left: 10px;">
+                    <img src="{asset_url}img/fdr/tireology/metric.png" />
+                    <br>
+                    Jadi ukuran 90/80-17 artinya : ban tersebut memiliki lebar 90mm dengan tinggi 80% dari 90mm dan diameter ban adalah 17 inchi.
+                </div>
+                <div class="spacer10"></div>
+                <strong class="large">Ukuran Inchi</strong>
+                <div style="padding-left: 10px;">
+                    <img src="{asset_url}img/fdr/tireology/inchi.png" />
+                    <br>
+                    Jadi ukuran 2.75-17 artinya ban tersebut memiliki lebar 2.75 inchi dengan tinggi 2.75 inchi dan diameter adalah 17 inchi.
+                </div>
+                <div class="spacer10"></div>
+                <div style="text-align: center;">
+                    <img src="{asset_url}img/fdr/tireology/index.png" />
+                </div>
+            </div>
+            <div class="tdetail hide" id="tdetail_8">
+                        Menunjukkan jenis ban. Ada dua jenis ban, yaitu:
+                        <ol>
+                            <li>Tubetype adalah jenis ban yang aplikasinya harus menggunakan ban dalam dan bisa menggunakan pelek jari-jari (spoke). </li>
+                            <li>Tubeless adalah jenis ban yang tidak menggunakan ban dalam.</li>
+                        </ol>
+            </div>
+            <div class="tdetail hide" id="tdetail_9">
+                        <div style="text-align: center;">
+                                    <img src="{asset_url}img/fdr/tireology/bebanmax.png" />
+                        </div>
+            </div>
+            <div class="tdetail hide" id="tdetail_10">
+                        Menunjukkan lokasi TWI atau batas pemakaian ban di pola kembangan ban, terletak disejumlah titik pada ban. Jika keausan tread sudah mencapai tanda ini maka ban harus segera diganti.
+            </div> 
+        
+       
+        
+      <!--  {foreach from=$tire_tech name=tth item=tth}
+        <div id="tth_{$tth.tth_id}" class=" tth_{$tth.tth_name} hide">  
+            <img src="{site_url}userfiles/upload/{$tth.tth_logo}" />
+            <div class="tth_name">{$tth.tth_name}</div>
+            <div class="tth_subtitle">{$tth.tth_subtitle}</div>
+            <div class="tth_brief">{$tth.tth_desc}</div>
+        </div>
+        {/foreach}-->

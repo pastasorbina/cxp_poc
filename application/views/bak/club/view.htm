@@ -1,0 +1,66 @@
+<script> 
+	
+	var TSearch = new Stacklet('#TSearch_box');  
+	TSearch.start('{site_url}tire_search/load_searchbox/'); 
+	$(function() { 
+		$('#ds_refresh').live('click', function(e) {
+			e.preventDefault();
+			DS.reset();
+		}); 
+	});
+    
+</script>  
+<ul class="breadcrumb"> 
+      {foreach from=$breadcrumb name=b item=b}
+      <li>{$b}</li>
+       <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+      {/foreach} 
+</ul> 
+
+<div class="row-fluid">
+	<div class="span9">
+	   
+		<div class="page_wrap">
+			<div class="page_container">
+				<h2 class="page_title" >
+					<div class="row-fluid">
+						<div class="span2">
+							
+						</div>
+						<div class="span10" >
+							{$club.club_name}
+						</div>
+					</div>
+				</h2>
+				
+				<div class="page_content">
+					<div class="row-fluid">
+						<div class="span2" style="">
+							{if $club.club_logo}
+							<img src="{site_url}userfiles/upload/{$club.club_logo}" class="thumb"   /> 
+							{/if}
+						</div>
+						<div class="span10" >
+							{if $club.club_mainphoto}
+								<img src="{site_url}userfiles/upload/{$club.club_mainphoto}" class="thumb"   /> 
+							{/if}
+							<div class="spacer10"></div>
+							{$club.club_intro}
+							{$club.club_desc}
+						</div>
+					</div>
+                                <div class="spacer20"></div>
+			</div>
+			</div>
+			
+		</div>
+		  
+	</div>
+   
+	<div class="span3">
+		{$club_sidebar}
+	</div>
+   
+</div>
+
+

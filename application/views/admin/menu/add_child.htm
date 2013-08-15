@@ -1,0 +1,27 @@
+<form method="post" id="frm_add_child">
+<table cellpadding="0" cellspacing="0" border="0" class="table table-form table-bordered table-condensed">
+<tr>
+	<th width="120" align="right">Link name</th>
+	<td><input type="text" id="link_name" size="40" value="" /></td>
+</tr>
+<tr>
+	<th width="" align="right">Link Target</th>
+	<td><input type="text" id="link_url" size="40" value="{site_url}" /></td>
+</tr>
+<tr>
+	<th width="" align="right">Module</th>
+	<td>
+		<select name="mm_id" id="module_selector">
+			<option value="0"> -- Pilih Modul -- </option>
+			{html_options options=$menu_module}
+		</select>
+		<div class="spacer10"></div>
+		<div id="module_content"></div>
+	</td>
+</tr>
+<tr>
+	<th align="right">&nbsp;</th>
+	<td><input type="submit" value="Add" class="btn primary" ></td>
+</tr>
+</table>
+</form>

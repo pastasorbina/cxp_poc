@@ -1,0 +1,34 @@
+<!--<script>$(function(){ $('#main_nav').toggle(); }); </script>-->
+
+<table class="table table-condensed">
+    {foreach from=$data item=d name=d}
+        <tr>
+            <td>
+                {$d.t_name}
+                {if $d.tire}<span class="green">(found {$d.tire.t_id})</span>{else}<span class="red">notfound</span>{/if}
+            </td>
+            <td>
+                {$d.ts_name}
+                {if $d.size}<span class="green">(found {$d.size.ts_id})</span>{else}<span class="red">notfound</span>{/if}
+            </td>
+            <td>
+                {$d.tr_name}
+                {if $d.rim}<span class="green">(found {$d.rim.tr_id})</span>{else}<span class="red">notfound</span>{/if}
+            </td>
+            <td>
+                {$d.tsc_name} 
+            </td>
+        </tr>
+    {/foreach}
+</table>
+
+<form method="post" action="{$mod_url}do_import">
+    <input type="hidden" name="mm_id" value="{$mm_id}" >
+    <input type="hidden" name="data" value="{$rawdata}"><input type="submit" value="RUN!">
+</form>
+
+<form method="post">
+    <textarea style="width: 800px;" rows="30" name="data">{$rawdata}</textarea>
+    <br/>
+    <input type="submit">
+</form>

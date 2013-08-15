@@ -1,0 +1,179 @@
+<script type="text/javascript">
+	var current_uri = '{$current_uri}';
+	var mod_url = '{$mod_url}';
+	var use_ajax = '{$use_ajax|default:FALSE}';
+</script>
+
+<!-- load CKEditor -->
+<script src="{asset_url}js/ckeditor/ckeditor.js" ></script>
+<script src="{asset_url}js/ckeditor/adapters/jquery.js" type="text/javascript" ></script> 
+<script src="{asset_url}ckeditor/adapters/jquery.js" type="text/javascript" ></script>
+<script src="{asset_url}ckfinder/ckfinder.js" ></script>
+<script src="{asset_url}js/ckeditor_loader.js" ></script>
+
+
+<style>
+    
+</style>
+
+
+
+<ul class="breadcrumb">  
+    <li><a href="{site_url}">Home</a></li>
+    <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+    <li>Manage Club</li>
+</ul>
+
+<div class="row-fluid">
+    <div class="span9 cclean2">
+         
+
+        {''|validation_errors}
+        <form enctype="multipart/form-data" name="formSubmit" id="formSubmit" method="post" class="form-vertical" > 
+            <input type="hidden" name="current_id" value="{$club.t_id}" />
+            <input type="hidden" name="ajax_action" value="{$ajax_action}" />
+            
+            <div class="cheader">Club Information</div>
+            <div class="cbody">
+                <div class="control-group">
+                    <div class="control-label">Club Name</div>
+                    <div class="controls">
+                        <input type="text" name="club_name" class="span12" value="{'club_name'|set_value|default:$club.club_name}" >
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">Club Email</div>
+                    <div class="controls">
+                        <input type="text" name="club_email" class="span12" value="{'club_email'|set_value|default:$club.club_email}" >
+                    </div>
+                </div>  
+                
+                <div class="control-group">
+                    <div class="control-label">Logo</div>
+                    <div class="controls">
+                        {if $club.club_logo} 
+                            <a href="{site_url}userfiles/upload/{$club.club_logo}" class="colorbox" >
+                                <img src="{site_url}userfiles/upload/thumb/{$club.club_logo}" >
+                            </a> 
+                        {/if}
+                        <input type="file" name="club_logo" id="club_logo" />
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">mainphoto</div>
+                    <div class="controls">
+                        {if $club.club_mainphoto} 
+                            <a href="{site_url}userfiles/upload/{$club.club_mainphoto}" class="colorbox" >
+                                <img src="{site_url}userfiles/upload/thumb/{$club.club_mainphoto}" >
+                            </a> 
+                        {/if}
+                        <input type="file" name="club_mainphoto" id="club_mainphoto" />
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">Address</div>
+                    <div class="controls">
+                        <input type="text" name="club_address" class="span12" value="{'club_address'|set_value|default:$club.club_address}" >
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">Intro</div>
+                    <div class="controls"> 
+                        <textarea name="club_intro" class="ckeditor_basic" width="600" height="150" >{'club_intro'|set_value|default:$club.club_intro}</textarea>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">Description</div>
+                    <div class="controls"> 
+                            <textarea name="club_desc" class="ckeditor" width="600" height="150" >{'club_desc'|set_value|default:$club.club_desc}</textarea>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">Contacts</div>
+                    <div class="controls"> 
+                        <textarea name="club_contact" class="ckeditor_basic" width="600" height="150" >{'club_contact'|set_value|default:$club.club_contact}</textarea>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">Established Date</div>
+                    <div class="controls">
+                        <input type="text" name="club_est_date" class="datepicker" value="{'club_est_date'|set_value|default:$club.club_est_date}" >
+                    </div>
+                </div>  
+            </div>
+            
+            <div class="cheader">Club Links</div>
+            <div class="cbody">
+            
+                <div class="control-group">
+                    <div class="control-label">Website</div>
+                    <div class="controls">
+                        <input type="text" name="club_website" class="span12" value="{'club_website'|set_value|default:$club.club_website}" >
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">Facebook</div>
+                    <div class="controls">
+                        <input type="text" name="club_facebook" class="span12" value="{'club_facebook'|set_value|default:$club.club_facebook}" >
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">Twitter</div>
+                    <div class="controls">
+                        <input type="text" name="club_twitter" class="span12" value="{'club_twitter'|set_value|default:$club.club_twitter}" >
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">Milis</div>
+                    <div class="controls">
+                        <input type="text" name="club_milis" class="span12" value="{'club_milis'|set_value|default:$club.club_milis}" >
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">Other 1</div>
+                    <div class="controls">
+                        <input type="text" name="club_other1" class="span12" value="{'club_other1'|set_value|default:$club.club_other1}" >
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">Other 2</div>
+                    <div class="controls">
+                        <input type="text" name="club_other2" class="span12" value="{'club_other2'|set_value|default:$club.club_other2}" >
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">Other 3</div>
+                    <div class="controls">
+                        <input type="text" name="club_other3" class="span12" value="{'club_other3'|set_value|default:$club.club_other3}" >
+                    </div>
+                </div>
+                
+            </div>
+			   
+            <div class="form-actions" align="right" >
+                <input class="btn btn-primary" type="submit" value="Save" >
+                <a href="{site_url}club_manage" class="btn do_cancel">Cancel</a>
+            </div>
+            
+        </fieldset>
+        </form>
+    </div>
+
+    <div class="span3">
+        {$sidebar}
+    </div>
+     
+</div>   

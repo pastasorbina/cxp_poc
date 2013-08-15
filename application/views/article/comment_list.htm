@@ -1,0 +1,12 @@
+
+
+<table class="article_entry_table table table-striped table-striped">
+    {foreach from=$comments item=m name=m}
+        <tr> 
+            <td class="article_entry_td_content" >
+                <div class="article_entry_date"><strong>{$m.cc_name}</strong> , {$m.cc_entry|date_format:'d F Y'}</div>
+                <div class="">{$m.cc_message}</div> 
+            </td>
+        </tr>
+    {/foreach}
+</table> 

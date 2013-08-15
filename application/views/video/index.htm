@@ -1,0 +1,146 @@
+<script src="{asset_url}js/jquery/jquery-latest.js" ></script>
+<style>
+    #player {
+        border: none;
+        background: #ffffff;
+        padding:7px; 
+    } 
+    .playvid { cursor: pointer; }
+    .wrapper { background: #dddddd; padding: 20px; }
+    .ytplayme_wrap { margin-top: 5px; }
+    ul#ytplayme {
+        margin: 0px; padding: 0px;
+        background: #ffffff; display: inline-block;
+        padding: 5px;
+    }
+    ul#ytplayme li {
+        display: inline-block;
+        list-style: none;
+        margin-left: 0px;
+        margin-right: 3px;
+    }
+    ul#ytplayme li:last-child { 
+    }
+    ul#ytplayme li.active a {
+        border: solid 2px #ff0000; 
+    }
+    ul#ytplayme li:hover a {
+        border: solid 2px #0755F2;
+    }
+    ul#ytplayme li a {
+        display: table-cell;
+        vertical-align: middle; 
+        width: 90px;
+        height: 80px; 
+        background: #000000;
+        border: solid 2px #ffffff;
+        box-shadow: 2px 2px 3px #999999;
+    }
+    ul#ytplayme li a img {
+        max-width: 90px;
+        max-height: 90px; 
+    }
+    
+</style>
+
+<div class="wrapper">
+    <div class="ytplayer_wrap">
+        <div id="ytplayer"></div>
+    </div>
+    <div class="ytplayme_wrap">
+        <ul id="ytplayme">
+            <li id="qh9aCIMyuZs"></li>
+            <li id="99hWNYgo9dA"></li>
+            <li id="JnTYQhuZIXQ"></li>
+            <li id="gP2Xgc5pTH8"></li>
+        </ul>
+    </div> 
+</div>
+
+<script>
+    //alt=json-in-script&format=5&callback=showMyVideos
+    var playlist_url = "https://gdata.youtube.com/feeds/api/playlists/PLw0-F9v2dcPBsED-St9JQU7IRzpX9V3Po";
+    var video_id = "qh9aCIMyuZs";
+    
+    var vid = new Array('qh9aCIMyuZs', '99hWNYgo9dA', 'JnTYQhuZIXQ', 'gP2Xgc5pTH8');
+   
+    $(function(){
+        $('#ytplayme li').each(function(e){
+            var data_id = $(this).attr('id');
+            load_pl(data_id, data_id);
+        });
+    });
+     
+    
+    function load_pl(vid_id, data_id){
+        var video_url = "https://gdata.youtube.com/feeds/api/videos/"+vid_id+"?v=2&alt=json&format=5";
+        $.ajax({
+            type: "GET", 
+            url: video_url,
+            dataType: "json", 
+            success: function(e){
+                console.log(e.entry);
+                media = e.entry.media$group;
+                thumbnail = media.media$thumbnail;
+                id = media.yt$videoid.$t;
+                console.log(id);
+                var tb = thumbnail[0]; 
+                $('li#'+data_id).html('<a class="playvid" id="a_'+id+'" data-id="'+id+'"><img src="'+tb.url+'" ></a>');
+                 
+            } ,
+            done : function(e){
+                console.log('asd');
+            }
+          });
+    }
+    
+        
+        
+    $(function(){ 
+        
+    });
+    
+    var tag = document.createElement('script');
+  
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+ 
+    var player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('ytplayer', {
+        height: '280',
+        width: '397',
+        videoId: video_id,
+        modestbranding: 1,
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+ 
+    function onPlayerReady(event) {
+        //event.target.playVideo();
+        $('.playvid').click(function(e){
+            e.preventDefault();
+            var vid_id = $(this).attr('data-id');
+            event.target.loadVideoById(vid_id, 1, "large"); 
+            event.target.playVideo();
+            $('.playvid').parent('li').removeClass('active');
+            $('#a_'+vid_id).parent('li').addClass('active');
+        })
+    }
+    
+    var done = false;
+    function onPlayerStateChange(event) {
+      if (event.data == YT.PlayerState.PLAYING && !done) {
+        //setTimeout(stopVideo, 6000);
+        done = true;
+      }
+    }
+    function stopVideo() {
+      player.stopVideo();
+    }
+    
+</script>

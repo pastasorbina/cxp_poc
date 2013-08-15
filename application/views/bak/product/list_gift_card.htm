@@ -1,0 +1,78 @@
+ <div class="spacer10"></div>
+
+ <div class="crumbs row">
+    <div class="span7">
+	{foreach from=$breadcrumb name=b item=b}
+		{$b}&nbsp;<img src="{asset_url}img/gb/arrow_divider.png" />&nbsp;
+	{/foreach}
+    </div>
+    <div class="span5">
+
+    </div>
+ </div>
+
+<div class="spacer10"></div>
+<div class="horz_line"></div>
+<div class="spacer10"></div>
+
+<h2>Giftcard</h2>
+
+<table class="table table-striped">
+	{foreach from=$products name=p item=p}
+		<tr>
+			<td width="50" >
+				{if $p.p_image1}
+					<img src="{site_url}userfiles/product/s/{$p.p_image1}" class=""  />
+				{/if}
+			</td>
+			<td>
+				{$p.p_name} [{$p.p_code}]
+				<br>
+				Nominal : Rp. {$p.p_giftcard_nominal|price_format},-
+			</td>
+			<td style="text-align: right;" >
+				<strong class="large">Rp. {$p.p_price|price_format},-</strong>
+			</td>
+			<td width="130" style="text-align: right;" >
+				<form action="{site_url}cart/insert" method="post" class="form_insert_cart" >
+					<input type="hidden" name="p_id" value="{$p.p_id}">
+					<input type="hidden" name="p_type" value="{$p.p_type}">
+
+					<select id="quantity" name="quantity" style="width: auto;" >
+						{section name=qty loop=5 step=1}<option value="{$smarty.section.qty.iteration}">{$smarty.section.qty.iteration}</option>{/section}
+					</select>
+
+					<input type="submit" class="btn btn_submit" value="Add To Cart">
+				</form>
+			</td>
+		</tr>
+	{/foreach}
+</table>
+
+
+<script>
+  $('.form_insert_cart').submit(function(e) {
+		var formObj = $(this);
+		e.preventDefault();
+		if( is_loggedin == false ) {
+		    window.location = site_url+"auth/validate_member/{''|current_url|safe_base64_encode}";
+		} else {
+		   $(formObj).ajaxSubmit({
+			  success: function(data ) {
+				 if (data.status == 'ok') {
+					wgm_open_modal(site_url+'cart/ajax_success/');
+					load_display_cart();
+					$('#size').trigger('change');
+				 }
+				 else { alert(data.msg); }
+			  },
+			  dataType: 'json'
+		});
+	  }
+  });
+
+</script>
+
+<div class="spacer10"></div>
+<div class="horz_line"></div>
+<div class="spacer10"></div>

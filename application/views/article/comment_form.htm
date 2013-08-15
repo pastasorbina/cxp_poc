@@ -1,0 +1,68 @@
+<script>
+    $(function() {
+         $('#form_submit_comment').bind('submit', function(e) {
+			e.preventDefault(); var obj = $(this);
+			 $('#form_submit_comment').ajaxSubmit({
+				success: function(data) {
+					if (data.status == 'ok') { 
+                        //push_confirm(data.status);
+                        load_comment_list_box();
+                        show_comment_success();
+					} else {
+						alert(data.msg); 
+					}
+				},
+				dataType: 'json'
+			});
+		});
+    });
+    
+</script>
+
+<style>
+.control-label { width: 100px;}
+</style>
+
+<form method="post" id="form_submit_comment" name="form_submit_comment" action="{site_url}article/submit_comment" class="form-vertical">
+    <legend>Leave a Comment</legend>
+    <input type="hidden" name="c_id" value="{$c_id}" >
+    <div class="control-group">
+        <div class="control-label">
+            Name
+        </div>
+        <div class="controls">
+            <input type="text" name="name" value="">
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="control-label">
+            Email
+        </div>
+        <div class="controls">
+            <input type="text" name="email" value="">
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="control-label">
+            Message
+        </div>
+        <div class="controls">
+            <textarea name="message" rows="5" style="width: 400px;" ></textarea>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Captcha</label>
+        <div class="controls">
+            {$captcha.image}
+            <div class="spacer10"></div>
+            enter above text: <br> <input type="text" size="20" name="captcha_answer" value="" />
+            {'captcha_answer'|form_error}
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="control-label"></div>
+        <div class="controls">
+            <input type="submit" value="Submit" class="btn">
+        </div>
+    </div>
+</form>

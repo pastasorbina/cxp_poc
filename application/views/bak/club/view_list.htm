@@ -1,0 +1,122 @@
+ 
+<script>
+      $(function(){ 
+	    $('.show_download').click(function(e){
+		  e.preventDefault();
+		  var target = $(this).attr('data-target'); 
+		  $.post('{site_url}club/list_download/'+target, {}, function(data){
+			$('#download_tabs_content').html(data);
+		  }, 'html');
+		  $('.show_download').parent('li').removeClass('active');
+		  $(this).parent('li').addClass('active');
+	    });
+	    $('.show_download:first').trigger('click');
+      });
+</script>
+
+<style>
+	.download_header{  margin-top: 5px; margin-bottom: 5px; }
+	.download_header .inner {
+		display: inline-block;
+		background: #f3f3f3;
+		padding: 5px 10px;
+		font-weight: bold;
+		font-size: 15px;
+		border-radius: 5px 5px 0px 0px;
+		box-shadow: inset 0px -10px 10px #eeeeee;
+		border: solid 1px #cccccc; border-bottom: none;
+	}
+      .download_body {
+	    margin-top: -5px;
+	    padding:10px; border: solid 1px #cccccc; border-radius: 0px 5px 5px 5px; 
+      }
+      .download_title { font-weight: bold; font-size: 13px; margin-bottom: 3px;}
+      #download_tabs_content {  }
+	 
+      #download_tabs { border-bottom:  none; margin-bottom: 5px; }
+      #download_tabs li { margin-right: 0px; }
+     #download_tabs li:last-child a{ border-right: none; }
+      #download_tabs li a{ 
+	  padding: 5px 10px;
+	  border:  none; font-weight: bold;
+	  border-right: solid 1px #cccccc;
+      }
+      #download_tabs li a:hover { color: #ff0000; background: none; }
+      #download_tabs li.active { background: none;  }
+      #download_tabs li.active  a{ color: #ff0000; background: none;  } 
+	
+</style>
+
+
+<ul class="breadcrumb"> 
+      {foreach from=$breadcrumb name=b item=b}
+      <li>{$b}</li>
+       <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+      {/foreach} 
+</ul> 
+
+<style>  
+</style>
+
+
+
+<div class="row-fluid">
+	<div class="span9">
+		 
+                <div class="article_entry_box">
+			<div class="article_entry_header">
+				<div class="article_entry_header_text">&nbsp;</div>
+			</div>
+			<div class="article_entry_listbox">
+				<table class="article_entry_table table table-striped table-striped">
+					{foreach from=$maindata item=m name=m}
+						<tr>
+							{if $m.club_logo != ''}
+							<td class="article_entry_td_image"> 
+								<img src="{site_url}userfiles/upload/{$m.club_logo}" class="thumb"  style="height: 100px; "  /> 
+							</td>
+							{/if}
+							<td class="article_entry_td_content" {if $m.c_banner == ''}colspan="2"{/if} > 
+								<div class="article_entry_title">{$m.club_name}</div>
+								<div class="article_entry_content">{$m.club_intro}</div>
+								<div class="article_entry_readmore">
+										<a href="{site_url}club/view/{$m.club_id}/{$m.club_name|url_title}">READ MORE</a>
+								</div>
+							</td>
+						</tr>
+					{/foreach}
+				</table>
+				
+			      <div style="text-align: right;">{$paging}</div>
+			</div>
+                </div>
+		
+		
+		<!-- Download Starts -->
+		<!--<div class="spacer10"></div>-->
+		<!--<div class="download_header"><div class="inner">Downloads</div></div>-->
+		<!--<div class="download_body">-->
+		<!--      <ul class="nav nav-tabs" id="download_tabs">-->
+		<!--	    <li><a href="#" id="linktab_wallpaper" class="show_download" data-target="Wallpaper" >FDR Wallpaper</a></li>-->
+		<!--	    <li><a href="#"  id="linktab_ecard" class="show_download" data-target="E-Card" >FDR E-Card</a></li>  -->
+		<!--      </ul> -->
+		<!--      <div class="" id="download_tabs_content"></div>-->
+		<!--</div>-->
+                
+               
+		
+	</div>
+   
+	<div class="span3">{$club_sidebar}</div>
+   
+</div>
+
+ 
+
+
+
+<div class="spacer20"></div>
+
+
+ 
+

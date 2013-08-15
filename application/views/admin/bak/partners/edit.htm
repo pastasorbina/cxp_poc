@@ -1,0 +1,68 @@
+<script type="text/javascript">
+	var current_uri = '{$current_uri}';
+	var mod_url = '{$mod_url}';
+	var use_ajax = '{$use_ajax|default:FALSE}';
+</script>
+<script src="{asset_url}js/vizard/slave.js" ></script>
+
+
+<ul class="breadcrumb">
+	<li><a href="{$LAST_LIST}" class="cancel" >back</a></li>
+	<li class="divider">»</li>
+	<li>edit</li>
+</ul>
+
+<div class="mod_title">
+	{$ajax_action} partner
+</div>
+
+{''|validation_errors}
+
+<form enctype="multipart/form-data" name="formSubmit" id="formSubmit"  method="post" class="form-horizontal" >
+	<input type="hidden" name="current_id" value="{$data.prt_id}" />
+	<input type="hidden" name="ajax_action" value="{$ajax_action}" />
+	
+	<div class="control-group">
+		<label class="control-label">Name</label>
+		<div class="controls">
+			<input type="text" name="prt_name" class="" value="{'prt_name'|set_value|default:$data.prt_name}" >
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Image</label>
+		<div class="controls">
+			{if $data.prt_image}
+				<a href="{site_url}userfiles/upload/{$data.prt_image}" class="colorbox" title="{$data.prt_name}"  >
+					<img src="{site_url}userfiles/upload/thumb/{$data.prt_image}" class="thumb" width="50" />
+				</a>
+				<div class="spacer10" ></div>
+			{/if}
+			<input type="file" name="prt_image" />
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">URL</label>
+		<div class="controls">
+			<input type="text" name="prt_url" class="span8" value="{'prt_url'|set_value|default:$data.prt_url}" >
+				<div class="help-block">use complete url with 'http://'</div>
+		</div>
+	</div>
+	
+	
+	
+	<div class="control-group">
+		<label class="control-label">Order</label>
+		<div class="controls">
+			<input type="text" name="prt_order" class="" value="{'prt_order'|set_value|default:$data.prt_order}" >
+		</div>
+	</div>
+ 
+
+	<div class="form-actions" align="right" >
+		<input class="btn btn-primary" type="submit" value="Save" >
+		<a href="{$LAST_LIST}" class="btn do_cancel">Cancel</a>
+	</div>
+
+</form>

@@ -1,0 +1,148 @@
+
+<script>
+	$(document).ready(function() {
+
+		site_url = "{site_url}";
+
+		$('#add_new_field').click(function() {
+			$.post( '{$mod_url}add_new_field' , { dummy : 1 } , function(data) {
+				$('#fields_info').append(data);
+			});
+
+			return false;
+		});
+		
+		$('#open_add_form').click(function(e) {
+			e.preventDefault();
+			$('#add_form').toggle();
+		});
+	} );
+</script>
+
+<ul class="breadcrumb">
+	<li>Manage Form	</li>
+</ul>
+
+<div class="error">
+	{''|validation_errors}
+</div>
+
+<fieldset>
+<legend>Form Management</legend>
+
+<table class="table table-striped" id="mainData">
+<thead>
+<tr>
+	<th>Position</th>
+	<th>Code</th>
+	<th>Education</th> 
+	<th width="80">Action</th>
+</tr>
+</thead>
+<tbody>
+{foreach from=$maindata item=m}
+<tr>
+	<td >{$m.f_position}</td>
+	<td >{$m.f_code}</td>
+	<td >{$m.f_education}</td> 
+	<td>
+		<a href="{$mod_url}edit/{$m.f_id}">Edit</a> -
+		<a href="{$mod_url}delete/{$m.f_id}" class="areyousure" >Delete</a>
+	</td>
+</tr>
+{/foreach}
+</tbody>
+</table>
+</fieldset>
+
+<div>
+	<a href="" id="open_add_form" class="btn">Add New Form</a>
+</div>
+
+<div id="add_form" class="hide" >
+	<fieldset>
+	<legend>Add new Form</legend>
+	<form name="form1" method="post" class="form-horizontal">
+		<!--<div class="control-group">
+			<label class="control-label">Name</label>
+			<div class="controls">
+				<input type="text" name="f_name" value="{'f_name'|set_value}" class="span7" >
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label">Destination Emails</label>
+			<div class="controls">
+				<input type="text" name="f_destination_emails" value="{$maindata->f_destination_emails}" class="span7" >
+			</div>
+		</div>-->
+		
+		<div class="control-group">
+			<label class="control-label">Position</label>
+			<div class="controls">
+				<input type="text" name="f_position" value="{$maindata->f_position}" class="span7" >
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label">Code</label>
+			<div class="controls">
+				<input type="text" name="f_code" value="{$maindata->f_code}" class="span7" >
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label">Education</label>
+			<div class="controls">
+				<input type="text" name="f_education" value="{$maindata->f_education}" class="span7" >
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label">Fields</label>
+			<div class="controls">
+				<div id="fields_info"></div>
+				<div class="spacer10"></div>
+				<a href="#" id="add_new_field" class="btn">Add new Field</a> 
+				<div class="spacer10"></div>
+				<pre style="margin:0px; padding:0px;">
+				{literal}
+Key : Pertanyaan yang akan tampil di form
+Type : Type jenis input
+Reqex : Reqular expression untuk validasi input
+Alpha : ^[a-zA-Z]*$
+Numeric : ^[0-9]*$
+Alpha Numeric : ^[a-zA-Z0-9]*$
+Email : ^\w[-._\w]*\w@\w[-._\w]*\w\.\w{2,3}$
+Atau anda bisa bikin regex anda sendiri
+Option : Dipakai untuk tipe SELECT, RADIO, CHECKBOX untuk menampilkan nilai pilihan yang tersedia
+Dipisahkan oleh tanda pipe (|)
+Contoh : Ya | Tidak
+	atau
+	Managemen | Akuntansi | Finance | Komputer | Yang lain
+Required : Centangkan bila field ini diperlukan
+				{/literal}
+				</pre>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label">Header Text</label>
+			<div class="controls">
+				<textarea name="f_header_text" class="ckeditor" height="200" >{'f_header_text'|set_value}</textarea>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label">Footer Text</label>
+			<div class="controls">
+				<textarea name="f_footer_text" class="ckeditor" height="200" >{'f_footer_text'|set_value}</textarea>
+			</div>
+		</div> 
+	
+		<div class="form-actions" style="text-align: right;" >
+			<input class="btn btn-primary" name="add" type="submit" value="Save" />
+		</div>
+	</form>
+	</fieldset>
+</div>

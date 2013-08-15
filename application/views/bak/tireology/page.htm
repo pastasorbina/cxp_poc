@@ -1,0 +1,118 @@
+<style>
+    .prodtype_link {
+        
+        width: 100%;
+        /*display: block;*/ 
+    }
+    .prodtype_link td{
+        /*display: inline-block;*/
+        margin:0px;
+        /*margin-top: 5px;*/
+        padding: 0px;
+        text-align: center;
+        border-right: 1px solid #000000;
+    }
+    .prodtype_link td a {
+        padding:10px 10px 5px 10px;
+        color: #ffffff;
+        display: block;
+        text-align: center;
+        background: url({asset_url}img/fdr/prod-type-banner-bg.png) repeat-x;
+        border-bottom: solid 4px #232323;
+    }
+    .prodtype_link td a:hover, .prodtype_link td a.active { 
+        text-decoration: none;
+        border-bottom: solid 4px #ff0000;
+    }
+	
+	.tires_link { display: block; }
+	.tires_link img { display: block;  }
+	.tires_link:hover img { opacity: 0.8; }
+</style>
+<script> 
+	var TSearch = new Stacklet('#TSearch_box');  
+	TSearch.start('{site_url}tire_search/load_searchbox/'); 
+	$(function() { 
+		$('#ds_refresh').live('click', function(e) {
+			e.preventDefault();
+			DS.reset();
+		}); 
+	});
+</script>
+
+
+
+
+
+ 
+ 
+ <ul class="breadcrumb">
+    <li><a href="{site_url}">Home</a></li>
+    <li class="divider">&gt;</li>
+    <li><a href="#">Tirelogy</a></li>
+    <li class="divider">&gt;</li>
+    <li><a href="#">{$page.c_title}</a></li>
+</ul>
+
+<div class="row-fluid">
+    <div class="span9">
+        
+        <div class="prodtype_header"> 
+            <div>
+                <table class="prodtype_link">
+                    <tr>
+                        <td>
+                            <a href="{site_url}tireology/technology/" class="{if $curr_tireology == 'technology'}active{/if}">TIRE TECHNOLOGY</a>
+                        </td>
+                        <td>
+                            <a href="{site_url}tireology/knowledge/"  class="{if $curr_tireology == 'knowledge'}active{/if}">TIRE KNOWLEDGE</a>
+                        </td>
+                        <td>
+                            <a href="{site_url}tireology/safety/" class="{if $curr_tireology == 'safety'}active{/if}">TIRE SAFETY</a>
+                        </td>
+                        <td>
+                            <a href="{site_url}tireology/usage/" class="{if $curr_tireology == 'usage'}active{/if}">TIRE USAGE &amp; MAINTENANCE</a>
+                        </td> 
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="spacer10"></div> 
+        
+         
+        <div class="" style=""  > 
+		{if $page.c_banner != ''}
+		    <div style="margin-bottom: 10px;" >
+			<img src="{site_url}userfiles/upload/{$page.c_banner}" />
+		    </div>
+		{/if} 
+            {$page.c_content_full}
+        </div>
+         
+       
+    </div>
+    
+    <div class="span3">
+        <div id="TSearch_box"></div>
+        
+        <div style="margin-bottom: 10px; margin-top: 10px;">
+            <a href="{site_url}find_dealer"><img src="{asset_url}img/fdr/banner-find-dealer.png" ></a>
+        </div>
+        
+        <div style="margin-bottom: 10px;">
+            <a href="{$site_config.facebook_url}" target="_blank"><img src="{asset_url}img/fdr/sm-facebook.png" ></a>
+        </div>
+        
+        <div style="margin-bottom: 10px;">
+            <a href="{$site_config.twitter_url}" target="_blank"><img src="{asset_url}img/fdr/sm-twitter.png" ></a>
+        </div>
+        
+    </div>
+</div>
+
+
+ 
+
+
+

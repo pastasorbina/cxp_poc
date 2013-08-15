@@ -1,0 +1,30 @@
+<div class="fields_entry">
+	<div>
+		<input type="hidden" name="uniq[]" value="{$uniq}" />
+		Key : <input type="text" name="key[{$uniq}]" value="" />
+		Type : <select name="type[{$uniq}]">
+			{html_options options=$form_type}
+		</select>
+		Regex : <input type="text" name="regex[{$uniq}]" value="" />
+		Required : <input type="checkbox" name="required[{$uniq}]" value="1" />
+	</div>
+	<div>
+		Option :
+		<textarea name="options[{$uniq}]" rows="2" style="width: 80%;"></textarea>
+	</div>
+	<div>
+		Grouping :
+		<select name="grouping[{$uniq}]">
+			{foreach from=$allgrouping name=ag item=ag}
+			 <option value="{$ag.fg_id}" >{$ag.fg_name|character_limiter:100}</option>
+			{/foreach}
+		</select>
+	</div>
+	<div>
+		Display Title : 
+		<select name="displaytitle[{$uniq}]">
+			<option value="Yes" >Yes</option>
+			<option value="No" >No</option>
+		</select>
+	</div>
+</div>

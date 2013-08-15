@@ -1,0 +1,201 @@
+<ul class="breadcrumb"> 
+      {foreach from=$breadcrumb name=b item=b}
+      <li>{$b}</li>
+       <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+      {/foreach} 
+</ul>
+
+
+<h2 class="page_title" >REGISTER CLUB <img src="{asset_url}img/fdr/news_title_arrow.png"> </h2>
+
+
+<div class="row-fluid"> 
+	
+	<div class="span9">
+		
+		<div class="">
+			{if $register_top.c_banner != ''}
+				<div><img src="userfiles/upload/{$register_top.c_banner}" width="100%"/></div> <div class="spacer10"></div>
+			{/if}
+			{$register_top.c_content_full}
+		</div>
+		
+		{''|validation_errors}
+		<form enctype="multipart/form-data" name="formSubmit" id="formSubmit" method="post" class="form-vertical" >
+			<input type="hidden" name="current_id" value="{$data.t_id}" />
+			<input type="hidden" name="ajax_action" value="{$ajax_action}" /> 
+			<div class="row-fluid">
+				
+				<div class="span6"> 
+					<div class="boxy-wrap"> 
+						<div class="boxy-content ">
+							
+							<div class="aheader">Admin</div>
+							<div class="cbody">
+								<div class="control-group">
+									<div class="control-label">Username</div>
+									<div class="controls">
+										<input type="text" name="club_login" value="{'club_login'|set_value}" placeholder="email@domain.com" >
+									</div>
+								</div> 
+								<div class="control-group">
+									<div class="control-label">Admin Name</div>
+									<div class="controls">
+										<input type="text" name="club_admin_name" class="span12" value="{'club_admin_name'|set_value}" >
+									</div>
+								</div> 
+								<div class="control-group">
+									<div class="control-label">Password</div>
+									<div class="controls">
+										<input type="password" name="club_pass" class="" >
+									</div>
+								</div> 
+								<div class="control-group">
+									<div class="control-label">Repeat Password</div>
+									<div class="controls">
+										<input type="password" name="password_confirmation" class="" >
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					
+					<div class="boxy-wrap">
+						 
+						<div class="boxy-content">
+							<div class="aheader">Links</div> 
+							<div class="cbody">
+								
+								<div class="control-group">
+									<div class="control-label">Website</div>
+									<div class="controls">
+										<input type="text" name="club_website" class="span12" value="{'club_website'|set_value|default:$data.club_website}" >
+									</div>
+								</div>
+								
+								<div class="control-group">
+									<div class="control-label">Facebook</div>
+									<div class="controls">
+										<input type="text" name="club_facebook" class="span12" value="{'club_facebook'|set_value|default:$data.club_facebook}" >
+									</div>
+								</div>
+								
+								<div class="control-group">
+									<div class="control-label">Twitter</div>
+									<div class="controls">
+										<input type="text" name="club_twitter" class="span12" value="{'club_twitter'|set_value|default:$data.club_twitter}" >
+									</div>
+								</div>
+								
+								<div class="control-group">
+									<div class="control-label">Milis</div>
+									<div class="controls">
+										<input type="text" name="club_milis" class="span12" value="{'club_milis'|set_value|default:$data.club_milis}" >
+									</div>
+								</div>
+								
+								<div class="control-group">
+									<div class="control-label">Other 1</div>
+									<div class="controls">
+										<input type="text" name="club_other1" class="span12" value="{'club_other1'|set_value|default:$data.club_other1}" >
+									</div>
+								</div>
+								
+								<div class="control-group">
+									<div class="control-label">Other 2</div>
+									<div class="controls">
+										<input type="text" name="club_other2" class="span12" value="{'club_other2'|set_value|default:$data.club_other2}" >
+									</div>
+								</div>
+								
+								<div class="control-group">
+									<div class="control-label">Other 3</div>
+									<div class="controls">
+										<input type="text" name="club_other3" class="span12" value="{'club_other3'|set_value|default:$data.club_other3}" >
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+					 
+				</div>
+				
+				
+				
+				<div class="span6">
+					<div class="aheader">Club Information</div>
+					<div class="cbody">
+						<div class="control-group">
+							<div class="control-label">Club Name</div>
+							<div class="controls">
+								<input type="text" name="club_name" class="span6" value="{'club_name'|set_value|default:$data.club_name}" >
+							</div>
+						</div>
+						
+						<div class="control-group">
+							<div class="control-label">Club Email</div>
+							<div class="controls">
+								<input type="text" name="club_email" class="span6" value="{'club_email'|set_value|default:$data.club_email}" >
+							</div>
+						</div>  
+						
+						<div class="control-group">
+							<div class="control-label">Logo</div>
+							<div class="controls">
+								{if $data.club_logo}
+									<div>
+									<a href="{site_url}userfiles/upload/{$data.club_logo}" class="colorbox" >
+										<img src="{site_url}userfiles/upload/thumb/{$data.club_logo}" >
+									</a>
+									</div>
+								{/if}
+								<input type="file" name="club_logo" id="club_logo" />
+							</div>
+						</div>
+						
+						<div class="control-group">
+							<div class="control-label">Address</div>
+							<div class="controls">
+								<input type="text" name="club_address" class="span6" value="{'club_address'|set_value|default:$data.club_address}" >
+							</div>
+						</div>
+						  
+						<div class="control-group">
+							<div class="control-label">Description</div>
+							<div class="controls"> 
+									<textarea name="club_desc" class="ckeditor">{'club_desc'|set_value|default:$data.club_desc}</textarea>
+							</div>
+						</div>
+						
+						<div class="control-group">
+							<div class="control-label">Contact</div>
+							<div class="controls">
+								<textarea name="club_contact" class="ckeditor_basic">{'club_contact'|set_value|default:$data.club_contact}</textarea>
+							</div>
+						</div>
+						
+						<div class="control-group">
+							<div class="control-label">Established Date</div>
+							<div class="controls">
+								<input type="text" name="club_est_date" class="datepicker" value="{'club_est_date'|set_value|default:$data.club_est_date}" >
+							</div>
+						</div>
+						 
+					</div>
+				</div>
+				
+				
+			</div>
+		 
+		 
+			<div class="form-actions" align="right" >
+				<input class="btn btn-inverse" type="submit" value="Submit" > 
+			</div>
+		
+		</form> 
+	</div>
+	<div class="span3"></div>
+</div>
+

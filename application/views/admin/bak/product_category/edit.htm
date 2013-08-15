@@ -1,0 +1,131 @@
+<script type="text/javascript">
+	var current_uri = '{$current_uri}';
+	var mod_url = '{$mod_url}';
+	var use_ajax = '{$use_ajax|default:FALSE}';
+	
+	{literal}
+	function viz_autocomplete( config ) {    
+		var url = config['url'];
+		var handle_wrapper = config['handle_wrapper'];
+		var handle_source = config['handle_source'];
+		var handle_label = config['handle_label'];
+		var handle_target = config['handle_target']; 
+		var handle_target_label = config['handle_target_label']; 
+		var id_field = config['id_field'];
+		var label_field = config['label_field'];
+		
+		var searchkey = $(handle_source).val();
+		
+		var resultset = new Array();
+		var resultset_data = new Array();
+		var response = $.post( url , {searchkey:searchkey} , function(data) { 
+					if (data.status == 'ok') {
+						var result = data.data; 
+						for (row in result) {  
+							resultset[row] = result[row][label_field]; 
+							resultset_data[row] = result[row][id_field]; 
+						}
+						//console.log('searchkey:'+searchkey);
+						//console.log(result);
+						//console.log(resultset);
+						$( handle_source ).autocomplete({
+								source:resultset,
+								autoFocus:false, 
+								close: function(event, ui) { 
+								   $(handle_source).keyup();
+								   var label = $(handle_source).val();
+								   var index = resultset.indexOf(label);
+								   var resultdata = resultset_data[index];
+								   console.log(resultdata);
+								   $(handle_target).val(resultdata); 
+								   $(handle_target_label).html(label);
+								   $(handle_source).val('');
+								   $(handle_source).trigger('blur');
+								} 
+						}); 
+					} else { 
+						//$( handle + '.viz_notify').html( data._msg );
+					}
+		}, 'json' ); 
+		return false;	
+	}
+	
+	$(document).ready(function(r) {
+		$('#pc_parent_label').keyup(function(e) { 
+			var config = new Array();  
+			config['url'] = mod_url+'ajax_search_parent';
+			config['handle_wrapper'] = '#autocomplete_pc';
+			config['handle_source'] = '#pc_parent_label';
+			config['handle_target'] = '#pc_parent_id';
+			config['handle_target_label'] = '#pc_parent_result_label';
+			config['id_field'] = 'pc_id';
+			config['label_field'] = 'label';
+			viz_autocomplete(config);
+			console.log('keyup');
+		});
+	});
+	
+	{/literal}
+</script>
+<script src="{asset_url}js/vizard/slave.js" ></script>
+
+
+<ul class="breadcrumb">
+	<li><a href="{$LAST_LIST}" class="cancel" >back</a></li>
+	<li class="divider">»</li>
+	<li>edit</li>
+</ul>
+
+
+
+{''|validation_errors}
+
+<form enctype="multipart/form-data" name="formSubmit" id="formSubmit"  method="post" class="form-horizontal"  >
+	<input type="hidden" name="current_id" value="{$data.pc_id}" />
+	<input type="hidden" name="ajax_action" value="{$ajax_action}" />
+
+			<div class="control-group">
+				<label class="control-label">Parent Category</label>
+				<div class="controls">
+					<!--<select name="pc_parent_id">-->
+					<!--		<option value="0" {if $data.pc_parent_id == '0'}selected="selected"{/if} >- none -</option>-->
+					<!--	{foreach from=$parents name=p item=p}-->
+					<!--		<option value="{$p.pc_id}" {if $p.pc_id == $data.pc_parent_id}selected="selected"{/if} >{$p.pc_name}</option>-->
+					<!--	{/foreach}-->
+					<!--</select>-->
+					
+					<div id="autocomplete_pc">
+						<input type="text" name="pc_parent_label" id="pc_parent_label" value="{$parent.pc_name}" >
+						<input type="hidden" name="pc_parent_id" id="pc_parent_id" value="{$data.pc_parent_id|default:'0'}" >
+						<label id="pc_parent_result_label">{$parent_label|default:'-'}</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label">Category Name</label>
+				<div class="controls">
+					<input type="text" name="pc_name" class="span5" value="{'pc_name'|set_value|default:$data.pc_name}" >
+				</div>
+			</div>
+
+			<!--<div class="control-group">-->
+			<!--	<label class="control-label">Image</label>-->
+			<!--	<div class="controls">-->
+			<!--		{if $data.pc_image}-->
+			<!--			<a href="{site_url}userfiles/media/{$data.pc_image}" class="colorbox" title="{$data.pc_name}"  >-->
+			<!--				<img src="{site_url}userfiles/media/thumb/{$data.pc_image}" class="thumb" width="50" />-->
+			<!--			</a>-->
+			<!--			<div class="spacer10" ></div>-->
+			<!--		{/if}-->
+			<!--		<input type="file" name="pc_image" />-->
+			<!--	</div>-->
+			<!--</div>-->
+
+
+	<div class="form-actions" align="right" >
+		<input class="btn btn-primary" type="submit" value="Save" >
+		<a href="{$LAST_LIST}" class="btn do_cancel">Cancel</a>
+	</div>
+
+</form>

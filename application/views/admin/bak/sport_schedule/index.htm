@@ -1,0 +1,89 @@
+{literal}
+<script>
+	//var site_url = {/literal}{site_url}{literal};
+
+	function doSort(sortkey) {
+		if (document.frmSearch.orderby.value == sortkey) {
+			// Change direction
+			document.frmSearch.ascdesc.value = (document.frmSearch.ascdesc.value == 'DESC') ? 'ASC' : 'DESC';
+		}
+		else {
+			// Change sort key
+			document.frmSearch.ascdesc.value = 'ASC';
+			document.frmSearch.orderby.value = sortkey;
+		}
+		document.frmSearch.submit();
+	}
+
+
+</script>
+{/literal}
+
+<script src="{asset_url}js/vizard/master.js"></script>
+  
+<div class="index_filter_cont" >
+	<div class="index_search_cont" >
+		<form name="frmSearch" action="{$mod_url}search" method="post">
+			<a href="{$mod_url}add/{$cl_id}" class="add btn btn-primary" ><i class="icon-plus icon-white"></i></a> 
+			<input type="hidden" name="pagelimit" value="{$pagelimit}" />
+			<input type="hidden" name="offset" value="{$offset}" />
+			<input type="hidden" name="orderby" value="{$orderby}" />
+			<input type="hidden" name="ascdesc" value="{$ascdesc}" />
+			<input type="hidden" name="page" value="{$mod_url}index/{$cl_id}/{$ss_status}/" />
+			<input type="text" name="searchkey" value="{$searchkey}" placeholder="searchkey" class="span2" > <input class="btn small" type="submit" value="Search">
+		</form>
+		
+	</div>
+</div>
+
+
+{if !$maindata}
+	<div class="red">
+		data not found
+	</div>
+{else}
+
+	{$paging}
+	{$paging_js}
+
+	<table class="table table-striped" id="mainData" width="100%">
+	<thead>
+		<tr>
+			<th width="80"><a href="javascript:doSort('ss_date');">Date</a></th>  
+			<th width="80"><a href="javascript:doSort('ss_date');">Time</a></th>  
+			<th><a href="javascript:doSort('ss_league');">League</a></th>
+			<th><a href="javascript:doSort('ss_home');">Home</a></th> 
+			<th><a href="javascript:doSort('ss_visitor');">Visitor</a></th>  
+			<th width="80"></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		{foreach from=$maindata item=m}
+		<tr>
+			<td>{$m.ss_date|date_format:'d M Y'}</td>
+			<td>{$m.ss_date|date_format:'H:i:s'}</td> 
+			<td>{$m.ss_league}</td> 
+			<td>
+				<img src="{site_url}userfiles/fc/thumb/{$m.ss_home_img}" width="30" />
+				{$m.ss_home}</td>
+			<td>
+				<img src="{site_url}userfiles/fc/thumb/{$m.ss_visitor_img}" width="30" />
+				{$m.ss_visitor}
+			</td>
+			
+			<td align="right" >
+				<div class="btn-group">
+					<a class="btn btn-info" href="{$mod_url}edit/{$m.ss_id}" ><i class="icon-edit"></i></a>
+					<a class="btn" onClick="if(confirm('Are you sure?')) document.location = '{$mod_url}delete/{$m.ss_id}'; return false;"><i class="icon-trash"></i></a>
+				</div>
+			</td>
+
+		</tr>
+		{/foreach}
+	</tbody>
+	</table>
+
+{/if}
+
+ 

@@ -1,0 +1,69 @@
+<script type="text/javascript">
+	var current_uri = '{$current_uri}';
+	var mod_url = '{$mod_url}';
+	var use_ajax = '{$use_ajax|default:FALSE}';
+</script>
+<script src="{asset_url}js/vizard/slave.js" ></script>
+
+
+<ul class="breadcrumb">
+	<li><a href="{$LAST_LIST}" class="cancel" >back</a></li>
+	<li class="divider">»</li>
+	<li>edit</li>
+</ul>
+
+<div class="mod_title">
+	{$ajax_action} partner
+</div>
+
+{''|validation_errors}
+
+<form enctype="multipart/form-data" name="formSubmit" id="formSubmit"  method="post" class="form-horizontal" >
+	<input type="hidden" name="current_id" value="{$data.dl_id}" />
+	<input type="hidden" name="ajax_action" value="{$ajax_action}" />
+	
+	<div class="control-group">
+		<label class="control-label">Name</label>
+		<div class="controls">
+			<input type="text" name="dl_name" class="span6" value="{'dl_name'|set_value|default:$data.dl_name}" >
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Image</label>
+		<div class="controls">
+			{if $data.dl_image}
+				<a href="{site_url}userfiles/upload/{$data.dl_image}" class="colorbox" title="{$data.dl_name}"  >
+					<img src="{site_url}userfiles/upload/thumb/{$data.dl_image}" class="thumb" width="50" />
+				</a>
+				<div class="spacer10" ></div>
+			{/if}
+			<input type="file" name="dl_image" />
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Date</label>
+		<div class="controls">
+			<input type="text" name="dl_date" class="span2 datepicker" value="{'dl_date'|set_value|default:$data.dl_date}" >
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Type</label>
+		<div class="controls">
+			<select name="dt_id">
+				{foreach from=$download_type name=dt item=dt}
+					<option value="{$dt.dt_id}" {if $dt.dt_id == $data.dt_id}selected="selected"{/if} >{$dt.dt_name}</option>
+				{/foreach} 
+			</select> 
+		</div>
+	</div>
+	 
+
+	<div class="form-actions" align="right" >
+		<input class="btn btn-primary" type="submit" value="Save" >
+		<a href="{$LAST_LIST}" class="btn do_cancel">Cancel</a>
+	</div>
+
+</form>

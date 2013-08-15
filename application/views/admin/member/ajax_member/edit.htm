@@ -1,0 +1,95 @@
+
+
+<script>
+    $(function() {
+         $('#ajax_submit_member_edit').bind('submit', function(e) {
+			e.preventDefault(); 
+			 $('#ajax_submit_member_edit').ajaxSubmit({
+				success: function(data) {
+					if (data.status == 'ok') {
+						member.reset();	
+                        push_confirm(data.status); 
+					} else {
+						alert(data.msg); 
+					}
+				},
+				dataType: 'json'
+			});
+		});
+    });
+    
+</script>
+ 
+<div class="mod_title">
+	Edit Member
+</div>
+
+
+{''|validation_errors}
+
+<form enctype="multipart/form-data" name="ajax_submit_member_edit" id="ajax_submit_member_edit"
+      method="post" class="form-horizontal pad5"
+      action="{site_url}admin/member/ajax_submit_member_edit/" >
+	<input type="hidden" name="m_id" value="{$data.m_id|default:$m_id}" />  
+
+	
+	<div class="control-group">
+		<div class="control-label">Username / Email</div>
+		<div class="control-label">
+			<!--<input type="text" name="m_login" class="span12" value="{'m_login'|set_value|default:$data.m_login}" >-->
+				{$data.m_login} 
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<div class="control-label">Firstname</div>
+		<div class="controls">
+			<input type="text" name="m_firstname" class="span12" value="{'m_firstname'|set_value|default:$data.m_firstname}" >
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<div class="control-label">Lastname</div>
+		<div class="controls">
+			<input type="text" name="m_lastname" class="span12" value="{'m_lastname'|set_value|default:$data.m_lastname}" >
+		</div>
+	</div>
+	
+	
+	<div class="control-group">
+		<div class="control-label">Phone</div>
+		<div class="controls">
+			<input type="text" name="m_phone" class="span12" value="{'m_phone'|set_value|default:$data.m_phone}" >
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<div class="control-label">Mobile</div>
+		<div class="controls">
+			<input type="text" name="m_mobile" class="span12" value="{'m_mobile'|set_value|default:$data.m_mobile}" >
+		</div>
+	</div>
+	
+	<hr/>
+	
+	<div class="control-group">
+		<div class="control-label">New Password</div>
+		<div class="controls">
+			<input type="password" name="m_pass" class="span12" value="" />
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<div class="control-label">Repeat Password</div>
+		<div class="controls">
+			<input type="password" name="password_confirmation" class="span12" value="" >
+		</div>
+	</div>
+	
+
+	<div class="form-actions" align="right" >
+		<input class="btn btn-primary" type="submit" value="Save" >
+		<a class="btn" onclick="member.stackPrev();" >Cancel</a>
+	</div>
+
+</form>

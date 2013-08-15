@@ -1,0 +1,105 @@
+
+<script>
+	function load_comment_form_box(){
+		$.post('{site_url}article/comment_form/{$content.c_id}', {}, function(data) {
+			$('#comment_form_box').html(data);
+		}, 'html');
+	}
+	function load_comment_list_box(){
+		$.post('{site_url}article/comment_list/{$content.c_id}', {}, function(data) {
+			$('#comment_list_box').html(data);
+		}, 'html');
+	}
+	function show_comment_success() {
+		$('#comment_success_box').show();
+		$('#comment_form_box').hide();
+	}
+    $(function() {
+		load_comment_form_box();
+		load_comment_list_box();
+    });
+
+</script>
+
+
+<div class="topbanner" style="background-image:url({asset_url}img/poc/banner_events.jpg);" ></div>
+
+<div class="maincontent_wrap">
+<div class="container">
+
+	<table class="scaffold" >
+		<tr>
+			<td class="lefty" >
+				{$events_sidebar}
+			</td>
+			<td class="righty">
+				<div class="page_main">
+
+					<ul class="breadcrumb">
+						{foreach from=$breadcrumb name=b item=b}<li>{$b}</li> <li class="divider">&gt;&gt;</li>{/foreach}
+					</ul>
+
+					<div class="page_wrap">
+						<div class="page_container">
+							<div class="page_title" >{$event.e_name} </div>
+							<div class="page_date" >{$event.e_date|date_format:'d.M.Y'} - {$event.e_end_date|date_format:'d.M.Y'} </div>
+							<div class="" style="margin-bottom: 10px;" >Location : {$event.e_location} </div>
+						</div>
+						<div class="page_content">
+							{if $event.e_thumbnail != ''}
+								<img src="{site_url}userfiles/upload/{$event.e_thumbnail}" />
+								<div class="spacer15"></div>
+							{/if}
+							{$event.e_content}
+						</div>
+					</div>
+
+					<div class="share-box">
+						<div class="share-buttons" >
+
+							<div class="share-button-wrap googleplus">
+							  <div class="share-button" data-service="googleplus">
+								<div class="g-plusone" data-size="medium" data-annotation="none"></div>
+								{literal}
+								<script type="text/javascript">
+								  (function() {
+									var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+									po.src = 'https://apis.google.com/js/plusone.js';
+									var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+								  })();
+								</script>
+								{/literal}
+							  </div>
+							</div>
+
+							<div class="share-button-wrap linkedin">
+							  <div class="share-button" data-service="linkedin" title="">
+								<script src="//platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
+								<script type="IN/Share" data-url="{current_url}" data-counter="none"></script>
+							  </div>
+							</div>
+
+							<div class="share-button-wrap twitter">
+							  <div class="share-button" data-service="twitter" title="">
+								<a href="https://twitter.com/share" class="twitter-share-button" data-url="{current_url}" data-counturl="{current_url}" data-lang="en" data-count="none">&nbsp;</a>
+							  </div>
+							</div>
+
+							<div class="share-button-wrap facebook">
+							  <div class="share-button" data-service="facebook" >
+								<div class="fb-like" data-href="{current_url}" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+							  </div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+
+			</td>
+		</tr>
+	</table>
+
+</div>
+</div>

@@ -1,0 +1,385 @@
+<style>
+    .prod_overview .nav a{
+        font-size: 13px;
+        font-weight: bold;
+        color: #333333;
+        border-radius: 10px 10px 0px 0px;
+       
+    }
+    .prod_overview .nav li {
+      
+    }
+    .prod_overview .nav li.active a{
+        background: #444242;
+        color: #ffffff;
+        border-color:#444242;
+    }
+    
+    .prod_overview .nav {
+        margin-bottom:  0px;
+    }
+    
+    .prod_overview .tab-pane {
+        margin:0px;
+        padding: 10px;
+        /*border: solid 1px #dddddd;*/
+    }
+    
+    .t_name {
+        margin:10px 0px 5px 0px;
+        font-size: 22px;
+        font-weight: bold;
+    }
+    
+    .t_subname {
+        color: #AD0505;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    
+    .t_desc {
+        
+    }
+    
+    .t_desc_en {
+        font-style: italic;
+        color: #666666;
+    }
+    
+    .p_rat_box_wrap {
+        width: auto;
+        display: inline-block;
+    }
+    
+    .trt_name {
+        font-weight: bold;
+        font-size: 13px;
+    }
+</style>
+
+<ul class="breadcrumb">
+    <li>
+        <a href="{site_url}">Home</a>
+    </li>
+    <li class="divider">&gt;</li>
+    <li>
+        <a href="{site_url}product/index/">Products</a>
+    </li>
+    <li class="divider">&gt;</li>
+    <li>
+        {$tire.t_name}
+    </li>
+</ul>
+
+<div class="horz_line"></div>
+
+<style>
+    .floating_tech {
+        float: left;
+        position: relative;
+        top: 20px;
+    }
+</style>
+
+<div class="row-fluid">
+    <div class="span5">
+        <div style="clear: both; display: block; height: auto; overflow: hidden;" >
+            <div class="floating_tech">
+                <ul>
+                {foreach from=$tire_tech item=tth name=tth}
+                    <li style="margin:0px 5px 5px 0px;" >
+                        {if $show == 'overview'}
+                            <a href="#tth_{$tth.tth_id}" class="load_tth tthlink_{$tth.tth_id}" data-id="{$tth.tth_id}"  >
+                        {else}
+                            <a href="{site_url}product/view/{$tire.t_id}/overview" >
+                        {/if}
+                            <img src="{site_url}userfiles/upload/{$tth.tth_logo}" width="45" />
+                        </a>
+                    </li> 
+                {/foreach}
+                </ul>
+            </div>
+            
+            {if $tire.t_image}
+                <div class="" style="width: 100%; text-align: center;"> 
+                    <img src="{site_url}userfiles/upload/{$tire.t_image}" style="max-width: 100%;" /> 
+                </div>
+            {/if}
+        </div>
+    </div>
+    
+    <div class="span7">
+        <div class="t_name">{$tire.t_name}</div>
+        <div class="t_subname">ON/OFF Road Tire</div>
+        <div class="spacer10"></div>
+        <div class="t_desc" >{$tire.t_desc}</div>
+        <div class="t_desc_en" >{$tire.t_desc_en}</div>
+        <div class="spacer10"></div>
+    
+        <style>
+            .p_rat_box_wrap {
+                
+            }
+            .p_rat_box_head {
+                padding: 8px 20px;  background: #000000;  color: #ffffff;
+                border-radius: 10px 10px 0px 0px;
+                font-weight: bold; font-size: 13px;
+                text-transform: uppercase;
+            }
+            .p_rat_box_cont {
+                border: solid 1px #cccccc;  border-top: none;
+                padding:10px;
+            }
+        </style>
+        <div class="p_rat_box_wrap">
+            <div class="p_rat_box_head">Performance Ratings</div>
+            <div class="p_rat_box_cont"> 
+                <table>
+                    {foreach from=$performance item=m name=m}
+                    <tr>
+                        <td style="text-align: right;">
+                            <div class="ratebar_{$m.tdr_value}"><img src="{asset_url}img/fdr/bar{$m.tdr_value}.png" /></div>
+                        </td>
+                        <td style="text-align: left;width: 100px;" >
+                            <div class="trt_name">{$m.trt_name}</div>
+                        </td>
+                    </tr> 
+                    {/foreach}
+                </table> 
+            </div>
+        </div>
+        
+        <div class="spacer10"></div>
+        <div>
+            * Penilaian berdasarkan penggunaan standard yang diperoleh dari tes-tes yang dilakukan oleh Departmen Kualitas PT. SRI
+        </div>
+        <div class="italic">
+            Ratings are based on standard tire usage testst cunducted by PT. SRI Quality Department
+        </div>
+        <div class="spacer10"></div>
+        <div>
+            <a href="#" class="pull-right">
+                <img src="{asset_url}img/fdr/findyourtire.jpg" >
+            </a>
+            <div class="clear"></div>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+<span id="subdetail"></span>
+<div class="spacer20"></div>
+
+ 
+
+<div class="prod_overview">
+    
+    <div class=""> <!-- Only required for left/right tabs -->
+        <ul class="nav nav-tabs">
+            <li class="{if $show == 'sizerim'}active{/if}">
+                <a href="{site_url}product/view/{$tire.t_id}/sizerim">SIZE &amp; RIM</a>
+            </li>
+            <li class="{if $show == 'overview'}active{/if}">
+                <a href="{site_url}product/view/{$tire.t_id}/overview">OVERVIEW</a>
+            </li> 
+            <li class="{if $show == 'gallery'}active{/if}">
+                <a href="{site_url}product/view/{$tire.t_id}/gallery">GALLERY</a>
+            </li>
+        </ul>
+        
+        <div class="spacer10"></div>
+        
+        
+        <style> 
+            .load_tth {
+               background: #ffffff;
+               padding:0px;
+               margin: 0px; 
+               display: inline;
+               border:none;
+               opacity: 0.5;
+            }
+            .load_tth:hover { opacity: 0.8; }
+            .load_tth.active { opacity: 1; }
+            .tth_all_table td { vertical-align: top; }
+            
+            .tth_box_wrap {
+               background: #000000;border-radius: 0px 10px 10px 0px; padding:15px;
+            }
+            .tth_box { color:#ffffff; }
+            .tth_name { font-size: 18px; font-weight: bold;  }
+            .tth_subtitle { font-size: 12px; font-weight: bold; color:#D30000; }
+            .tth_brief { margin-top: 10px; }
+        </style>
+        
+        {if $show == 'overview'}
+            <div class="" id="overview">
+                <div class="row-fluid">
+                    <div class="span8">  
+                        <script>
+                            {literal}
+                            function init_load_tt() {
+                                var id = $('.load_tth:first').attr('data-id');
+                                $('.tth_box').hide(); $('#tth_box_'+id).show();
+                                $('.load_tth').removeClass('active');
+                                $('.tthlink_'+id).addClass('active'); 
+                            }
+                           
+                            $(function(){
+                                $('.load_tth').click(function(e){
+                                    e.preventDefault();
+                                    var id = $(this).attr('data-id');
+                                    //var conf = ({'duration':300, 'easing': 'easeOutCubic'});
+                                    $('.tth_box').hide(); $('#tth_box_'+id).show();
+                                    $('.load_tth').removeClass('active');
+                                    $('.tthlink_'+id).addClass('active');
+                                    var destination = $('#overview').offset().top;
+                                    $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination-150}, 500 ); 
+                                });
+                                init_load_tt();
+                            });
+                            {/literal}
+                        </script>
+                        
+                        <h5>Technology</h5>
+                        {if !$tire_tech}
+                            <div class="italic red">- not available -</div>
+                        {else}
+                        <div class="tire_tech"> 
+                            <div  >
+                                <table style="width: 100%;" id="" class="tth_all_table"  >
+                                    <tr>
+                                        <td width="50" style="padding-right: 10px;">
+                                            <table class="" style="width: 100%;">
+                                                {foreach from=$tire_tech item=tth name=tth}
+                                                <tr> 
+                                                    <td width="50" style="padding:0px 5px 5px 0px;" >
+                                                        <a href="#tth_{$tth.tth_id}" class="load_tth tthlink_{$tth.tth_id}" data-id="{$tth.tth_id}"  >
+                                                            <img src="{site_url}userfiles/upload/{$tth.tth_logo}" width="50" />
+                                                        </a>
+                                                    </td> 
+                                                </tr>
+                                                <!--{if $smarty.foreach.tth.iteration % 2 == 0}</tr><tr>{/if}-->
+                                                {/foreach}
+                                            </table> 
+                                        </td>
+                                        <td class="tth_box_wrap"> 
+                                            {foreach from=$tire_tech item=tth name=tth}
+                                                <div  class="tth_box hide" id="tth_box_{$tth.tth_id}">
+                                                    <div class="tth_name">{$tth.tth_name}</div>
+                                                    <div class="tth_subtitle">{$tth.tth_subtitle}</div>
+                                                    <div class="tth_brief">{$tth.tth_desc}</div>
+                                                </div>
+                                            {/foreach} 
+                                        </td>
+                                    </tr>
+                                </table> 
+                            </div>
+                        </div>
+                        {/if}
+                        
+                    </div>
+                    
+                    <div class="span4">
+                        {if $usage} 
+                        <h5>Usage</h5>
+                        <table>
+                            {foreach from=$usage item=m name=m}
+                            <tr>
+                                <td style="text-align: right;">
+                                    <div class="ratebar_{$m.tdr_value}"><img src="{asset_url}img/fdr/bar{$m.tdr_value}.png"  width="180" /></div>
+                                </td>
+                                <td style="text-align: left; width: 100px;" >
+                                    <div class="trt_name">{$m.trt_name}</div>
+                                </td>
+                            </tr> 
+                            {/foreach}
+                        </table>  
+                        {/if}
+                        
+                        {if $road} 
+                        <h5>Road</h5>
+                        <table>
+                            {foreach from=$road item=m name=m}
+                            <tr>
+                                <td style="text-align: right;">
+                                    <div class="ratebar_{$m.tdr_value}"><img src="{asset_url}img/fdr/bar{$m.tdr_value}.png"  width="180" /></div>
+                                </td>
+                                <td style="text-align: left; width: 100px;" >
+                                    <div class="trt_name">{$m.trt_name}</div>
+                                </td>
+                            </tr> 
+                            {/foreach}
+                        </table>  
+                        {/if} 
+                    </div>
+                </div>
+                    
+                <div class="tire_overview_div">{$tire.t_overview}</div>
+            </div>
+                
+        {elseif $show == 'gallery'}
+        
+            <div class="" id="gallery">
+                {if !$tire_gallery}
+                <div  class="red italic">- no data available -</div>
+                {else}
+                    <h5>Tire Gallery</h5>
+                    <ul class="thumbnails">
+                        {foreach from=$tire_gallery item=tg name=tg}
+                            <li class="thumbnail" >
+                                <a href="{site_url}userfiles/upload/{$tg.tg_file}" class="colorbox" >
+                                    <img src="{site_url}userfiles/upload/thumb/{$tg.tg_file}" class="thumb" width="100" height="100" />
+                                </a>
+                            </li>
+                        {/foreach}
+                    </ul>
+                {/if}
+            </div>
+            
+        {else}
+        
+            <div class="" id="sizerim">
+                <div class="tire_table_div">
+                    {$tire.t_sizetable}
+                </div>
+            </div>
+            
+        {/if}
+        
+        <!--<div class="tab-content " style="min-height: 200px;" > 
+            
+            <div class="tab-pane" id="recommend">
+                {if !$recommended}
+                <div  class="red italic">- no data available -</div>
+                {else}
+                    <h5>Recommended Tire for These Models</h5>
+                    <table class="table table-condensed table-bordered table-striped"  style="width: auto;" >
+                        <thead>
+                        <tr>
+                            <th width="200" style="background: #333333; color: #ffffff;" >Brand</th>
+                            <th width="200" style="background: #333333; color: #ffffff;" >Model</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {foreach from=$recommended name=r item=r}
+                            <tr>
+                                <td>
+                                    {$r.mb_name}
+                                </td>
+                                <td>
+                                    {$r.mm_name}
+                                </td>
+                            </tr>
+                        {/foreach}
+                        </tbody>
+                    </table>
+                {/if}
+            </div> 
+        </div>-->
+        
+    </div>
+
+</div>

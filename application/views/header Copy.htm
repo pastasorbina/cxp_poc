@@ -1,0 +1,451 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="{$site_config.meta_generator}">
+	<meta name="description" content="{$site_config.meta_description}"/>
+	<meta name="keywords" content="{$site_config.meta_keywords}"/>
+	<meta name="author" content="{$site_config.meta_author}"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<link rel="icon" type="image/ico" href="" />
+	
+	<title> 
+		
+		Proof Of Concept
+	</title>
+
+	<!--{if $module_title}{$module_title} - {/if}{$site_config.main_title} -->
+
+	<script>
+		var site_url = "{site_url}";
+		var asset_url = "{asset_url}";
+		var mod_url = "{$mod_url}";
+		var current_url_safe = "{''|current_url|safe_base64_encode}";
+	</script>
+
+	<!-- load JQUERY and JQUERYUI --> 
+	<script src="{asset_url}js/jquery/jquery-latest.js" ></script>
+	<script src="{asset_url}js/jquery/jquery-ui-1.8.14.custom.min.js" ></script>
+	<link rel="stylesheet" href="{asset_url}css/ui/redmond/style.css" type="text/css"  />
+
+	<!-- load JQUERY plugins -->
+	<script src="{asset_url}js/jquery/jquery.form.js" ></script>
+	<script src="{asset_url}js/jquery/jquery.thickbox.js" ></script>
+	<script src="{asset_url}js/jquery/jquery.clockpick.1.2.7.min.js" ></script>
+	<script src="{asset_url}js/jquery/jquery-ui-timepicker-addon.js" ></script>
+	
+	<link rel="stylesheet" href="{asset_url}css/ui/timepicker-addon.css" type="text/css"  />
+
+	<!--load BOOTSTRAP --> 
+	<link rel="stylesheet" type="text/css"  href="{asset_url}css/bootstrap/230/bootstrap.css" /> 
+	<script src="{asset_url}js/bootstrap/230/bootstrap.js" ></script>
+
+	<script src="{asset_url}js/wigo/wg_modal.js" ></script>
+	 
+
+	<script type="text/javascript" charset="utf-8" src="{asset_url}js/jcarousel/jquery.jcarousel.js" ></script>
+	<link rel="stylesheet"  type="text/css"  href="{asset_url}css/jcarousel/skins/ie7/skin.css" />
+
+	<!--<script src="{asset_url}js/superfish/superfish.js" ></script>--> <!--<script src="{asset_url}js/superfish/supersubs.js" ></script>-->
+ 
+
+	<script src="{asset_url}js/jqzoom/jquery.jqzoom-core.js" ></script>
+	<link rel="stylesheet" href="{asset_url}css/jqzoom/jquery.jqzoom.css" type="text/css"  />
+
+	<!-- load FlexSlider --> 
+	
+
+	<!-- load Colorbox -->
+	<script src="{asset_url}js/jquery/jquery.colorbox.js" ></script>
+	<link rel="stylesheet" href="{asset_url}css/colorbox/01/colorbox.css" type="text/css"  />
+	
+	<!-- treeview -->
+	<script src="{asset_url}js/treeview/jquery.treeview.js" ></script>
+	<script src="{asset_url}js/treeview/jquery.treeview.edit.js" ></script>
+	<script src="{asset_url}js/treeview/jquery.treeview.async.js" ></script>
+	<link rel="stylesheet"  type="text/css"  href="{asset_url}js/treeview/jquery.treeview.css" />
+
+	<!-- load Global JS -->
+	<script src="{asset_url}js/global.js" ></script>
+	<script src="{asset_url}js/functions.js" ></script>
+	<!--<script src="{asset_url}js/stacklet.js" ></script>-->
+
+	<!-- load Global CSS and user defined CSS -->
+	<!--<link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'>-->
+	<link rel="stylesheet" href="{asset_url}css/global.css" type="text/css"  />
+	<link rel="stylesheet" href="{asset_url}css/main/style.css" type="text/css"  />
+
+	<!--load google map API-->
+	<!--load other APIs-->
+	
+	<script src="{asset_url}js/flexslider/jquery.flexslider.js" ></script> 
+	<link rel="stylesheet" href="{asset_url}css/main/flexslider.css" type="text/css" media="screen" />
+	<script>
+		$(document).ready(function(){ 
+			$('#mainbanner_slider').flexslider({
+				animation: "fade"
+				,easing:"swing"
+				,controlNav: false
+				,directionNav:true
+				,slideshowSpeed: 4000
+				,pauseOnHover: true
+			}); 	
+		});
+	</script>
+
+	{if $userinfo}
+		<script>var is_loggedin = true;</script>
+	{else}
+		<script>var is_loggedin = false;</script>
+	{/if}
+
+	<script type="text/javascript">
+		var $ = jQuery.noConflict();
+		
+		function myMouseOut(id){
+			if ($(id).hasClass("over")){
+				$(id).mouseleave(function(){
+					$(id).slideUp({ duration:300 , easing: 'easeInOutCubic', speed: 1500 });
+				});
+			} else{
+				$(id).slideUp({ duration:300 , easing: 'easeInOutCubic', speed: 1500 });
+			}
+		}	
+		
+		 
+		$(function(){
+			$(".nav_submenu").slideUp();
+			$(".nav_submenu").mouseover(function(e) {
+				$(this).addClass("over");
+			});
+			
+			$(".nav_item").hover(function() {
+				id = $(this).attr('data-id');
+				$("#"+id).slideDown({ duration:300 , easing: 'easeInOutCubic', speed: 1500 }); 
+			},function(a) {
+				id = $(this).attr('data-id');
+				myMouseOut("#"+id); 
+			});
+				
+			$(".colorbox").live('click', function(e){ e.preventDefault();
+				$.colorbox({ href : $(this).attr('href'), rel : $(this).attr('rel'), title : $(this).attr('title') });
+			});
+			
+			 
+			
+			$('.tipsy').each(function() {
+				$(this).mouseover(function(e){ $(this).tooltip('show'); });
+				$(this).mouseout(function(e){ $(this).tooltip('hide'); });
+			}); 
+			
+		}); 
+
+	</script>
+ 
+ 
+
+<!-- GOOGLE ANALYTICS -->
+
+
+<style>
+	
+	
+	
+	
+	
+	
+	.mainbanner_wrap { 
+	}
+</style>
+
+</head>
+
+
+<body>
+	{literal}
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=447266508652777";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
+	{/literal}
+
+
+	<a id="top" class="hide" >&nbsp;</a>
+ 
+
+<!--layout assets start-->
+	<div class="modal hide fade" id="modal_generic"  >
+		<div class="modal-header">
+			<button class="close" data-dismiss="modal">×</button>
+			<h3 class="modal-title">&nbsp;</h3>
+		</div>
+		<div class="modal-body"></div>
+		<div class="modal-footer">&nbsp;</div>
+	</div>
+	
+	<div class="modal hide fade" id="wgmodal">
+		<div class="modal-header">
+			<button class="close" data-dismiss="modal">×</button>
+			<h3 class="modal-title">&nbsp;</h3>
+		</div>
+		<div class="modal-body"></div>
+		<div class="modal-footer">&nbsp;</div>
+	</div> 
+<!--layout assets end-->
+
+
+<div class="master_wrap">
+	<div class="master_container row-fluid">
+	
+	<div class="header_1">
+		<div class="container">
+			<table class="scaffold" >
+				<tr>
+					<td class="lefty" >&nbsp;</td>
+					<td class="righty">
+						<div class="container-fluid">
+						<div class="row-fluid">
+							<div class="span3">
+								<a href="#">Hellow</a>
+							</div>
+							<div class="span3">
+								<a href="#">Follow Us</a>
+							</div>
+							<div class="span6" style="text-align: right;" >
+								<div class="search_box"> 
+									<div class="input-append">
+										<form id="form_main_search" method="post" action="{site_url}search/do_search">
+											<input class="input-small" id="searchkey" name="searchkey" type="text" placeholder="Search" >
+											<button id="button_main_search" class="btn btn-inverse" type="button"><i class="icon-search icon-white"></i>&nbsp;</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						</div>
+					</td>
+				</tr>
+			</table> 
+		</div>
+	</div>
+	
+	<div class="horz_line"></div>
+	
+	
+	<div class="header_2">
+		<div class="container">
+			
+			<table class="scaffold" >
+				<tr>
+					<td class="lefty" >
+						<!--LOGO-->
+						<div class="header_logo_wrap" style="" >
+							<div class="header_logo" style="" >
+								<a href="{site_url}"><img src="{asset_url}img/poc/logo.png" style="height: 140px;"  /></a>
+							</div>
+						</div>
+						
+						<div class="mainlefty"  > 
+							<div class="lefty  mainlefty_inner"> 
+								<table class="lefty_article_tb">
+									<tr>
+										<td>
+											<div class="tag">EVENTS</div>
+											<div class="date">12 / 03 / 2013</div>
+											<div class="image">
+												<img src="{asset_url}img/poc/news1.png" style="width: 100%;">
+											</div>
+											<div class="title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+											<div class="content">
+												Donec eget dui dapibus dui lobortis pretium. Fusce condimentum fringilla pharetra. Proin nec pharetra odio. <a class="readmore">More..</a>
+											</div>
+										</td>
+									</tr>
+									
+									<tr>
+										<td>
+											<div class="tag">EVENTS</div>
+											<div class="date">12 / 03 / 2013</div>
+											<div class="image">
+												<img src="{asset_url}img/poc/news2.png" style="width: 100%;">
+											</div>
+											<div class="title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+											<div class="content">
+												Donec eget dui dapibus dui lobortis pretium. Fusce condimentum fringilla pharetra. Proin nec pharetra odio. <a class="readmore">More..</a>
+											</div>
+										</td>
+									</tr>
+									
+									<tr>
+										<td>
+											<div class="tag">EVENTS</div>
+											<div class="date">12 / 03 / 2013</div>
+											<div class="image">
+												<img src="{asset_url}img/poc/news3.png" style="width: 100%;">
+											</div>
+											<div class="title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+											<div class="content">
+												Donec eget dui dapibus dui lobortis pretium. Fusce condimentum fringilla pharetra. Proin nec pharetra odio. <a class="readmore">More..</a>
+											</div>
+										</td>
+									</tr>
+								</table>
+								
+								<div class="lefty_footer">
+									<a href="">SEE ALL POSTS <img src="{asset_url}img/poc/singlearr.png" ></a>
+								</div>
+							</div>  
+						</div>
+						
+						
+						
+						
+					</td>
+					<td class="righty">
+						<div class="container-fluid">
+						<div class="row-fluid">
+							<div class="span6">&nbsp;</div>
+							<div class="span3">
+								<a href="#">JOIN US</a>
+							</div>
+							<div class="span3">
+								<a href="#">CONTACT US</a>
+							</div>
+						</div>
+						</div> 
+						
+						<div class="mainmenu" style="margin-top: 120px;">
+						<div class="mainmenu_inner">
+							<div class="container-fluid">
+							<div class="row-fluid">
+								<div class="span3">
+									<ul>
+										<li><a class="level1 nav_item" href="#" data-id="nav_1" >ABOUT</a> </li>
+									</ul> 
+								</div>
+								<div class="span3">
+									<ul>
+										<li><a class="level1 nav_item" href="#" data-id="nav_2" >STARTUPS</a> </li>
+									</ul> 
+								</div>
+								<div class="span3">
+									<ul>
+										<li><a class="level1 nav_item" href="#" data-id="nav_3" >PARTNERS</a> </li>
+									</ul> 
+								</div>
+								<div class="span3">
+									<ul>
+										<li><a class="level1 nav_item" href="#" data-id="nav_4" >CALENDARS</a> </li>
+									</ul> 
+								</div>
+							</div>
+							</div>
+							
+							<div class="container-fluid">
+							<div class="row-fluid">
+								<div class="span3">
+									<ul id="nav_1" class="nav_submenu">
+										<li><a href="">Link</a></li>
+										<li><a href="">Link</a></li>
+										<li><a href="">Link</a></li> 
+									</ul>
+								</div>
+								<div class="span3">
+									<ul id="nav_2" class="nav_submenu">
+										<li><a href="">Link</a></li>
+										<li><a href="">Link</a></li>
+										<li><a href="">Link</a></li> 
+									</ul>
+								</div>
+								<div class="span3">
+									<ul id="nav_3" class="nav_submenu">
+										<li><a href="">Link</a></li>
+										<li><a href="">Link</a></li>
+										<li><a href="">Link</a></li> 
+									</ul>
+								</div>
+								<div class="span3">
+									<ul id="nav_4" class="nav_submenu">
+										<li><a href="">Link</a></li>
+										<li><a href="">Link</a></li>
+										<li><a href="">Link</a></li> 
+									</ul>
+								</div>
+							</div>
+							</div>
+							
+						</div> 
+					</td>
+				</tr>
+			</table>
+			
+			 
+		</div>
+	</div>
+	
+	<div class="spacer10"></div>
+	
+	  
+<div class="navbar navbar-inverse hide">
+	<div class="navbar-inner">  
+		<ul class="nav"> 
+			{foreach from=$main_menu name=mm item=mm key=mmk}
+				<li class="" data-id="{$mm.m_id}"  >
+					<a class="" href="{$mm.m_link}" >{$mm.m_name}</a> 
+				</li>
+			{/foreach} 
+		</ul> 
+	</div>
+</div>
+
+
+
+	
+
+	
+
+	<div class="maingroup_wrap">
+		 
+		<!---IF HOME SHOW MAINBANNER -->
+		<div class="mainbanner_wrap"  style="" >  
+			<div class="" style="background:#000000;">
+				<div class="container">
+					<div class="span3">&nbsp;</div>
+					<div class="span9 mainbanner" style="margin:30px 10px;" > 
+						<div id="mainbanner_slider" class="flexslider" style="width: 680px; height: 380px; " >
+						<ul class="slides">
+							{foreach from=$mainbanner name=mb item=mb}
+								<li>
+									<a href="{if $mb.bn_url}{$mb.bn_url}{else}#{/if}" target="_blank">
+										<img src="{site_url}userfiles/upload/{$mb.bn_image}" class="mainbanner_img" style="width: 680px; height: 380px;" > 
+											<div class="banner_caption_wrap">
+												<div class="banner_caption_inner">
+													<span class="banner_caption">{$mb.bn_desc}</span>
+												</div>
+											</div> 
+									</a>
+								</li>
+							{/foreach}
+						</ul>
+					</div> 
+					</div>
+				</div>
+				
+			</div> 
+		</div>
+		
+		
+		<div class="container">
+			
+			<table class="scaffold" >
+				<tr>
+					<td class="lefty" >&nbsp;</td>
+					<td class="righty">
+						<div class="container-fluid">
+					<!------START CONTENT----->
+				 
+ 	 

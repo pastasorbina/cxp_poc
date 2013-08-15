@@ -1,0 +1,93 @@
+<script>
+	$(function() { 
+	});
+</script>
+
+<ul class="breadcrumb"> 
+      {foreach from=$breadcrumb name=b item=b}
+      <li>{$b}</li>
+       <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+      {/foreach} 
+</ul>
+  
+
+<div class="page_title" >{$racing.r_name} &nbsp;<img src="{asset_url}img/fdr/news_title_arrow.png">&nbsp; {$region.rr_name} &nbsp;<img src="{asset_url}img/fdr/news_title_arrow.png"> &nbsp; {$this_series.rs_name} &nbsp;<img src="{asset_url}img/fdr/news_title_arrow.png"></div>
+
+<div class="row-fluid"> 
+	<div class="span3">
+		
+		<div style="margin-top: 0px;"> 
+			<div>
+				<div class="" style="padding:5px; background: #efefef; margin-bottom: 10px; border:solid 1px #999999;" >
+					<a href="{site_url}racing/view_region/{$this_series.rr_id}"><i class="icon-chevron-left icon-small"></i> Go Back</a>
+				</div>
+				<table class="sidebar-table table table-striped"> 
+					{foreach from=$series item=rs name=rs}
+						<tr class="{if $rs.rs_id == $this_series.rs_id}active{/if}">
+							<td width="9"><img src="{asset_url}img/fdr/bullet_black.png" class="sidebar-table-bullet" width="9" height="9" /></td>
+							<td>
+								<a href="{site_url}racing/view_series/{$rs.rs_id}">{$rs.rs_name}</a>
+							</td>
+						</tr>
+					{/foreach}
+				</table>
+			</div>
+		</div>
+		
+		{foreach from=$all_racing name=r item=r} 
+			<div style="margin-bottom: 15px;">
+				<a href="{site_url}racing/view_race/{$r.r_id}">
+					<img src="{site_url}userfiles/upload/{$r.r_banner}" class="shadow1 rounded_all" >
+				</a>
+			</div>
+		{/foreach}
+		
+		 
+	</div>
+	
+	<div class="span9">
+		
+		
+		<div class="page_wrap"> 
+			<div class="page_content">
+				<div style="padding: 8px; font-weight: bold; font-size: 16px; border-bottom: solid 1px #999999; background: #F4F4F4; margin-bottom: 10px;">
+					RIDER STANDINGS
+				</div>
+				<table class="table table-bordered table-striped">
+					<tr>
+						<th width="30" style="text-align: right;">Rank</th>
+						<th>Name</th>
+						<th>Team</th>
+						<th width="60" style="text-align: center;">Score</th>
+					</tr>
+					{if !$racers}
+						<tr>
+							<td colspan="4" style="text-align: center;"><div class="red">Not Available</div></td>
+						</tr>
+					{else}
+						{foreach from=$racers name=rc item=rc}
+							<tr>
+								<td style="text-align: right;">
+									{$smarty.foreach.rc.iteration}
+								</td>
+								<td>
+									{$rc.rc_name}
+								</td>
+								<td>
+									{$rc.rc_team}
+								</td>
+								<td style="text-align: center;">
+									<strong class="large">{$rc.rc_score}</strong>
+								</td>
+							</tr>
+						{/foreach}
+					{/if}
+				</table>
+			</div>
+		</div>
+		  
+	</div>
+   
+</div>
+
+

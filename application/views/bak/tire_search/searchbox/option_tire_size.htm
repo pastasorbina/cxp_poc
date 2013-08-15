@@ -1,0 +1,4 @@
+<option value="0" class="ts_option ts_option_default" >TIRE RATIO</option> 
+{foreach from=$tire_size item=ts name=ts} 
+    <option value="{$ts.ts_id}"class="ts_option" data-id="{$ts.ts_id}" id="ts_{$ts.ts_id}" >{$ts.ts_name}</option>
+{/foreach}

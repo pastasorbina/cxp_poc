@@ -1,0 +1,46 @@
+<script type="text/javascript">
+	var current_uri = '{$current_uri}';
+	var mod_url = '{$mod_url}';
+	var use_ajax = '{$use_ajax|default:FALSE}';
+</script>
+<script src="{asset_url}js/vizard/slave.js" ></script>
+
+
+<ul class="breadcrumb">
+	<li><a href="{$LAST_LIST}" class="cancel" >back</a></li>
+	<li class="divider">»</li>
+	<li>edit</li>
+</ul>
+
+<div class="mod_title">
+	{$ajax_action} partner
+</div>
+
+{''|validation_errors}
+
+<form enctype="multipart/form-data" name="formSubmit" id="formSubmit"  method="post" class="form-horizontal" >
+	<input type="hidden" name="current_id" value="{$data.dlra_id}" />
+	<input type="hidden" name="ajax_action" value="{$ajax_action}" />
+	
+	<div class="control-group">
+		<label class="control-label">Name</label>
+		<div class="controls">
+			<input type="text" name="dlra_name" class="span6" value="{'dlra_name'|set_value|default:$data.dlra_name}" >
+		</div>
+	</div>
+	  
+	<div class="control-group">
+		<label class="control-label">Google Maps Position</label>
+		<div class="controls "> 
+			<label>Latitude</label>&nbsp;<input type="text" name="dlra_lat" class="span3" value="{'dlra_lat'|set_value|default:$data.dlra_lat}" > 
+			<label>Longitude</label>&nbsp;<input type="text" name="dlra_long" class="span3" value="{'dlra_long'|set_value|default:$data.dlra_long}" >
+		</div>
+	</div>
+ 
+
+	<div class="form-actions" align="right" >
+		<input class="btn btn-primary" type="submit" value="Save" >
+		<a href="{$LAST_LIST}" class="btn do_cancel">Cancel</a>
+	</div>
+
+</form>

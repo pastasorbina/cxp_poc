@@ -1,0 +1,112 @@
+<script src="{asset_url}js/flexslider2/jquery.flexslider.js" ></script>
+<link rel="stylesheet" href="{asset_url}css/flexslider2/fx2.css" type="text/css" media="screen" />
+
+<script>
+	  $(function(){
+		$('.shareme').click(function(e){
+			e.preventDefault();
+			var id = $(this).attr('data-id');
+			$('#ecard_'+id).modal('show');
+		});
+		
+		//$('.form_send_email').submit(function(e){
+		//	e.preventDefault();
+		//	var obj = $(this);
+		//	var id = $(this).attr('data-id');
+		//	$("#form_send_email_"+id).ajaxSubmit({
+		//		success: function(data) {
+		//		  alert(id);	
+		//			//if (data.status == 'ok') {
+		//			//	//location.reload(true); 
+		//			//}
+		//			//else {
+		//			//	alert(data.msg);
+		//			//}
+		//		},
+		//		dataType: 'json'
+		//	});
+		//});
+	  });
+</script>
+
+<!--{foreach from=$downloads name=w item=w}-->
+<!--	  <div class="modal fade" id="ecard_{$w.dl_id}"  >-->
+<!--		<div class="modal-header" style="background: #FE0000;" >-->
+<!--			<button class="close" data-dismiss="modal">×</button>-->
+<!--			<h3 class="modal-title">&nbsp;</h3>-->
+<!--		</div>-->
+<!--		<div class="modal-body">-->
+<!--			<img src="{site_url}userfiles/upload/{$w.dl_image}" alt="download" style="" />-->
+<!--			-->
+<!--			<div style="margin-top: 10px;">-->
+<!--				  <div style="margin-bottom: 10px; font-size: 18px; margin-bottom: 10px; border-bottom: solid 1px #cccccc; padding-bottom: 5px;">-->
+<!--						Send E-Card-->
+<!--				  </div>-->
+<!--				  <form action="{site_url}club/send_ecard/" id="form_send_email_{$w.dl_id}" data-id="{$w.dl_id}" method="post" class="form-horizontal form_send_email" >-->
+<!--						<input type="text" name="id" value="{$w.dl_id}" >-->
+<!--						<div class="control-group">-->
+<!--							  <div class="control-label">Your Name</div>-->
+<!--							  <div class="controls">-->
+<!--									<input type="text" name="name" />-->
+<!--							  </div>-->
+<!--						</div>-->
+<!--						<div class="control-group">-->
+<!--							  <div class="control-label">Recipient Email</div>-->
+<!--							  <div class="controls">-->
+<!--									<input type="text" name="email" />-->
+<!--							  </div>-->
+<!--						</div>-->
+<!--						-->
+<!--						<div class="control-group">-->
+<!--							  <div class="control-label">Message</div>-->
+<!--							  <div class="controls">-->
+<!--									<textarea rows="6" cols="100" name="message"></textarea>-->
+<!--							  </div>-->
+<!--						</div>-->
+<!--						-->
+<!--						<div class="form-actions">-->
+<!--							  <input type="submit" value="Send">-->
+<!--						</div>-->
+<!--				  </form>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--		<div class="modal-footer">&nbsp;</div>-->
+<!--	</div>-->
+<!--{/foreach}-->
+
+<script>
+      $(function(){ 
+	    $('.fx2').flexslider({
+		  animation: "slide",
+		  animationLoop: false,
+		  itemWidth: 153,
+		  itemMargin: 3,
+		  controlNav: false
+	    }); 
+      });
+</script>
+<style>
+        .fx2 { background: #333333; padding: 10px; }
+	.fx2 li{ margin-right: 10px;  }
+	.fx2 li img{  border: solid 1px #ffffff; }
+        .flex-direction-nav { background: #ffffff; }
+</style>
+ 
+<div class="fx2" style="overflow: hidden; margin:0px;" >
+  <ul class="slides" style=" ">
+      {foreach from=$downloads name=w item=w}
+	  {if $w.dt_id == 2}
+			<li>
+				<a class="" data-id="{$w.dl_id}" href="{site_url}club/send_ecard/{$w.dl_id}">
+					<img src="{site_url}userfiles/upload/{$w.dl_image}" alt="download" style=" height: 100px;" />
+				</a>
+            </li>
+	  {else}
+			<li>
+                  <a class="colorbox" href="{site_url}userfiles/upload/{$w.dl_image}"><img src="{site_url}userfiles/upload/{$w.dl_image}" alt="download" style=" height: 100px;" /></a>
+            </li>
+	  {/if}
+           
+      {/foreach}  
+  </ul>
+</div>

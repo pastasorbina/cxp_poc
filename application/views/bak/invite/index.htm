@@ -1,0 +1,99 @@
+
+ <div class="spacer10"></div>
+ <div class="crumbs">
+	{foreach from=$breadcrumb name=b item=b}
+		{$b}&nbsp;<img src="{asset_url}img/gb/arrow_divider.png" />&nbsp;
+	{/foreach}
+ </div>
+
+<div class="horz_line"></div>
+<div class="spacer10"></div>
+
+<h2>Invite Friends</h2>
+
+<div class="row-fluid">
+	<div class="span3 well">
+		<form name="formInvitation" id="formInvitation" action="{$mod_url}send_invitation"  method="post" class="form-inline"  >
+			<div class="control-group">
+				<label class="control-label">To</label>
+				<div class="controls">
+					 <textarea id="name" name="invitee_email" rows="2" cols="30">{$invitee_email|default:''}</textarea>
+					 <div class="help-block">
+						you can enter multiple emails (max 5), separated by comma(,)
+					 </div>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label">Message</label>
+				<div class="controls">
+					<textarea name="message" id="message"  rows="8" cols="30" >{$invitation_default_message.c_content_full}</textarea>
+				</div>
+			</div>
+
+			<div class="pull-right">
+				<span id="formInvitation-loading" class="hide" ><img src="{asset_url}img/loadingAnimation.gif"></span>
+				<input class="btn btn-primary submit" name="edit" type="submit" value="Invite" />
+			</div>
+		</form>
+		<script>
+
+		</script>
+	</div>
+
+	<div class="span8">
+	  <div>
+			   <div class=""
+					style="padding: 5px 10px; border: solid 1px #dddddd; margin-bottom: 20px; font-size: 16px; line-height: 23px; background: #F9F8F4;" >
+				  Dapatkan voucher senilai <strong>Rp. 50.000,-</strong> untuk pembelian pertama oleh teman yang anda invite !
+			   </div>
+			</div>
+		 <div style="border-bottom: dotted 1px #cccccc; padding:10px;margin-bottom: 10px;">
+
+			<div>
+			   <h3>Your Invitation Link</h3>
+			   <div class="help-block" style="margin-bottom: 5px;" >
+				  copy the link below, and share it to your friends !
+			   </div>
+			</div>
+			<code>{$site_url}register/by_invitation/{$key}</code>
+		 </div>
+		<div id="sent_invitation_list"><!--invitation list goes here--></div>
+
+
+
+	</div>
+</div>
+
+<script>
+	function load_sent_invitation_list() {
+		$.post(site_url+'invite/load_sent_invitation_list', {}, function(data) {
+			$('#sent_invitation_list').html(data);
+		}, 'html');
+	}
+
+	$(document).ready(function() { load_sent_invitation_list(); });
+
+	$(document).ready( function() {
+		$('#formInvitation').submit(function(e) {
+			e.preventDefault();
+			$('#formInvitation-loading').show();
+			$('#formInvitation').ajaxSubmit({
+				success: function(data) {
+					if (data.status == 'ok') {
+						wgm_alert(data.msg, data.status);
+						$('.icon-loading').hide();
+					} else {
+						wgm_alert(data.msg, data.status);
+						$('.icon-loading').hide();
+					}
+					$('#formInvitation-loading').hide();
+					$('#name').val('');
+					$('#formInvitations input').focusout();
+					load_sent_invitation_list();
+				},
+				dataType: 'json'
+			});
+		});
+	});
+</script>

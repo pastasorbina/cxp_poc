@@ -1,0 +1,159 @@
+<script type="text/javascript">
+	var current_uri = '{$current_uri}';
+	var mod_url = '{$mod_url}';
+	var use_ajax = '{$use_ajax|default:FALSE}';
+	var setting = {
+		width:800,
+		height:600
+	};
+
+	$(document).ready(function(){
+	});
+
+</script>
+<script src="{asset_url}js/vizard/slave.js" ></script>
+
+
+<ul class="breadcrumb">
+	<li><a href="{$LAST_LIST}" class="cancel" >back</a></li>
+	<li class="divider">»</li>
+	<li>edit</li>
+</ul>
+
+
+
+{''|validation_errors}
+
+<form enctype="multipart/form-data" name="formSubmit" id="formSubmit"  method="post" class="form-horizontal"  >
+	<input type="hidden" name="current_id" value="{$data.bn_id}" />
+	<input type="hidden" name="ajax_action" value="{$ajax_action}" />
+
+	<div class="control-group">
+		<label class="control-label">Category</label>
+		<div class="controls">
+			<select name="bnc_id">
+				{foreach from=$categories name=c item=c}
+					<option value="{$c.bnc_id}" {if $c.bnc_id == $data.bnc_id || $c.bnc_id == $bnc_id }selected="selected"{/if} >{$c.bnc_name}</option>
+				{/foreach}
+			</select>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Image</label>
+		<div class="controls">
+			{if $data.bn_image}
+				<a href="{site_url}userfiles/upload/{$data.bn_image}" class="colorbox" title="{$data.bn_title}"  >
+					<img src="{site_url}userfiles/upload/thumb/{$data.bn_image}" class="thumb" width="50" />
+				</a>
+				<div class="spacer10" ></div>
+			{/if}
+			<input type="file" name="bn_image" />
+
+			<div>
+				{if $data}
+				[{$data.bnc_name} : {$data.bnc_width} x {$data.bnc_height} pixel ]
+				{else}
+					{foreach from=$categories name=c item=c}
+						<span>[{$c.bnc_name} : {$c.bnc_width} x {$c.bnc_height} pixel ] &nbsp;</span>
+					{/foreach}
+				{/if}
+			</div>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Title</label>
+		<div class="controls">
+			<input type="text" name="bn_title" class="span9" value="{'bn_title'|set_value|default:$data.bn_title}" >
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Subtitle</label>
+		<div class="controls">
+			<input type="text" name="bn_subtitle" class="span9" value="{'bn_subtitle'|set_value|default:$data.bn_subtitle}" >
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Desc</label>
+		<div class="controls">
+			<textarea name="bn_desc" rows="10" cols="30" class="ckeditor_basic" height="160" width="700"  >{'bn_desc'|set_value|default:$data.bn_desc|trim}</textarea>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Order</label>
+		<div class="controls">
+			<input type="text" name="bn_order" value="{'bn_order'|set_value|default:$data.bn_order}" >
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">URL</label>
+		<div class="controls">
+			<input type="text" name="bn_url" class="span9" value="{'bn_url'|set_value|default:$data.bn_url}" >
+		</div>
+	</div>
+
+	<!--<div class="control-group">-->
+	<!--	<label class="control-label">Caption</label>-->
+	<!--	<div class="controls">-->
+	<!--		<input type="text" name="bn_caption"  class="span9" value="{'bn_caption'|set_value|default:$data.bn_caption}" >-->
+	<!--	</div>-->
+	<!--</div>-->
+	<!---->
+	<div class="control-group">
+		<label class="control-label">Display Caption</label>
+		<div class="controls">
+			<div class="checkbox">
+				<input type="checkbox" id="bn_display_caption" name="bn_display_caption" {if $data.bn_display_caption == "Yes"}checked="checked"{/if} >
+				<label for="bn_display_caption">Display Caption</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Display Button</label>
+		<div class="controls">
+			<div class="checkbox">
+				<input type="checkbox" id="bn_display_button" name="bn_display_button" {if $data.bn_display_button == "Yes"}checked="checked"{/if} >
+				<label for="bn_display_button">Display Register Button</label>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!--<div class="control-group">
+		<label class="control-label">Start Date</label>
+		<div class="controls">
+			<input type="text" name="bn_start_date" class="datetimepicker" value="{'bn_start_date'|set_value|default:$data.bn_start_date}" >
+				<div class="help-block"></div>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">End Date</label>
+		<div class="controls">
+			<input type="text" name="bn_end_date" class="datetimepicker" value="{'bn_end_date'|set_value|default:$data.bn_end_date}" >
+				<div class="help-block"></div>
+		</div>
+	</div>-->
+
+	<!--<div class="control-group">
+		<label class="control-label">Start Date</label>
+		<div class="controls">
+			<input type="text" name="bn_date" class="datetimepicker" value="{'bn_date'|set_value|default:$data.bn_date}" >
+				<div class="help-block">start date, default is today</div>
+		</div>
+	</div>-->
+
+
+	<div class="form-actions" >
+		<input class="btn btn-primary submit" name="edit" type="submit" value="Save" />
+		<a href="{$LAST_LIST}"><button class="btn do_cancel">Cancel</button></a>
+	</div>
+
+</form>

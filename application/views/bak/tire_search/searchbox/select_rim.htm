@@ -1,0 +1,12 @@
+<select name="tr_id">
+    {foreach from=$tire_rim item=tr name=tr}
+        <option value="{$tr.tr_id}">{$tr.tr_name}</option>
+    {/foreach}
+</select>
+
+{foreach from=$tire_rim item=tr name=tr} 
+        <label class="radio">
+        <input type="radio" name="tr_id" id="tr_id_{$tr.tr_id}" value="{$tr.tr_id}" >
+        {$tr.tr_name}
+    </label>
+{/foreach}

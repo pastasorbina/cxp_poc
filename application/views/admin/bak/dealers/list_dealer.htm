@@ -1,0 +1,141 @@
+<script type="text/javascript">
+	var current_uri = '{$current_uri}';
+	var mod_url = '{$mod_url}';
+	var use_ajax = '{$use_ajax|default:FALSE}';
+</script>
+
+<div id="addbox"></div>
+<div id="editbox"></div>
+
+<ul class="breadcrumb">
+    <li>Dealers</li>
+    <li class="divider">&gt;</li>
+	<li><a href="{site_url}admin/dealers/list_province/">province</a></li>
+    <li class="divider">&gt;</li>
+	<li><a href="{site_url}admin/dealers/list_city/{$area_city.ap_id}">City</a></li>
+    <li class="divider">&gt;</li>
+    <li>Dealers</li> 
+</ul>
+
+{if $ac_id == 0}
+	<div class="mod_title">All Area</div>
+{else}
+	<div class="mod_title">
+		<a href="{site_url}admin/dealers/list_province/">All Province</a> / 
+		<a href="{site_url}admin/dealers/list_city/{$area_city.ap_id}">{$area_city.ap_name}</a> / 
+		{$area_city.ac_name}
+	</div>
+{/if}
+ 
+<ul class="module-links">
+	<li><a href="{$mod_url}add_dealer/{$area_city.ac_id}"  class="add"  >+ add new entry</a></li>
+</ul>
+<!---->
+<!--<div class="index_filter_cont" >-->
+<!--	<div class="index_search_cont" >-->
+<!--		<form name="frmSearch" action="{$mod_url}search" method="post"> -->
+<!--			<input type="hidden" name="pagelimit" value="{$pagelimit}" />-->
+<!--			<input type="hidden" name="offset" value="{$offset}" />-->
+<!--			<input type="hidden" name="orderby" value="{$orderby}" />-->
+<!--			<input type="hidden" name="ascdesc" value="{$ascdesc}" />-->
+<!--			<input type="hidden" name="page" value="{$mod_url}index/" />-->
+<!--			Search : <input type="text" name="searchkey" value="{$searchkey}"> <input class="btn small" type="submit" value="Find">-->
+<!--		</form>-->
+<!--	</div>-->
+<!--</div>-->
+
+	<div style="text-align: right;">
+		<form name="frmSearch" action="{site_url}admin/dealers/change_dealer_filter" method="post">  
+			<input type="hidden" name="pagelimit" value="{$pagelimit}" /> 
+			<input type="hidden" name="ascdesc" value="{$ascdesc}" /> 
+			<input type="hidden" name="orderby" value="{$orderby}" /> 
+			<input type="hidden" name="offset" value="{$offset}" /> 
+			<input type="hidden" name="ac_id" value="{$ac_id}" />
+			<input type="hidden" name="page" value="{site_url}admin/dealers/list_dealer/" />
+			Filter : 
+			<select name="dlr_type">
+				<option value="Any" {if $dlr_type == 'Any'}selected="selected"{/if} >- All Type -</option>
+				<option value="Store" {if $dlr_type == 'Store'}selected="selected"{/if} >Store</option>
+				<option value="Dealer" {if $dlr_type == 'Dealer'}selected="selected"{/if} >Dealer</option>
+			</select>
+			<input class="btn small" type="submit" value="Change">
+		</form>
+	</div>
+
+{if !$maindata}
+	<div class="red">
+		data not found
+	</div>
+{else}
+
+	
+	<table class="table table-striped" id="mainData" width="100%">
+	<thead>
+		<tr>
+			<th width="40" >Type</th>
+			<th width="50">Img</th>
+			<th><a href="javascript:doSort('dlr_name');">Name</a></th>
+			<!--<th><a href="javascript:doSort('dlr_contact');">Contact Person</a></th>-->
+			
+			<th>Province</th>
+			<th>City</th> 
+			<th>Address / Phone</th> 
+			<th>Description</th>  
+			<th>Position</th>
+			<!--<th width="65"><a href="javascript:doSort('dlr_entry');">Created</a></th>-->
+			<th width="65"></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		{foreach from=$maindata item=m name=m key=mk}
+		<tr>
+			<td>{$m.dlr_type}</td>
+			<td>
+				<img src="{site_url}userfiles/upload/thumb/{$m.dlr_image}" width="50" height="50" />
+			</td>
+			<td>
+				<a href="{$mod_url}edit_dealer/{$m.dlr_id}" class="edit" >{$m.dlr_name}</a>
+			</td>
+			<!--<td>{$m.dlr_contact}</td>-->
+			
+			<td>{$m.ap_name}</td>
+			<td>{$m.ac_name}</td>
+			<td>
+				<strong>Address:</strong> {$m.dlr_address}<br>
+				<strong>Phone:</strong> {$m.dlr_phone}<br>			
+				<strong>Fax:</strong> {$m.dlr_fax}<br>
+				<strong>Contact:</strong> {$m.dlr_contact}<br>
+				<strong>Email:</strong> {$m.dlr_email}	
+			</td> 
+			<td>
+				<strong>Facebook:</strong> {$m.dlr_facebook}<br>
+				<strong>Twitter:</strong> {$m.dlr_twitter}<br>
+				<strong>Description:</strong><br>
+				{$m.dlr_desc}
+			</td> 
+			<td>
+				<strong>lat:</strong> {$m.dlr_lat}<br>
+				<strong>long:</strong> {$m.dlr_long}<br>				
+			</td> 
+			<!--<td>{$m.dlr_entry}</td>-->
+			<td > 
+				<div class="btn-group">
+					{if $m.dlr_status == 'Active' }
+						<a href="{$mod_url}edit_dealer/{$m.dlr_id}" class="btn btn-small edit" ><i class="icon-edit"></i></a>
+						<a href="{$mod_url}delete/{$m.dlr_id}" class="btn btn-small delete areyousure" ><i class="icon-trash"></i></a>
+					{else}
+						<a href="{$mod_url}change_status/{$m.dlr_id}/Active" class="btn btn-small">restore</a>
+					{/if}
+				</div>
+			</td>
+
+		</tr>
+		{/foreach}
+	</tbody>
+	</table>
+	
+	{$paging}
+	{$paging_js}
+
+{/if}

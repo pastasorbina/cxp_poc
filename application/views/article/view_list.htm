@@ -1,0 +1,72 @@
+
+<!--<ul class="breadcrumb">
+	{foreach from=$breadcrumb name=b item=b}
+	<li>{$b}</li>
+	<li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+	{/foreach}
+</ul>-->
+
+
+
+
+
+
+
+<style type="text/css">
+.adivider { margin: 0px 8px;}
+</style>
+
+<div class="topbanner" style="background-image:url({asset_url}img/poc/banner_blog.jpg);" ></div>
+
+
+<div class="container">
+
+	<table class="scaffold" >
+		<tr>
+			<td class="lefty" >
+				{$article_sidebar}
+			</td>
+			<td class="righty">
+				<ul class="breadcrumb">
+					{foreach from=$breadcrumb name=b item=b}
+					<li>{$b}</li><li class="divider">&gt;&gt;</li>
+					{/foreach}
+				</ul>
+
+				<div>
+					<div class="page_content">
+
+						{foreach from=$content item=m name=m}
+							<div class="spacer10"></div>
+							<h2>{$m.c_title}</h2>
+							<img src="{site_url}userfiles/upload/{$m.c_banner}" style="width: 100%; height: 220px;" />
+							<div style="margin:10px 0px;">
+								{$m.c_content_intro}
+							</div>
+							<div style="margin-bottom: 10px; padding: 3px 10px; border-top: solid 1px #cccccc; border-bottom: solid 1px #cccccc; ">
+								<div class="pull-left">
+									By POC <span class="adivider">|</span>
+									{$m.c_date|date_format:'d F Y'} <span class="adivider">|</span>
+									{foreach from=$m.tags item=t name=t}
+									<span class="small">{$t.t_name}{if !$smarty.foreach.t.last}, {/if}</span>
+									{/foreach}
+									{if $m.tags}<span class="adivider">|</span>{/if}
+								</div>
+								<div class="pull-right">
+									<a href="{site_url}article/view/{$m.c_id}/{$m.c_title|url_title}" >Read More</a> &gt;
+								</div>
+								<div class="clear"></div>
+							</div>
+						{/foreach}
+
+						<div style="text-align: right;">{$paging}</div>
+
+					</div>
+
+					<div class="spacer20"></div>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+</div>

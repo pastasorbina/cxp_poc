@@ -1,0 +1,68 @@
+<script type="text/javascript">
+	var current_uri = '{$current_uri}';
+	var mod_url = '{$mod_url}';
+	var use_ajax = '{$use_ajax|default:FALSE}';
+</script>
+<script src="{asset_url}js/vizard/slave.js" ></script>
+
+
+<ul class="breadcrumb">
+	<li><a href="{$LAST_LIST}" class="cancel" >back</a></li>
+	<li class="divider">»</li>
+	<li>edit</li>
+</ul>
+
+<div class="mod_title small">{$ajax_action} racer</div>
+
+
+{''|validation_errors}
+
+<form enctype="multipart/form-data" name="formSubmit" id="formSubmit"  method="post"  class="form-horizontal" >
+	<input type="hidden" name="current_id" value="{$data.rc_id}" />
+	<input type="hidden" name="rs_id" value="{$data.rs_id|default:$rs_id}" />
+	<input type="hidden" name="ajax_action" value="{$ajax_action}" />
+
+	<div class="use_right_sidebar">
+
+
+		<div class="inner_content">
+ 
+			<div class="control-group">
+				<label class="control-label">Race</label>
+				<div class="controls" style="padding-top: 5px;">
+					{$racing.r_name} / {$racing.rr_name} / {$racing.rs_name} / 
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label">Racer Name</label>
+				<div class="controls">
+					<input type="text" name="rc_name" class="span9" value="{'rc_name'|set_value|default:$data.rc_name}" >
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label">Team Name</label>
+				<div class="controls">
+					<input type="text" name="rc_team" class="span9" value="{'rc_team'|set_value|default:$data.rc_team}" >
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<label class="control-label">Score</label>
+				<div class="controls">
+					<input type="text" name="rc_score" class="span2" value="{'rc_score'|set_value|default:$data.rc_score}" >
+				</div>
+			</div>
+			 
+
+
+		</div>
+	</div>
+
+	<div class="form-actions" align="right" >
+		<input class="btn btn-primary" type="submit" value="Save" >
+		<a href="{$LAST_LIST}" class="btn do_cancel">Cancel</a>
+	</div>
+
+</form>

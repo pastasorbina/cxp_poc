@@ -1,0 +1,169 @@
+<script>
+	$(function(){
+		$('.slide_card').click(function(e){
+			var id = $(this).attr('data-id');
+			var group = $(this).attr('data-group');
+			var obj = $(this);
+
+			$('.eboxy_'+group).fadeOut('fast', function() {
+				$('#eboxy_'+group+'_'+id).fadeIn('slow');
+				$('.sc_'+group).removeClass('active');
+				$(obj).addClass('active');
+			});
+		});
+
+		$('.slide_card.active').click(function(e){
+			e.preventDefault();
+		});
+	});
+</script>
+
+<div class="container main_container" style="margin-top:-50px;">
+
+	<div class="row-fluid" style="" >
+		<div class="span3" style="position: relative;" >
+			<div class="boxy_head">WHAT'S NEW</div>
+			<div class="eboxy_wrap">
+				{foreach from=$news name=m item=m}
+				<div id="eboxy_1_{$m.c_id}" class="eboxy eboxy_1">
+					<div class="boxy">
+						<div class="boxy_image">
+							<img src="{site_url}userfiles/upload/{$m.c_thumbnail}" style="width:100%;" >
+						</div>
+						<a class="boxy_title" href="{site_url}article/view/{$m.c_id}/{$m.c_title|url_title:'_':TRUE}">
+							{$m.c_title|strip_tags|character_limiter:40}
+						</a>
+						<div class="boxy_date">{$m.c_date|date_format:'d F Y'}</div>
+						<div class="boxy_content">{$m.c_content_intro|strip_tags|character_limiter:130}</div>
+					</div>
+				</div>
+				{/foreach}
+
+			</div>
+
+			<div class="eboxy_footer">
+				<div class="pull-left">
+					<a href="{site_url}article/view_list/news">SEE ALL POSTS <img src="{asset_url}img/poc/singlearr.png" ></a>
+				</div>
+				<div class="pull-right">
+					<ul class="eboxy_nav">
+						{foreach from=$news name=m item=m}
+						<li><a class="slide_card sc_1 {if $smarty.foreach.m.first}active{/if}" data-id="{$m.c_id}" data-group="1" ></a></li>
+						{/foreach}
+					</ul>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+
+		<div class="span3" style="position: relative;" >
+			<div class="boxy_head">EVENTS</div>
+			<div class="eboxy_wrap">
+				{foreach from=$events name=m item=m}
+				<div id="eboxy_2_{$m.e_id}" class="eboxy eboxy_2">
+					<div class="boxy">
+
+						<div class="boxy_image">
+							<img src="{site_url}userfiles/upload/{$m.e_thumbnail}" style="width:100%;" >
+						</div>
+						<a class="boxy_title" href="{site_url}events/view/{$m.e_id}/{$m.e_name|url_title:'_':TRUE}">
+							{$m.e_name|strip_tags|character_limiter:40}
+						</a>
+						<div class="boxy_date">{$m.e_date|date_format:'d F Y'}</div>
+						<div class="boxy_content">{$m.e_brief|strip_tags|character_limiter:130}</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+
+			<div class="eboxy_footer">
+				<div class="pull-left">
+					<a href="{site_url}events/view_list">SEE ALL POSTS <img src="{asset_url}img/poc/singlearr.png" ></a>
+				</div>
+				<div class="pull-right">
+					<ul class="eboxy_nav">
+						{foreach from=$events name=m item=m}
+						<li><a class="slide_card sc_2 {if $smarty.foreach.m.first}active{/if}" data-id="{$m.e_id}" data-group="2" ></a></li>
+						{/foreach}
+					</ul>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+
+		<div class="span3" style="position: relative;" >
+			<div class="boxy_head">FROM BLOG</div>
+			<div class="eboxy_wrap">
+				{foreach from=$blog name=m item=m}
+				<div id="eboxy_3_{$m.c_id}" class="eboxy eboxy_3">
+					<div class="boxy">
+						<div class="boxy_image">
+							<img src="{site_url}userfiles/upload/{$m.c_thumbnail}" style="width:100%;" >
+						</div>
+						<a class="boxy_title" href="{site_url}article/view/{$m.c_id}/{$m.c_title|url_title:'_':TRUE}">
+							{$m.c_title|strip_tags|character_limiter:40}
+						</a>
+						<div class="boxy_date">{$m.c_date|date_format:'d F Y'}</div>
+						<div class="boxy_content">{$m.c_content_intro|strip_tags|character_limiter:130}</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+
+			<div class="eboxy_footer">
+				<div class="pull-left">
+					<a href="{site_url}article/view_list/blog">SEE ALL POSTS <img src="{asset_url}img/poc/singlearr.png" ></a>
+				</div>
+				<div class="pull-right">
+					<ul class="eboxy_nav">
+						{foreach from=$blog name=m item=m}
+						<li><a class="slide_card sc_3 {if $smarty.foreach.m.first}active{/if}" data-id="{$m.c_id}" data-group="3" ></a></li>
+						{/foreach}
+					</ul>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+
+		<div class="span3" style="position: relative;" >
+			<div class="boxy_head">FEATURED STARTUP</div>
+			<div class="eboxy_wrap" >
+				{foreach from=$startup name=m item=m}
+				<div id="eboxy_4_{$m.s_id}" class="eboxy eboxy_4">
+					<div class="boxy">
+						<div class="boxy_image">
+							<img src="{site_url}userfiles/upload/{$m.s_thumbnail}" style="width:100%;" >
+						</div>
+						<a class="boxy_title" href="{site_url}startup/view/{$m.s_id}/{$m.s_name|url_title:'_':TRUE}">
+							{$m.s_name|strip_tags|character_limiter:40}
+						</a>
+						<div class="boxy_date">{$m.s_date|date_format:'d F Y'}</div>
+						<div class="boxy_content">{$m.s_desc|character_limiter:130|strip_tags}</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+
+			<div class="eboxy_footer">
+				<div class="pull-left">
+					<a href="{site_url}startup/view_list">SEE ALL POSTS <img src="{asset_url}img/poc/singlearr.png" ></a>
+				</div>
+				<div class="pull-right">
+					<ul class="eboxy_nav">
+						{foreach from=$startup name=m item=m}
+						<li><a class="slide_card sc_4 {if $smarty.foreach.m.first}active{/if}" data-id="{$m.s_id}" data-group="4" ></a></li>
+						{/foreach}
+					</ul>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+
+
+
+
+	</div><!--END ROW FLUID-->
+
+	<div class="spacer10"></div>
+</div>
+

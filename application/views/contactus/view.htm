@@ -1,0 +1,95 @@
+<script>
+	$(function() {
+		$('#reset_form').click(function(e) {
+			e.preventDefault();
+			//$('#contactus_form').children('input').val('');
+			//$('#contactus_form').children('textarea').val('');
+			$('#contactus_form').resetForm();
+		});
+	});
+</script>
+
+<ul class="breadcrumb"> 
+      {foreach from=$breadcrumb name=b item=b}
+      <li>{$b}</li>
+       <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+      {/foreach} 
+</ul>
+
+<style>
+	.contactus-form-table td {
+		padding: 10px;
+		vertical-align: top;
+	}
+</style>
+
+<div class="row-fluid">
+	<div class="span9">
+		
+		<div class="page_wrap">
+			<div class="page_container"> 
+				<h2 class="page_title" >CONTACT US <img src="{asset_url}img/fdr/news_title_arrow.png"> </h2>
+			</div>
+			<div class="page_content">
+				{$contactus_top.c_content_full}
+				
+				<div class="spacer20"></div>
+				
+				<div>
+					<form id="contactus_form" class="form-inline" method="post">
+						<table class="contactus-form-table">
+							<tr>
+								<td>
+									<input type="text" name="cus_name" value="{'cus_name'|set_value}" placeholder="Nama (required)" >
+									{'cus_name'|form_error}
+								</td>
+								<td>
+									<input type="text" name="cus_company" value="{'cus_company'|set_value}" placeholder="Perusahaan / Club / Organisasi">
+									{'cus_company'|form_error}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<input type="text" name="cus_email" value="{'cus_email'|set_value}" placeholder="Email (required)">
+									{'cus_email'|form_error}
+								</td>
+								<td>
+									<input type="text" name="cus_phone" value="{'cus_phone'|set_value}" placeholder="Nomor Telepon / HP">
+									{'cus_phone'|form_error}
+								</td>
+							</tr> 
+						</table>
+						<div style="padding:10px;">
+							comment
+							<textarea rows="8" style="width: 100%;" name="cus_text">{'cus_text'|set_value}</textarea>
+							{'cus_text'|form_error}
+						</div>
+						
+						<div style="padding:10px;">
+							<input type="submit" class="btn btn-danger" value="SUBMIT FORM">
+							<a id="reset_form" class="btn btn-inverse">RESET</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		  
+	</div>
+   
+	<div class="span3">
+		
+		<div>
+			<div class="" style="font-size: 14px; font-weight: bold; padding-bottom: 5px; border-bottom: solid 1px #cccccc; margin-bottom: 10px;">
+				{$company_info.c_title}
+			</div>
+			<div>
+				{$company_info.c_content_full}
+			</div>
+		</div>
+		
+		 
+	</div>
+   
+</div>
+
+

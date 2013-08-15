@@ -1,0 +1,282 @@
+<script type="text/javascript">
+	var current_uri = '{$current_uri}';
+	var mod_url = '{$mod_url}';
+	var use_ajax = '{$use_ajax|default:FALSE}';
+</script>
+<script src="{asset_url}js/vizard/slave.js" ></script>
+
+
+<ul class="breadcrumb">
+	<li><a href="{$LAST_LIST}" class="cancel" >back</a></li>
+	<li class="divider">»</li> 
+</ul>
+
+<div class="mod_title">
+	{$ajax_action} club
+</div>
+
+
+{''|validation_errors}
+
+
+<form enctype="multipart/form-data" name="formSubmit" id="formSubmit" method="post" class="form-vertical" >
+	<input type="hidden" name="current_id" value="{$data.t_id}" />
+	<input type="hidden" name="ajax_action" value="{$ajax_action}" />
+	
+	<div class="row-fluid">
+		
+		<div class="span3">
+			
+			<div class="boxy-wrap">
+				<div class="boxy-header">
+					<div class="boxy-title">
+						Administrator
+					</div> 
+				</div>
+				<div class="boxy-content pad10">
+			
+					<div class="control-group">
+						<div class="control-label">Username</div>
+						<div class="controls">
+							<input type="text" name="club_login" class="span12" value="{'club_login'|set_value|default:$data.club_login}" placeholder="email@domain.com" >
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<div class="control-label">Admin Name</div>
+						<div class="controls">
+							<input type="text" name="club_admin_name" class="span12" value="{'club_admin_name'|set_value|default:$data.club_admin_name}" >
+						</div>
+					</div> 
+					
+					<div class="control-group">
+						<div class="control-label">Password</div>
+						<div class="controls">
+							<input type="password" name="club_pass" class="span12" value="{'club_pass'|set_value}" >
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<div class="control-label">Repeat Password</div>
+						<div class="controls">
+							<input type="password" name="password_confirmation" class="span12" >
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			
+			<!--<div class="boxy-wrap">-->
+			<!--	<div class="boxy-header">-->
+			<!--		<div class="boxy-title">-->
+			<!--			Administrator-->
+			<!--		</div> -->
+			<!--	</div>-->
+			<!--	<div class="boxy-content pad10">-->
+			<!---->
+			<!--		<div class="control-group">-->
+			<!--			<div class="control-label">Username</div>-->
+			<!--			<div class="controls">-->
+			<!--				<input type="text" name="m_login" class="span12" value="{'m_login'|set_value|default:$data.m_login}" placeholder="email@domain.com" >-->
+			<!--			</div>-->
+			<!--		</div>-->
+			<!--		-->
+			<!--		<div class="row-fluid">-->
+			<!--			<div class="span6">-->
+			<!--				<div class="control-group">-->
+			<!--					<div class="control-label">Firstname</div>-->
+			<!--					<div class="controls">-->
+			<!--						<input type="text" name="m_firstname" class="span12" value="{'m_firstname'|set_value|default:$data.m_firstname}" >-->
+			<!--					</div>-->
+			<!--				</div>-->
+			<!--			</div> -->
+			<!--			<div class="span6">-->
+			<!--				<div class="control-group">-->
+			<!--					<div class="control-label">Lastname</div>-->
+			<!--					<div class="controls">-->
+			<!--						<input type="text" name="m_lastname" class="span12" value="{'m_lastname'|set_value|default:$data.m_lastname}" >-->
+			<!--					</div>-->
+			<!--				</div>-->
+			<!--			</div>-->
+			<!--		</div>-->
+			<!--		-->
+			<!--		-->
+			<!--		<div class="control-group">-->
+			<!--			<div class="control-label">Phone</div>-->
+			<!--			<div class="controls">-->
+			<!--				<input type="text" name="m_phone" class="span12" value="{'m_phone'|set_value|default:$data.m_phone}" >-->
+			<!--			</div>-->
+			<!--		</div>-->
+			<!--		-->
+			<!--		<div class="control-group">-->
+			<!--			<div class="control-label">Mobile</div>-->
+			<!--			<div class="controls">-->
+			<!--				<input type="text" name="m_mobile" class="span12" value="{'m_mobile'|set_value|default:$data.m_mobile}" >-->
+			<!--			</div>-->
+			<!--		</div>-->
+			<!--		-->
+			<!--		<div class="control-group">-->
+			<!--			<div class="control-label">Password</div>-->
+			<!--			<div class="controls">-->
+			<!--				<input type="text" name="m_pass" class="span12" value="{'m_pass'|set_value|default:$data.m_pass}" >-->
+			<!--			</div>-->
+			<!--		</div>-->
+			<!--		-->
+			<!--		<div class="control-group">-->
+			<!--			<div class="control-label">Repeat Password</div>-->
+			<!--			<div class="controls">-->
+			<!--				<input type="text" name="password_confirmation" class="span12" value="{'password_confirmation'|set_value|default:$data.password_confirmation}" >-->
+			<!--			</div>-->
+			<!--		</div>-->
+			<!--		-->
+			<!--	</div>-->
+			<!--</div>-->
+			
+			<div class="boxy-wrap">
+				<div class="boxy-header">
+					<div class="boxy-title">
+						Links
+					</div> 
+				</div>
+				<div class="boxy-content pad10">
+			
+					<div class="control-group">
+						<div class="control-label">Website</div>
+						<div class="controls">
+							<input type="text" name="club_website" class="span12" value="{'club_website'|set_value|default:$data.club_website}" >
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<div class="control-label">Facebook</div>
+						<div class="controls">
+							<input type="text" name="club_facebook" class="span12" value="{'club_facebook'|set_value|default:$data.club_facebook}" >
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<div class="control-label">Twitter</div>
+						<div class="controls">
+							<input type="text" name="club_twitter" class="span12" value="{'club_twitter'|set_value|default:$data.club_twitter}" >
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<div class="control-label">Milis</div>
+						<div class="controls">
+							<input type="text" name="club_milis" class="span12" value="{'club_milis'|set_value|default:$data.club_milis}" >
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<div class="control-label">Other 1</div>
+						<div class="controls">
+							<input type="text" name="club_other1" class="span12" value="{'club_other1'|set_value|default:$data.club_other1}" >
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<div class="control-label">Other 2</div>
+						<div class="controls">
+							<input type="text" name="club_other2" class="span12" value="{'club_other2'|set_value|default:$data.club_other2}" >
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<div class="control-label">Other 3</div>
+						<div class="controls">
+							<input type="text" name="club_other3" class="span12" value="{'club_other3'|set_value|default:$data.club_other3}" >
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			 
+		</div>
+		
+		
+		
+		<div class="span9"> 
+			<div class="control-group">
+				<div class="control-label">Club Name</div>
+				<div class="controls">
+					<input type="text" name="club_name" class="span6" value="{'club_name'|set_value|default:$data.club_name}" >
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<div class="control-label">Club Email</div>
+				<div class="controls">
+					<input type="text" name="club_email" class="span6" value="{'club_email'|set_value|default:$data.club_email}" >
+				</div>
+			</div>  
+			
+			<div class="control-group">
+				<div class="control-label">Logo</div>
+				<div class="controls">
+					{if $data.club_logo}
+						<div>
+						<a href="{site_url}userfiles/upload/{$data.club_logo}" class="colorbox" >
+							<img src="{site_url}userfiles/upload/thumb/{$data.club_logo}" >
+						</a>
+						</div>
+					{/if}
+					<input type="file" name="club_logo" id="club_logo" />
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<div class="control-label">Address</div>
+				<div class="controls">
+					<input type="text" name="club_address" class="span6" value="{'club_address'|set_value|default:$data.club_address}" >
+				</div>
+			</div>
+			
+			
+			
+			<div class="control-group">
+				<div class="control-label">Description</div>
+				<div class="controls"> 
+						<textarea name="club_desc" class="ckeditor">{'club_desc'|set_value|default:$data.club_desc}</textarea>
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<div class="control-label">Contact</div>
+				<div class="controls">
+					<textarea name="club_contact" class="ckeditor_basic">{'club_contact'|set_value|default:$data.club_contact}</textarea>
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<div class="control-label">Established Date</div>
+				<div class="controls">
+					<input type="text" name="club_est_date" class="datepicker" value="{'club_est_date'|set_value|default:$data.club_est_date}" >
+					<div class="help-block">
+						Tanggal club didirikan
+					</div>
+				</div>
+			</div>
+			
+			<div class="control-group">
+				<div class="control-label">Join Date</div>
+				<div class="controls">
+					<input type="text" name="club_join_date" class="datepicker" value="{'club_join_date'|set_value|default:$data.club_join_date}" >
+					<div class="help-block">
+						Tanggal club bergabung dengan FDR, kosongkan untuk otomatis diisi tanggal hari ini
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		
+	</div>
+ 
+ 
+	<div class="form-actions" align="right" >
+		<input class="btn btn-primary" type="submit" value="Save" >
+		<a href="{$LAST_LIST}" class="btn do_cancel">Cancel</a>
+	</div>
+
+</form>

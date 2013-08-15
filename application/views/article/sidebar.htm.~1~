@@ -1,0 +1,56 @@
+<div class="sidearticle_box">
+        <div class="sidearticle_header">EVENTS</div>
+        <div class="entries_box">
+                <table class="entries_table">
+                    {foreach from=$events item=m name=m}
+                    <tr>
+                        <td>
+                            <div class="entries_title" >
+                                <a href="{site_url}article/view/{$m.c_id}/{$m.c_title|url_title}">{$m.c_title}</a>
+                            </div>
+                            <div class="entries_date" >{$m.c_date|date_format:'d F Y'}</div> 
+                        </td>
+                    </tr>
+                    {/foreach}
+                </table>
+                <div class="sidearticle_footer">
+                    <a href="{site_url}article/view_list/{$m.cl_id}" class="btn-fdr" >VIEW ALL</a>
+                </div>
+        </div>
+</div>
+ 
+{if $motogp}
+<div class="sidearticle_box">
+        <div class="sidearticle_header">MOTOGP STANDINGS</div>
+        <div class="entries_box">
+                <table class="entries_table">
+                    {foreach from=$motogp_racer name=gpc item=gpc}
+                    <tr>
+                        <td>
+                            <div class="red large" >0{$smarty.foreach.gpc.iteration}.</div>
+                            <div class="entries_title" >{$gpc.gpc_name}</div>
+                            <div class="entries_date" >{$gpc.gpc_team}</div> 
+                        </td>
+                        <td>
+                            points <div class="large">{$gpc.gpc_score}</div>
+                        </td>
+                    </tr>
+                    {/foreach} 
+                </table>
+                <div class="sidearticle_footer">
+                    <a href="{site_url}motogp/" class="btn-fdr" >VIEW ALL</a>
+                </div>
+        </div>
+</div>
+{/if}
+
+<div class="spacer10"></div>
+
+{foreach from=$racing name=r item=r} 
+<div style="margin-bottom: 15px;">
+    <a href="{site_url}racing/view_race/{$r.r_id}">
+        <img src="{site_url}userfiles/upload/{$r.r_banner}" class="shadow1 rounded_all" >
+    </a>
+</div>
+{/foreach}
+ 

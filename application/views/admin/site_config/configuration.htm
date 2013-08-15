@@ -1,0 +1,100 @@
+<ul class="breadcrumb">
+	<li><a href="{$LAST_LIST}" class="cancel" >back</a></li>
+	<li class="divider">»</li>
+	<li>edit</li>
+</ul>
+
+
+
+{''|validation_errors}
+
+<form enctype="multipart/form-data" name="formSubmit" id="formSubmit"  method="post" class="form-horizontal"  >
+	<!--<input type="hidden" name="current_id" value="{$data.pc_id}" />-->
+	<!--<input type="hidden" name="ajax_action" value="{$ajax_action}" />-->
+   
+   <div class="row-fluid">
+        <div class="span2"> 
+            {$sidebar}
+        </div>
+        <div class="span10">
+            <div class="row-fluid">
+                <div class="span12">  
+                    
+                    <div class="section-head">
+                        <div class="section-title">Configuration</div>
+                    </div> 
+                    
+                    <div class="control-group">
+                        <div class="control-label">
+                            Store Locator is On
+                        </div>
+                        <div class="controls"> 
+							<select name="config[store_locator_on]"> 
+								<option value="No" {if $data.store_locator_on == 'No'}selected="selected"{/if} >No</option>
+								<option value="Yes" {if $data.store_locator_on == 'Yes'}selected="selected"{/if} >Yes</option>
+							</select> 
+                        </div>
+                    </div>
+                    <!--
+                    <div class="control-group">
+                        <div class="control-label">
+                            Meta Description
+                        </div>
+                        <div class="controls">
+                            <textarea rows="10" style="width: 400px;" name="config[meta_description]" id="meta_description">{$data.meta_description}</textarea> 
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <div class="control-label">
+                            Meta Author
+                        </div>
+                        <div class="controls">
+                            <input type="text" class="span10" name="config[meta_author]" id="meta_author" value="{$data.meta_author}" >
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <div class="control-label">
+                            Meta Generator
+                        </div>
+                        <div class="controls">
+                            <input type="text" class="span10" name="config[meta_generator]" id="meta_generator" value="{$data.meta_generator}" >
+                        </div>
+                    </div> -->
+					
+					<div class="section-head">
+                        <div class="section-title">Default Texts</div>
+                    </div> 
+					
+					<div class="control-group">
+                        <div class="control-label">
+                            Default Tire Size Table
+                        </div>
+                        <div class="controls">
+                            <textarea class="ckeditor" rows="10" style="width: 400px;" name="config[default_tire_table]" id="default_tire_table">{$data.default_tire_table}</textarea> 
+                        </div>
+                    </div>
+					
+					<div class="control-group">
+                        <div class="control-label">
+                            Default Tire Overview
+                        </div>
+                        <div class="controls">
+                            <textarea class="ckeditor" rows="10" style="width: 400px;" name="config[default_tire_overview]" id="default_tire_overview">{$data.default_tire_overview}</textarea> 
+                        </div>
+                    </div>
+                     
+                    <div class="form-actions" style="text-align: right;"  >
+                        <input class="btn btn-primary" type="submit" value="Save" /> 
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+   </div>
+
+	
+
+</form>

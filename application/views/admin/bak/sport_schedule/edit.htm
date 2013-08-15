@@ -1,0 +1,101 @@
+<script type="text/javascript" >
+	function doSave(savekey){
+		document.formSubmit.save_status.value = savekey;
+		document.formSubmit.submit();
+	}
+
+
+	$(document).ready(function() {
+		$("#content_option_link_add").bind('click', function(e) {
+			e.preventDefault();
+			var html = '<tr class="product_option_tr" ><td>';
+			html += '<div class="pull-right"> <a class="content_option_link_detach" href="#">remove</a></div>';
+			html += '<input type="text" name="co_key[]" value="" size="27" style="margin-bottom:5px;" >';
+			html += '<input type="hidden" name="co_id[]" value="0">';
+			html += '<textarea name="co_value[]" cols="30" rows="4"  ></textarea>';
+			html += '</td></tr>';
+			$("#content_option_table").append(html);
+		});
+
+		$(".content_option_link_detach").live('click', function(e) {
+			e.preventDefault();
+			var answer = confirm("are you sure？");
+			if (answer){
+				$(this).parents("tr").remove();
+			}
+		});
+	});
+
+	function remove_media(ap_pos) {
+		var target = $('#target_media_'+ap_pos);
+		target.children('#data').html('');
+		target.children('#m_id').val('');
+	}
+</script>
+
+
+<ul class="breadcrumb">
+	<li><a href="{$LAST_LIST}">back</a></li>
+	<li class="divider">»</li>
+	<li>{$content.c_title}</li>
+</ul>
+
+
+{$mod_subtitle_html}
+
+{''|validation_errors}
+
+<form enctype="multipart/form-data" name="formSubmit" method="post" class="form-horizontal" >
+	
+	<div class="control-group">
+		<label class="control-label">Date &amp; Time</label>
+		<div class="controls">
+			<input type="text" name="ss_date" style=" " value="{'ss_date'|set_value|default:$data.ss_date}" class="datetimepicker" >
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">League</label>
+		<div class="controls">
+			<input type="text" name="ss_league" style=" " value="{'ss_league'|set_value|default:$data.ss_league}">
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Home Team</label>
+		<div class="controls">
+			<input type="text" name="ss_home" style=" " value="{'ss_home'|set_value|default:$data.ss_home}"> <br>
+			{if $data.ss_home_img}<img src="{site_url}userfiles/fc/thumb/{$data.ss_home_img}" width="30" />{/if} <input type="file" name="ss_home_img">
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Visitor Team</label>
+		<div class="controls">
+			<input type="text" name="ss_visitor" style=" " value="{'ss_visitor'|set_value|default:$data.ss_visitor}"> <br>
+			{if $data.ss_visitor_img}<img src="{site_url}userfiles/fc/thumb/{$data.ss_visitor_img}" width="30" />{/if} <input type="file" name="ss_visitor_img">
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Subtext</label>
+		<div class="controls">
+			<input type="text" name="ss_subtext" style=" " value="{'ss_subtext'|set_value|default:$data.ss_subtext}">
+				 
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Content</label>
+		<div class="controls">
+			<textarea name="ss_content" class="ckeditor" width="700" >{'ss_content'|set_value|default:$data.ss_content}</textarea>
+		</div>
+	</div>
+ 
+	
+	<div class="form-actions" > 
+		<input class="btn btn-primary" name="save" type="submit" value="Save" />
+		<a href="{$LAST_LIST}" class="cancel"><button class="btn">Cancel</button></a>
+	</div>
+
+</form>

@@ -1,0 +1,220 @@
+<script src="{asset_url}js/flexslider/jquery.flexslider.js" ></script> 
+<link rel="stylesheet" href="{asset_url}css/main/flexslider.css" type="text/css" media="screen" />
+ 
+<ul class="breadcrumb">  
+      <li><a href="{site_url}">Home</a></li>
+       <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+       <li>News &amp; Events</li>
+</ul>
+ 
+
+<script>
+    $(document).ready(function(){ 
+	$('#articlebanner_slider').flexslider({
+		animation: "fade"
+		,easing:"swing"
+		,controlNav: true
+		,directionNav:false
+		,slideshowSpeed: 4000
+		,pauseOnHover: true
+	});  
+    });
+</script>
+<style>
+	.articlebanner { border-radius: 10px; background: #000000; }
+	#articlebanner_slider { width: 700px; }
+	#articlebanner_slider li a { border-radius: 10px; }
+	#articlebanner_slider li a img{ border-radius: 10px;}
+	#articlebanner_slider .banner_article_caption_wrap{ border-radius:  0px 0px 10px 10px;}
+	.mainbanner_img { width: 700px; } 
+</style>
+
+<div class="row-fluid">
+	<div class="span9">
+		
+		<div class="articlebanner shadow1" >
+			<div id="articlebanner_slider" class="flexslider" >
+				<ul class="slides">
+					{foreach from=$news name=m item=m}
+						{if $m.c_banner != ''}
+						<li>
+							<a href="{site_url}article/view/{$m.c_id}/{$m.c_title|url_title}">
+							<img src="{site_url}userfiles/upload/{$m.c_banner}" class="mainbanner_img" style="" > 
+								<div class="banner_article_caption_wrap">
+									<div class="banner_article_caption_inner">
+									<span class="banner_article_caption"> 
+										<div style="font-weight: bold; font-size: 16px; margin-bottom: 2px; ">{$m.c_title}</div>
+										<div style="line-height: 15px;">{$m.c_content_intro|word_limiter:20}</div>
+									</span>
+									</div>
+								</div> 
+							</a>
+						</li>
+						{/if}
+					{/foreach}
+					{foreach from=$featured_tips name=m item=m}
+						{if $m.c_banner != ''}
+						<li>
+							<a href="{site_url}article/view/{$m.c_id}/{$m.c_title|url_title}">
+							<img src="{site_url}userfiles/upload/{$m.c_banner}" class="mainbanner_img" style="" > 
+								<div class="banner_article_caption_wrap">
+									<div class="banner_article_caption_inner">
+									<span class="banner_article_caption"> 
+										<div style="font-weight: bold; font-size: 16px; margin-bottom: 2px; ">{$m.c_title}</div>
+										<div style="line-height: 15px;">{$m.c_content_intro|word_limiter:20}</div>
+									</span>
+									</div>
+								</div> 
+							</a>
+						</li>
+						{/if}
+					{/foreach}
+					{foreach from=$featured_fdr_news name=m item=m}
+						{if $m.c_banner != ''}
+						<li>
+							<a href="{site_url}article/view/{$m.c_id}/{$m.c_title|url_title}">
+							<img src="{site_url}userfiles/upload/{$m.c_banner}" class="mainbanner_img" style="" >
+							 
+								<div class="banner_article_caption_wrap">
+									<div class="banner_article_caption_inner">
+									<span class="banner_article_caption">
+										
+										<div style="font-weight: bold; font-size: 16px; margin-bottom: 2px; ">{$m.c_title}</div>
+										<div style="line-height: 15px;">{$m.c_content_intro|word_limiter:20}</div>
+									</span>
+									</div>
+								</div> 
+							</a>
+						</li>
+						{/if}
+					{/foreach}
+				</ul>
+			</div> 
+		</div> 
+		
+		<div class="spacer10"></div>
+		 
+                
+                <div class="article_entry_box">
+					<div class="article_entry_header">
+						<div class="article_entry_header_text">
+							News <img src="{asset_url}img/fdr/news_title_arrow.png" /> 
+						</div>
+					</div>
+					<div class="article_entry_listbox">
+						<table class="article_entry_table table table-striped table-striped">
+							{foreach from=$news item=m name=m}
+								<tr>
+									{if $m.c_banner != ''}
+									<td class="article_entry_td_image">
+										<div class="article_image_box">
+										<img src="{site_url}userfiles/upload/thumb/{$m.c_banner}" class="thumb"  />
+										</div>
+									</td>
+									{/if}
+									<td class="article_entry_td_content" {if $m.c_banner == ''}colspan="2"{/if} >
+										{if $m.nt_id !=0}<div style="float:right;"><span class="label label-info small">{$m.nt_name}</span></div>{/if} 
+										<div class="article_entry_date">{$m.c_date|date_format:'d F Y'}</div>
+										<div class="article_entry_title">{$m.c_title}</div>
+										<div class="article_entry_content">{$m.c_content_intro|word_limiter:50}</div>
+										<div class="article_entry_readmore">
+												<a href="{site_url}article/view/{$m.c_id}/{$m.c_title|url_title}">READ MORE</a>
+										</div>
+									</td>
+								</tr>
+							{/foreach}
+						</table>
+						
+						<div class="article_entry_viewall">
+							<a href="{site_url}article/view_list/{$m.cl_id}" class="btn-fdr" >VIEW ALL</a>
+						</div>
+					</div>
+                </div>
+				
+				<div class="article_entry_box">
+					<div class="article_entry_header">
+							<div class="article_entry_header_text">
+									Tips <img src="{asset_url}img/fdr/news_title_arrow.png" /> 
+							</div>
+					</div>
+					<div class="article_entry_listbox">
+							
+							<table class="article_entry_table table table-striped">
+								{foreach from=$tips item=m name=m}
+									<tr>
+										{if $m.c_banner != ''}
+										<td class="article_entry_td_image">
+											<div class="article_image_box">
+											<img src="{site_url}userfiles/upload/thumb/{$m.c_banner}" class="thumb"  />
+											</div>
+										</td>
+										{/if}
+										<td class="article_entry_td_content" {if $m.c_banner == ''}colspan="2"{/if} >
+												<div class="article_entry_date">{$m.c_date|date_format:'d F Y'}</div>
+												<div class="article_entry_title">{$m.c_title}</div>
+												<div class="article_entry_content">{$m.c_content_intro|word_limiter:50}</div>
+												<div class="article_entry_readmore">
+														<a href="{site_url}article/view/{$m.c_id}/{$m.c_title|url_title}">READ MORE</a>
+												</div>
+										</td>
+									</tr>
+								{/foreach}
+							</table>
+							
+							<div class="article_entry_viewall">
+									<a href="{site_url}article/view_list/{$m.cl_id}" class="btn-fdr" >VIEW ALL</a>
+							</div>
+					</div>
+                </div>
+                
+                <div class="article_entry_box">
+					<div class="article_entry_header">
+							<div class="article_entry_header_text">
+								FDR News <img src="{asset_url}img/fdr/news_title_arrow.png" /> 
+							</div>
+					</div>
+					<div class="article_entry_listbox">
+						{if !$fdr_news}
+								<div class="red pad10">-- no items --</div>
+						{else}
+							<table class="article_entry_table table table-striped">
+								{foreach from=$fdr_news item=m name=m}
+									<tr>
+										{if $m.c_banner != ''}
+										<td class="article_entry_td_image">
+											<div class="article_image_box">
+											<img src="{site_url}userfiles/upload/thumb/{$m.c_banner}" class="thumb"  />
+											</div>
+										</td>
+										{/if}
+										<td class="article_entry_td_content" {if $m.c_banner == ''}colspan="2"{/if} >
+											<div class="article_entry_date">{$m.c_date|date_format:'d F Y'}</div>
+											<div class="article_entry_title">{$m.c_title}</div>
+											<div class="article_entry_content">{$m.c_content_intro|word_limiter:50}</div>
+											<div class="article_entry_readmore">
+													<a href="{site_url}article/view/{$m.c_id}/{$m.c_title|url_title}">READ MORE</a>
+											</div>
+										</td>
+									</tr>
+								{/foreach}
+							</table>
+						{/if}
+							
+						<div class="article_entry_viewall">
+								<a href="{site_url}article/view_list/{$m.cl_id}" class="btn-fdr" >VIEW ALL</a>
+						</div>
+                     </div>
+                </div>
+                
+                
+                
+		
+	</div>
+   
+	<div class="span3">
+                {$article_sidebar}
+	</div>
+   
+</div>
+
+

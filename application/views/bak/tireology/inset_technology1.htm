@@ -1,0 +1,123 @@
+<style>
+            .sun { background: #dddddd; }
+            .sun:hover { background: #cccccc; }
+            #planet {
+                float: left; position: absolute; z-index: 999;
+            }
+            #galaxy { 
+                width: 700px; height: 500px; 
+            }
+            .galaxy_normal {
+                /*background: url({asset_url}img/sample/layer_main.png) no-repeat top left;*/
+                background: url({asset_url}img/sample/layer_main.png) no-repeat top left;
+                background: url({asset_url}img/fdr/tr_base1.jpg) no-repeat top left; 
+                background: url({asset_url}img/fdr/tr_abls_main.jpg) no-repeat top left; 
+            }
+            .galaxy_gray{
+                background: url({asset_url}img/sample/layer_main_gray.png) no-repeat top left; 
+            }
+            .hov { 
+                width: 60px; height:60px;
+                display: inline-block;
+                float:left; position: absolute;
+                
+            }
+            .hov1 { margin-left:364px; margin-top:420px; }
+            .hov2 { margin-left:500px; margin-top:304px; }
+            .hov3 { margin-left:561px; margin-top:158px; }
+            .hov4 { margin-left:447px; margin-top:23px; }
+            
+              .closebox {
+                float: right; display: inline-block; padding: 2px 4px 3px 4px; border-radius: 10px;
+                border: solid 2px #333333; color: #333333;
+                font-weight: bold;  line-height: 11px;
+            }
+            .closebox:hover{ text-decoration: none; color: #ffffff; background: #333333; }
+              
+           
+            .tth_name { margin-top: 10px; font-size: 18px; font-weight: bold;  }
+            .tth_subtitle { font-size: 12px; font-weight: bold; color:#D30000; }
+            .tth_brief { margin-top: 10px; } 
+            .tth {
+                float:left; position: absolute; 
+                /*display: none; */
+                 margin-left: 40px;
+                margin-top: 40px;
+            }
+            .tth .inner {
+                background: #ffffff;
+                padding: 10px;
+                border-radius: 10px; 
+            }
+            .tth .tth_overflow {
+                    width: 200px;
+                height: 300px;
+                overflow-y: auto;
+                padding: 5px 10px;     
+            }
+            
+        </style>
+        
+        <script>
+            $(document).ready(function(a) {
+                 
+                $('.hov').mouseover(function(e) {
+                    var inde = $(this).attr('data-index');
+                    $(this).children('img').attr('src', '{asset_url}img/fdr/tr_hov_'+inde+'.png');
+                });
+                 
+                
+                $('.hov').mouseout(function(e) {
+                    $(this).children('img').attr('src', '{asset_url}img/spacer.png');
+                });
+                
+                $('.hov, .list_hov').click(function(e) {
+                    e.preventDefault();
+                    var id = $(this).attr('data-id');
+                    $('.tth').hide('fast');
+                    $('#tth_'+id).show('fast'); 
+                });
+                
+                $('.closebox').click(function(e) {
+                    e.preventDefault();
+                    var id = $(this).attr('data-id'); 
+                    $('#'+id).hide('fast'); 
+                });
+            });
+            
+        </script>
+        
+         
+        <div class="" style=""  > 
+            <div id="galaxy" class="galaxy_normal">
+                <a href="" class="hov hov1"  id="hov1" data-id="1" data-index="1" > 
+                    <img src="{asset_url}img/spacer.png" />
+                </a>
+                <a href="" class="hov hov2"  id="hov2" data-id="2" data-index="2" > 
+                    <img src="{asset_url}img/spacer.png" />
+                </a>
+                <a href="" class="hov hov3" id="hov3" data-id="3" data-index="3" > 
+                    <img src="{asset_url}img/spacer.png" />
+                </a>
+                <a href="" class="hov hov4" id="hov4" data-id="4" data-index="4" > 
+                    <img src="{asset_url}img/spacer.png" />
+                </a>
+                
+                  
+            {foreach from=$tire_tech name=tth item=tth}
+            <div id="tth_{$tth.tth_id}" class=" tth tth_{$tth.tth_id} hide">
+                <div class="inner">
+                            <a class="closebox" data-id="tth_{$tth.tth_id}" >x</a>
+                            <img src="{site_url}userfiles/upload/{$tth.tth_logo}" />
+                            <div class="tth_overflow">
+                                    <div class="tth_name">{$tth.tth_name}</div>
+                                    <div class="tth_subtitle">{$tth.tth_subtitle}</div>
+                                    <div class="tth_brief">{$tth.tth_desc}</div>
+                            </div>
+                </div>
+            </div>
+            {/foreach}
+             
+        </div>
+        
+        

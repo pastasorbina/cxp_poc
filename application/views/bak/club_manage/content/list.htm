@@ -1,0 +1,90 @@
+<script>
+    $(function(){ 
+       $('#clubc_type').change(function(){
+            $('#form_content_filter').submit();
+       });
+    });
+</script>
+
+<ul class="breadcrumb">  
+      <li><a href="{site_url}">Home</a></li>
+       <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+       <li>Manage Club Contents</li>
+</ul>
+
+<div class="row-fluid">
+    <div class="span9 cclean2">
+        
+        <div class="aheader" >
+            <div style="text-align: right;">
+                <div class="pull-left">
+                    <div class="large">Manage Contents</div>
+                </div>
+                
+                <div class="pull-right">
+                    <a class="" href="{site_url}club_manage/add_content/{$clubc_type}"><i class="icon-plus"></i> Add Content</a>
+                </div> 
+                
+                <div class="clear"></div>
+            </div>
+        </div>
+        
+        <form id="form_content_filter" name="form_content_filter" action="{site_url}club_manage/content_change_filter/"
+              method="post" style="margin:0px;" >  
+            <input type="hidden" name="offset" value="{$offset}" />  
+            <select name="clubc_type" id="clubc_type" style="width: auto;"  >
+                <option value="Any" {if $clubc_type == "Any"}selected="selected"{/if} >- List All -</option>
+                <option value="News" {if $clubc_type == "News"}selected="selected"{/if} >List News</option>
+                <option value="Event" {if $clubc_type == "Event"}selected="selected"{/if} >List Event</option>
+            </select>
+        </form>
+        
+        {if !$maindata}
+            <div class="red">- no data -</div>
+        {else}
+            <table class="table table-striped table-condensed" >
+                <tr>
+                    <th width="80">Banner</th>
+                    <th>&nbsp;</th>
+                    <th width="80" >Manage</th>
+                </tr>
+                {foreach from=$maindata name=m item=m}
+                    <tr>
+                        <td>
+                            {if $m.clubc_banner} 
+                                <a href="{site_url}userfiles/upload/{$m.clubc_banner}" class="colorbox" >
+                                    <img src="{site_url}userfiles/upload/thumb/{$m.clubc_banner}" width="80" class="shadow"  >
+                                </a> 
+                            {/if}
+                        </td>
+                        <td>
+                            <div class="small">
+                                {$m.clubc_date|date_format:'d F Y'} / {$m.clubc_type}
+                            </div>
+                            <div class="large" >
+                                {$m.clubc_title}
+                            </div> 
+                            <div>
+                                {$m.clubc_intro}
+                            </div> 
+                        </td>
+                        <td width="80" >
+                            <a href="{site_url}club_manage/edit_content/{$m.clubc_id}">Edit</a> | 
+                            <a class="areyousure" href="{site_url}club_manage/delete_content/{$m.clubc_id}">Delete</a>
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+            
+            {$paging}
+        {/if}
+         
+                    
+    </div>
+    
+    
+    
+    <div class="span3">
+        {$sidebar}
+    </div>
+</div>

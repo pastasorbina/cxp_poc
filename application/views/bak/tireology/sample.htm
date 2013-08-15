@@ -1,0 +1,148 @@
+
+<style>
+    .sun {
+        background: #dddddd;
+    }
+    .sun:hover {
+        background: #cccccc;
+    }
+    #planet {
+        float: left;
+        position: absolute;
+        /*margin-top: 0;*/
+        z-index: 999;
+    }
+    #galaxy { 
+        width: 500px;
+        height: 500px;
+        float: left;
+        position: absolute; 
+        z-index: 998;
+    }
+    .galaxy_normal {
+        background: url({asset_url}img/sample/layer_main.png) no-repeat top left;
+    }
+    .galaxy_gray{
+        background: url({asset_url}img/sample/layer_main_gray.png) no-repeat top left; 
+    }
+</style>
+
+<script>
+    var st = 'none';
+    var st2 = 'none';
+     
+    
+    function show_planet(what) {
+        switch(what) {
+            case 'sun' : layer = '1'; break;
+            case 'moon' : layer = '2'; break;
+            case 'earth' : layer = '3'; break;
+        }
+        shine_galaxy();
+        $("#planet")
+            .animate({ opacity: 0 }, 0 )
+            .attr('src', '{asset_url}img/sample/layer_'+layer+'.png')
+            .animate({ opacity: 1}, 300 )
+        ;
+        console.log(st);
+    }   
+    
+    
+    function restore_img() {  
+        $("#planet").animate({ opacity: 0}, 200 ); 
+    }
+    
+    function dim_galaxy() { 
+        $("#galaxy").animate({ opacity: 0.4}, 200 );
+    }
+    
+    function shine_galaxy() {
+        $("#galaxy").animate({ opacity: 1}, 300 );
+    }
+    
+    function layero() {
+         $('#sun').mouseover(function(e) {
+            shine_galaxy();
+            show_planet('sun');
+        });
+        
+        $('#moon').mouseover(function(e) {
+            shine_galaxy();
+            show_planet('moon');
+        });
+        
+        $('#earth').mouseover(function(e) {
+            shine_galaxy();
+            show_planet('earth');
+        }); 
+    }
+    
+    
+    $(document).ready(function() {
+        layero();
+        
+        $('#sun, #moon, #earth').mouseout(function(e) {
+            console.log('wwww'+st);
+            if(st != 'clicked') {
+             restore_img();
+            }
+        });
+        
+        
+        $('#sun').click(function(e) {
+            st = 'clicked';
+            st2 = 'sun';
+            e.preventDefault();
+            $('.detail').hide();
+            $('#detail_sun').show();
+            show_planet('sun');
+            dim_galaxy();
+        });
+        $('#moon').click(function(e) {
+            st = 'clicked';
+            st2 = 'moon';
+            e.preventDefault();
+            $('.detail').hide();
+            $('#detail_moon').show();
+            show_planet('moon');
+            dim_galaxy();
+        });
+        $('#earth').click(function(e) {
+            st = 'clicked';
+            st2 = 'earth';
+            e.preventDefault();
+            $('.detail').hide();
+            $('#detail_earth').show();
+            show_planet('earth');
+            dim_galaxy();
+        });
+    });
+</script>
+
+<table class="table">
+    <tr>
+        <td style="width: 500px; height: 500px;" >
+            <div id="galaxy" class="galaxy_normal"></div>
+            <img id="planet" src="{asset_url}img/spacer.png" width="500" height="500" alt="Planets"
+            usemap="#planetmap">
+            
+            <map name="planetmap"> 
+                <area id="sun" class="sun" shape="circle" coords="315,217,15" href="" alt="sun">
+                <area id="moon" class="moon" shape="circle" coords="253,313,15" href="" alt="moon">
+                <area id="earth" class="earth" shape="circle" coords="183,229,15" href="" alt="earth"> 
+            </map>
+            
+            <div class="clear" style="clear: both;"></div>
+        </td>
+        <td  style="background: #d3d3d3;border:solid 1px #cccccc; vertical-align: top;">
+            <div id="details" >
+                <div id="detail_sun" class="detail hide">SUN</div>
+                <div id="detail_moon" class="detail hide">MOON</div>
+                <div id="detail_earth" class="detail hide">EARTH</div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+

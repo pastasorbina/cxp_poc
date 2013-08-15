@@ -1,0 +1,95 @@
+<script type="text/javascript">
+	var current_uri = '{$current_uri}';
+	var mod_url = '{$mod_url}';
+	var use_ajax = '{$use_ajax|default:FALSE}';
+</script>
+<script src="{asset_url}js/vizard/master.js" ></script>
+
+<div id="list_box">
+
+<ul class="nav nav-tabs">
+	<li class="{if $transd_giftcard_assigned=='No'}active{/if}" ><a href="{$mod_url}index/No/">Not Assigned</a></li>
+	<li class="{if $transd_giftcard_assigned=='Yes'}active{/if}" ><a href="{$mod_url}index/Yes/">Already Assigned</a></li>
+</ul>
+
+
+<!--<div class="index_filter_cont" >-->
+<!--	<div class="index_search_cont" >-->
+<!--		<form name="frmSearch" action="{$mod_url}search" method="post">-->
+			<!--<a href="{$mod_url}add/"  class="add"  >+ add new entry</a> &nbsp;&nbsp;&nbsp;-->
+<!--			<input type="hidden" name="pagelimit" value="{$pagelimit}" />-->
+<!--			<input type="hidden" name="offset" value="{$offset}" />-->
+<!--			<input type="hidden" name="orderby" value="{$orderby}" />-->
+<!--			<input type="hidden" name="ascdesc" value="{$ascdesc}" />-->
+<!--			<input type="hidden" name="page" value="{$mod_url}index/{$trans_payment_status}/" />-->
+<!--			Search : <input type="text" name="searchkey" value="{$searchkey}"> <input class="btn small" type="submit" value="Find">-->
+<!--		</form>-->
+<!--	</div>-->
+<!--</div>-->
+
+
+{if !$maindata}
+	<div class="alert alert-error">no delivery order</div>
+{else}
+
+{$paging}
+{$paging_js}
+
+<form action="{$mod_url}set_delivered" method="post">
+
+	<table class="table table-striped">
+		<thead>
+		  <tr>
+			<!--<th width="20"></th>-->
+			<th>Inv. ID</th>
+			<th>Entry Date</th>
+			<th>Giftcard</th>
+			<th>Member</th>
+			<th>Payment Status</th>
+			<th>Assigned</th>
+
+			<th width="100"></th>
+		  </tr>
+		</thead>
+		<tbody>
+			{foreach from=$maindata name=m item=m key=mk}
+				<tr class="{if $m.trans_do_printed == 'Yes'}highlighted{/if}">
+					<!--<td>-->
+					<!--	<input type="checkbox" name="trans_id[]" value="{$m.trans_id}" >-->
+					<!--</td>-->
+					<td>
+						<a href="{site_url}admin/transaction/view/{$m.trans_id}" >{$m.trans_id}</a>
+					</td>
+					<td>{$m.trans_entry}</td>
+					<td>{$m.p_name} [{$m.p_code}] <br> Rp. {$m.p_giftcard_nominal|price_format},-</td>
+					<td>{$m.m_firstname} {$m.m_lastname} <br> {$m.m_email}</td>
+					<td>
+						{$m.trans_payment_status}
+						<br>
+						(can be assigned : {$m.can_be_assigned})
+					</td>
+					<td >
+						{$m.transd_giftcard_assigned}
+						{if $m.transd_giftcard_assigned=="Yes"} <br>
+							{$m.transd_giftcard_assigned_date}
+						{/if}
+					</td>
+					<td style="text-align:center;" >
+						{if $m.can_be_assigned == "Yes" AND $m.transd_giftcard_assigned == 'No'}
+							<a href="{$mod_url}do_assign/{$m.transd_id}" class="btn btn-info" >Assign</a>
+						{/if}
+					</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+
+	<!--<div>-->
+	<!--	<input type="submit" value="set as delivered" class="btn btn-primary">-->
+	<!--</div>-->
+
+</form>
+
+{/if}
+
+</div>

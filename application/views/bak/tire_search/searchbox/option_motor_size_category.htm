@@ -1,0 +1,4 @@
+<option value="0" class="ts_option ts_option_default"  id="tsc_0">TIRE CATEGORY</option>
+{foreach from=$motor_tire_category item=mm name=mm}
+    <option value="{$mm.tsc_id}"class="ts_option" data-id="{$mm.tsc_id}" id="tsc_{$mm.tsc_id}" >{$mm.tsc_name}</option>
+{/foreach}

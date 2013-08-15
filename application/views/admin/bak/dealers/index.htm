@@ -1,0 +1,95 @@
+<script type="text/javascript">
+	var current_uri = '{$current_uri}';
+	var mod_url = '{$mod_url}';
+	var use_ajax = '{$use_ajax|default:FALSE}';
+</script>
+
+<div id="addbox"></div>
+<div id="editbox"></div>
+
+<ul class="breadcrumb">
+	<li>all entries</li>
+</ul>
+ 
+<ul class="module-links">
+	<li><a href="{$mod_url}add/"  class="add"  >+ add new entry</a></li>
+</ul>
+
+<div class="index_filter_cont" >
+	<div class="index_search_cont" >
+		<form name="frmSearch" action="{$mod_url}search" method="post"> 
+			<input type="hidden" name="pagelimit" value="{$pagelimit}" />
+			<input type="hidden" name="offset" value="{$offset}" />
+			<input type="hidden" name="orderby" value="{$orderby}" />
+			<input type="hidden" name="ascdesc" value="{$ascdesc}" />
+			<input type="hidden" name="page" value="{$mod_url}index/" />
+			Search : <input type="text" name="searchkey" value="{$searchkey}"> <input class="btn small" type="submit" value="Find">
+		</form>
+	</div>
+</div>
+
+
+{if !$maindata}
+	<div class="red">
+		data not found
+	</div>
+{else}
+
+	
+	<table class="table table-striped" id="mainData" width="100%">
+	<thead>
+		<tr>
+			<th width="50">Img</th>
+			<th><a href="javascript:doSort('dlr_name');">Name</a></th>
+			<th><a href="javascript:doSort('dlr_contact');">Contact Person</a></th>
+			<th><a href="javascript:doSort('dlr_region');">Region</a></th>
+			<th><a href="javascript:doSort('dlr_address');">Address</a></th>  
+			<th><a >GMaps Positions</a></th>
+			<th width="80"><a href="javascript:doSort('dlr_entry');">Created</a></th>
+			<th width="65"></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		{foreach from=$maindata item=m name=m key=mk}
+		<tr>
+			<td>
+				<img src="{site_url}userfiles/upload/thumb/{$m.dlr_image}" width="50" height="50" />
+			</td>
+			<td>
+				<a href="{$mod_url}edit/{$m.dlr_id}" class="edit" >{$m.dlr_name}</a>
+			</td>
+			<td>{$m.dlr_contact}</td>
+			<td>{$m.dlr_region}</td>
+			<td>
+				{$m.dlr_address}<br>
+				<strong>business no.</strong>: {$m.dlr_phone}<br>
+				<strong>business fax.</strong>: {$m.dlr_fax}<br>
+				<strong>mobile</strong>: {$m.dlr_mobile}<br>
+				<strong>email</strong>: {$m.dlr_email}
+			</td> 
+			<td>
+				<strong>latitude</strong>: <br>{$m.dlr_lat}<br>
+				<strong>longitude</strong>: <br>{$m.dlr_long}<br>				
+			</td> 
+			<td>{$m.dlr_entry}</td>
+			<td > 
+				<div class="btn-group">
+					{if $m.dlr_status == 'Active' }
+						<a href="{$mod_url}view/{$m.dlr_id}" class="btn btn-small edit" ><i class="icon-edit"></i></a>
+						<a href="{$mod_url}delete/{$m.dlr_id}" class="btn btn-small delete areyousure" ><i class="icon-trash"></i></a>
+					{else}
+						<a href="{$mod_url}change_status/{$m.dlr_id}/Active" class="btn btn-small">restore</a>
+					{/if}
+				</div>
+			</td>
+
+		</tr>
+		{/foreach}
+	</tbody>
+	</table>
+	
+	{$paging}
+	{$paging_js}
+
+{/if}

@@ -1,0 +1,44 @@
+
+<ul class="breadcrumb">  
+      <li><a href="{site_url}">Home</a></li>
+       <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+       <li><a href="{site_url}club">Clubs</a></li>
+       <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+       <li><a href="{site_url}club/list_content/Any/">Club News / Event</a></li>
+        <li class="divider"><img src="{asset_url}img/gb/arrow_divider.png" /></li>
+       <li>{$content.clubc_title}</li>
+</ul>
+
+<div class="row-fluid">
+	<div class="span9">
+	   
+		<div class="page_wrap">
+			<div class="page_container">
+				
+				<h2 class="page_title" >
+					<div class="small" style="font-weight: normal; margin-bottom: 5px;">
+						<span>{$content.clubc_date|date_format:'d F Y'}</span> . 
+						<span>By {$content.club_name}</span>
+					</div>
+					{$content.clubc_title} 
+				</h2>
+				
+			</div>
+			<div class="page_content">
+				  {if $content.clubc_banner != ''} 
+						<img src="{site_url}userfiles/upload/{$content.clubc_banner}"   />
+						<div class="spacer15"></div>
+				  {/if}
+				{$content.clubc_content}
+			</div>
+		</div>
+		  
+	</div>
+   
+	<div class="span3">
+		{$club_sidebar}
+	</div>
+   
+</div>
+
+

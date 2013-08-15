@@ -1,0 +1,144 @@
+<style>
+    .prodtype_link {
+        
+        width: 100%;
+        /*display: block;*/ 
+    }
+    .prodtype_link td{
+        /*display: inline-block;*/
+        margin:0px;
+        /*margin-top: 5px;*/
+        padding: 0px;
+        text-align: center;
+        border-right: 1px solid #000000;
+    }
+    .prodtype_link td a {
+        padding:10px 10px 5px 10px;
+        color: #ffffff;
+        display: block;
+        text-align: center;
+        background: url({asset_url}img/fdr/prod-type-banner-bg.png) repeat-x;
+        border-bottom: solid 4px #232323;
+    }
+    .prodtype_link td a:hover, .prodtype_link td a.active { 
+        text-decoration: none;
+        border-bottom: solid 4px #ff0000;
+    }
+	
+    .tires_link { display: block; }
+    .tires_link img { display: block;  }
+    .tires_link:hover img { opacity: 0.8; }
+    
+    #inset_box { background: #000000; width: 700; height: 510px;}
+    
+    .tirethumbnails {
+        border-bottom: solid 1px #cccccc;
+        padding:10px 0px;
+        margin:0px;
+    }
+    .tirethumbnails li {
+        display: inline; padding-right: 10px;
+    }
+    
+    .show_inset img {
+        opacity: 0.7;
+    }
+    .show_inset.active img {
+        opacity: 1;
+    }
+</style>
+<script>   
+        
+        function show_inset(id) {
+            $.post('{site_url}tireology/get_technology/'+id, {}, function(data) {
+                $('#inset_box').html(data);
+            }, 'html');
+        }
+        
+        $(function() {
+            show_inset(1);
+            
+            $('.show_inset').click(function(e){
+                e.preventDefault();
+                var id = $(this).attr('data-id');
+                show_inset(id);
+                $('.show_inset').removeClass('active');
+                $(this).addClass('active');
+            });
+        });
+</script>
+
+ 
+ 
+ 
+ <ul class="breadcrumb">
+    <li><a href="{site_url}">Home</a></li>
+    <li class="divider">&gt;</li>
+    <li><a href="#">Tirelogy</a></li>
+</ul>
+
+<div class="row-fluid">
+    <div class="span9">
+        
+        <div class="prodtype_header"> 
+            <div>
+                <table class="prodtype_link">
+                    <tr>
+                        <td>
+                            <a href="{site_url}tireology/technology/" class="{if $curr_tireology == 'technology'}active{/if}">TIRE TECHNOLOGY</a>
+                        </td>
+                        <td>
+                            <a href="{site_url}tireology/knowledge/"  class="{if $curr_tireology == 'knowledge'}active{/if}">TIRE KNOWLEDGE</a>
+                        </td>
+                        <td>
+                            <a href="{site_url}tireology/safety/" class="{if $curr_tireology == 'safety'}active{/if}">TIRE SAFETY</a>
+                        </td>
+                        <td>
+                            <a href="{site_url}tireology/usage/" class="{if $curr_tireology == 'usage'}active{/if}">TIRE USAGE &amp; MAINTENANCE</a>
+                        </td> 
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="spacer10"></div>
+         
+         <div id="inset_box">&nbsp;</div>
+         
+        <div>
+            <ul class="tirethumbnails">
+                <li><a class="show_inset" data-id="1" class="active"><img src="{asset_url}img/fdr/tireth1.jpg" /></a></li>
+                <li><a class="show_inset" data-id="2" ><img src="{asset_url}img/fdr/tireth2.jpg" /></a></li>
+                <li><a class="show_inset" data-id="3" ><img src="{asset_url}img/fdr/tireth3.jpg" /></a></li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 10px;">
+            <div style="font-weight: bold;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi imperdiet dignissim turpis, quis pretium est viverra eget. Aenean placerat bibendum egestas. In hac habitasse platea dictumst. Ut suscipit tempus convallis. Pellentesque sit amet est lectus, ac faucibus nunc. Phasellus sit amet sem nisl, quis gravida massa. Morbi mattis eros non orci scelerisque in iaculis augue condimentum. In congue nulla pharetra augue luctus sagittis. Aliquam volutpat, diam pretium semper gravida, libero libero egestas leo, nec cursus sapien enim id nisl. Suspendisse accumsan placerat ipsum porta eleifend. Integer at mi sit amet odio suscipit vehicula in et lectus. Nulla facilisi. Donec in mi orci, eu vulputate libero. 
+        </div>
+             
+       
+    </div>
+    
+    <div class="span3">
+        <div id="TSearch_box"></div>
+        
+        <div style="margin-bottom: 10px; margin-top: 10px;">
+            <a href=""><img src="{asset_url}img/fdr/banner-find-dealer.png" ></a>
+        </div>
+        
+        <div style="margin-bottom: 10px;">
+            <a href=""><img src="{asset_url}img/fdr/sm-facebook.png" ></a>
+        </div>
+        
+        <div style="margin-bottom: 10px;">
+            <a href=""><img src="{asset_url}img/fdr/sm-twitter.png" ></a>
+        </div>
+        
+    </div>
+</div>
+
+
+ 
+
